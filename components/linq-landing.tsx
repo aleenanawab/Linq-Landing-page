@@ -66,6 +66,9 @@ export default function LinqLanding() {
         <CrowdCanvas src={CROWD_SRC} className="top-[38%] z-0" />
 
         <div className="relative z-10 mx-auto w-full max-w-7xl flex-1 px-6 pt-10 sm:pt-16 lg:pt-20">
+          <div className="mb-6 inline-flex items-center rounded-full border border-violet-200/80 bg-white/80 px-3.5 py-1 text-xs font-medium text-violet-700 shadow-sm backdrop-blur-sm">
+            Every connection creates opportunity
+          </div>
           <h1 className="max-w-3xl text-5xl font-semibold leading-[1.02] tracking-tight text-violet-700 sm:text-6xl lg:text-7xl">
             One link.
             <br />
