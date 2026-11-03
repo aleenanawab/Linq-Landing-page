@@ -18,7 +18,7 @@ import { motion } from "motion/react";
 import { HeroSection4Animation, heroItemVariants } from "@/components/ui/hero-section-4";
 import { HowItWorks, type StepItem } from "@/components/ui/how-it-works";
 import { AnimatedFeatureCard } from "@/components/ui/feature-card-1";
-import { DoodleCrewFooter } from "@/components/ui/doodle-crew-footer";
+import StringTieFooter from "@/components/ui/string-tie-footer";
 import {
   OneLinkIllustration,
   ScannableCardIllustration,
@@ -381,13 +381,20 @@ export default function LinqLanding() {
         </div>
       </section>
 
-      {/* ───────── 6. Footer (Doodle Crew Footer) ───────── */}
-      <DoodleCrewFooter
+      {/* ───────── 6. Footer (Minimal String Tie Envelope Footer) ───────── */}
+      <StringTieFooter
         logo={<Logo />}
-        brandDescription="A product of Avtive. Bringing organizations, events and people together through one simple link."
+        title="Linq"
+        titleAccent=""
+        tapes={["Every connection", "creates opportunity."]}
+        noteMessage="A simpler way to bring organizations, events and people together. One link. Every connection."
+        noteCta={{
+          label: "Register organization",
+          href: REGISTER_URL,
+        }}
         columns={[
           {
-            title: "Explore",
+            title: "Platform",
             links: [
               { label: "Overview", href: "#overview" },
               { label: "How it works", href: "#how-it-works" },
@@ -395,20 +402,14 @@ export default function LinqLanding() {
             ],
           },
           {
-            title: "Company",
+            title: "Organization",
             links: [
+              { label: "Register organization", href: REGISTER_URL, external: true },
+              { label: "Log in", href: LOGIN_URL, external: true },
               { label: "Avtive", href: AVTIVE_URL, external: true },
             ],
           },
         ]}
-        primaryCta={{
-          label: "Register your organization",
-          href: REGISTER_URL,
-        }}
-        secondaryCta={{
-          label: "Log in",
-          href: LOGIN_URL,
-        }}
         socialLinks={{
           linkedin: "https://www.linkedin.com/company/linqavtive/posts/?viewAsMember=true",
           instagram: "https://www.instagram.com/linq.me/?utm_source=ig_web_button_share_sheet",
