@@ -11,6 +11,7 @@ import {
 import { Button } from "@/components/ui/button";
 import CrowdCanvas from "@/components/ui/skiper39";
 import { DiscRevealList, type DiscRevealItem } from "@/components/ui/disc-reveal-list";
+import AetherFlowBackground from "@/components/ui/aether-flow-background";
 
 // Self-host this sprite in /public for production (e.g. "/crowd/peeps.png").
 const CROWD_SRC =
@@ -155,6 +156,9 @@ export default function LinqLanding() {
             </Button>
           </nav>
         </header>
+
+        {/* Subtle Aether Flow particle network animation */}
+        <AetherFlowBackground className="pointer-events-none absolute inset-0 z-0" />
 
         {/* Existing Human Crowd Canvas in exact original position */}
         <CrowdCanvas src={CROWD_SRC} className="top-[38%] z-0" />
