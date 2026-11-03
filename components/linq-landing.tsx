@@ -28,8 +28,9 @@ import {
   GlobalNetworkingIllustration,
 } from "@/components/ui/feature-illustrations";
 
-// Local corporate crowd sprite sheet (15 cols x 7 rows, business attire).
-const CROWD_SRC = "/crowd/linq-corporate-peeps.png";
+// Self-host this sprite in /public for production (e.g. "/crowd/peeps.png").
+const CROWD_SRC =
+  "https://cdn.21st.dev/assets/localized/abdb8990a7bef8c2f5af3e45f0a3c969c4b0603fba8be92e81347de4ea4e1ed7.png";
 
 const REGISTER_URL = "https://linq.avtive.app/organization/register";
 const LOGIN_URL = "https://linq.avtive.app/login";
