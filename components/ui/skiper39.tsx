@@ -94,12 +94,12 @@ const CrowdCanvas = ({
     };
 
     const normalWalk = (peep: Peep, { startY, endX }: { startY: number; endX: number }) => {
-      // Natural pacing for distant walkers
-      const xDuration = 12 / (0.85 + 0.3 * (peep.scale / 0.6));
-      const yDuration = 0.26;
-      const bob = 5 * (peep.scale / 0.6);
+      // Calm, smooth horizontal movement: each person takes ~18-22 seconds to cross
+      const xDuration = randomRange(19, 21.5);
+      const yDuration = 0.42;
+      const bob = 3.5 * (peep.scale / 0.6);
       const tl = gsap.timeline();
-      tl.timeScale(randomRange(0.65, 1.3));
+      tl.timeScale(randomRange(0.96, 1.04));
       tl.to(peep, { duration: xDuration, x: endX, ease: "none" }, 0);
       tl.to(
         peep,
@@ -245,13 +245,22 @@ const CrowdCanvas = ({
       aria-hidden
       className={cn("pointer-events-none absolute inset-0 overflow-hidden", className)}
     >
-      {/* Layer 1: full distant crowd, colourless with atmospheric depth */}
-      <canvas ref={baseRef} className="absolute inset-0 h-full w-full opacity-70 grayscale" />
-      {/* Layer 2: same crowd in colour, revealed around the cursor */}
+      {/* Layer 1: full distant crowd, colourless with uniform soft blur */}
+      <canvas
+        ref={baseRef}
+        style={{ filter: "blur(1.8px)", WebkitFilter: "blur(1.8px)" }}
+        className="absolute inset-0 h-full w-full opacity-70 grayscale"
+      />
+      {/* Layer 2: same crowd in colour, revealed around the cursor with identical uniform blur */}
       <canvas
         ref={revealRef}
+        style={{
+          filter: "blur(1.8px)",
+          WebkitFilter: "blur(1.8px)",
+          maskImage: mask,
+          WebkitMaskImage: mask,
+        }}
         className="absolute inset-0 h-full w-full opacity-0 transition-opacity duration-300"
-        style={{ maskImage: mask, WebkitMaskImage: mask }}
       />
     </div>
   );

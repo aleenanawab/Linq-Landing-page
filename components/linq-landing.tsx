@@ -128,7 +128,7 @@ export default function LinqLanding() {
           <div className="relative max-w-3xl">
             {/* Subtle soft white-to-transparent gradient behind text area to ensure 100% crisp readability */}
             <div
-              className="pointer-events-none absolute -inset-x-8 -inset-y-6 -z-10 rounded-3xl bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.94)_0%,rgba(255,255,255,0.65)_55%,transparent_100%)] blur-md"
+              className="pointer-events-none absolute -inset-x-10 -inset-y-8 -z-10 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.9)_0%,rgba(255,255,255,0.45)_50%,transparent_80%)]"
               aria-hidden="true"
             />
 
