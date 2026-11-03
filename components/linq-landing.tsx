@@ -332,19 +332,7 @@ export default function LinqLanding() {
               aria-hidden="true"
             />
 
-            {/* Supporting Tagline Badge (Item 1) */}
-            <motion.div
-              variants={heroItemVariants}
-              className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-violet-300 bg-white/95 px-4 py-1.5 text-xs sm:text-sm font-semibold tracking-wide text-violet-950 shadow-sm shadow-violet-200/50 ring-1 ring-violet-200/60"
-            >
-              <span className="relative flex size-2.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-400 opacity-75"></span>
-                <span className="relative inline-flex size-2.5 rounded-full bg-violet-700"></span>
-              </span>
-              Every connection creates opportunity.
-            </motion.div>
-
-            {/* Main Headline (Item 2) */}
+            {/* Main Headline */}
             <motion.h1
               variants={heroItemVariants}
               className="text-5xl font-black leading-[1.04] tracking-tight sm:text-6xl md:text-7xl lg:text-[5.25rem]"
