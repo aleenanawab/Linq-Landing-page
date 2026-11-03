@@ -10,7 +10,8 @@ export interface AnimatedFeatureCardProps
   tag: string;
   title: string;
   description: string;
-  imageSrc: string;
+  visual?: React.ReactNode;
+  imageSrc?: string;
   imageAlt?: string;
   color?: "purple" | "violet";
   className?: string;
@@ -26,6 +27,7 @@ export const AnimatedFeatureCard = React.forwardRef<
       tag,
       title,
       description,
+      visual,
       imageSrc,
       imageAlt,
       color = "purple",
@@ -78,14 +80,18 @@ export const AnimatedFeatureCard = React.forwardRef<
           </span>
         </div>
 
-        {/* Central Visual Area with smooth hover scale */}
-        <div className="relative z-10 my-4 flex h-36 sm:h-40 w-full items-center justify-center overflow-hidden rounded-2xl bg-white/60 p-2 ring-1 ring-violet-100/70 shadow-sm">
-          <img
-            src={imageSrc}
-            alt={imageAlt || title}
-            loading="lazy"
-            className="h-full w-full rounded-xl object-cover transition-transform duration-500 ease-out group-hover:scale-108"
-          />
+        {/* Central Visual Area: Hosts the continuous animated illustration */}
+        <div className="relative z-10 my-4 flex h-36 sm:h-40 w-full items-center justify-center overflow-hidden rounded-2xl bg-white/70 p-2 ring-1 ring-violet-100/80 shadow-sm transition-transform duration-500 ease-out group-hover:scale-105">
+          {visual ? (
+            visual
+          ) : imageSrc ? (
+            <img
+              src={imageSrc}
+              alt={imageAlt || title}
+              loading="lazy"
+              className="h-full w-full rounded-xl object-cover"
+            />
+          ) : null}
         </div>
 
         {/* Bottom Content Area: Semantic Title and Description */}

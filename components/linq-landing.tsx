@@ -19,6 +19,14 @@ import { HeroSection4Animation, heroItemVariants } from "@/components/ui/hero-se
 import { HowItWorks, type StepItem } from "@/components/ui/how-it-works";
 import { AnimatedFeatureCard } from "@/components/ui/feature-card-1";
 import { DoodleCrewFooter } from "@/components/ui/doodle-crew-footer";
+import {
+  OneLinkIllustration,
+  ScannableCardIllustration,
+  OrgOnboardingIllustration,
+  RolePortalsIllustration,
+  AllOrgsIllustration,
+  GlobalNetworkingIllustration,
+} from "@/components/ui/feature-illustrations";
 
 // Self-host this sprite in /public for production (e.g. "/crowd/peeps.png").
 const CROWD_SRC =
@@ -124,54 +132,42 @@ const features = [
     tag: "EVENT REGISTRATION",
     title: "One-link registration",
     description: "Attendees register through a single shareable link.",
-    imageSrc:
-      "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80&auto=format&fit=crop",
-    imageAlt: "Event and digital registration environment",
+    visual: <OneLinkIllustration />,
   },
   {
     index: "002",
     tag: "ATTENDEE NETWORKING",
     title: "Scannable attendee cards",
     description: "Every attendee gets a card that is quick to scan and share.",
-    imageSrc:
-      "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=600&q=80&auto=format&fit=crop",
-    imageAlt: "Digital attendee pass and card on mobile device",
+    visual: <ScannableCardIllustration />,
   },
   {
     index: "003",
     tag: "ORGANIZATION SETUP",
     title: "Organization onboarding",
     description: "Bring each organization on board in one step.",
-    imageSrc:
-      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&q=80&auto=format&fit=crop",
-    imageAlt: "Professional team onboarding and collaborating",
+    visual: <OrgOnboardingIllustration />,
   },
   {
     index: "004",
     tag: "ORGANIZATION PORTALS",
     title: "Portals for every role",
     description: "Event creators and organizations each work from their own portal.",
-    imageSrc:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80&auto=format&fit=crop",
-    imageAlt: "Organization management portal workspace",
+    visual: <RolePortalsIllustration />,
   },
   {
     index: "005",
     tag: "MANAGEMENT",
     title: "All organizations, one place",
     description: "Manage every organization on your events without switching tools.",
-    imageSrc:
-      "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=600&q=80&auto=format&fit=crop",
-    imageAlt: "Centralized organization management meeting",
+    visual: <AllOrgsIllustration />,
   },
   {
     index: "006",
     tag: "GLOBAL NETWORKING",
     title: "Global networking",
     description: "Connections made at your event travel well beyond the venue.",
-    imageSrc:
-      "https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=600&q=80&auto=format&fit=crop",
-    imageAlt: "Professionals networking and connecting at event",
+    visual: <GlobalNetworkingIllustration />,
   },
 ];
 
@@ -346,8 +342,7 @@ export default function LinqLanding() {
                 tag={feature.tag}
                 title={feature.title}
                 description={feature.description}
-                imageSrc={feature.imageSrc}
-                imageAlt={feature.imageAlt}
+                visual={feature.visual}
               />
             ))}
           </div>
