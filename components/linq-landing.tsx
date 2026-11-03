@@ -174,15 +174,23 @@ const features = [
   },
 ];
 
-function Logo({ className = "" }: { className?: string }) {
+function Logo({
+  className = "",
+  imgClassName = "h-8 md:h-9 w-auto",
+}: {
+  className?: string;
+  imgClassName?: string;
+}) {
   return (
-    <div className={`flex items-center gap-2.5 ${className}`}>
-      <span className="flex size-9 items-center justify-center rounded-xl bg-violet-600 font-extrabold text-white shadow-md shadow-violet-600/30">
-        L
-      </span>
-      <span className="text-2xl font-bold tracking-tight text-slate-900">
-        Linq
-      </span>
+    <div className={`flex items-center ${className}`}>
+      <img
+        src="/linq-logo.png"
+        alt="Linq"
+        className={`${imgClassName} object-contain transition-transform duration-200 hover:scale-105`}
+        width={914}
+        height={554}
+        loading="eager"
+      />
     </div>
   );
 }
