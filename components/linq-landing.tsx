@@ -28,9 +28,8 @@ import {
   GlobalNetworkingIllustration,
 } from "@/components/ui/feature-illustrations";
 
-// Self-host this sprite in /public for production (e.g. "/crowd/peeps.png").
-const CROWD_SRC =
-  "https://cdn.21st.dev/assets/localized/abdb8990a7bef8c2f5af3e45f0a3c969c4b0603fba8be92e81347de4ea4e1ed7.png";
+// Local corporate crowd sprite sheet (15 cols x 7 rows, business attire).
+const CROWD_SRC = "/crowd/linq-corporate-peeps.png";
 
 const REGISTER_URL = "https://linq.avtive.app/organization/register";
 const LOGIN_URL = "https://linq.avtive.app/login";
@@ -45,16 +44,16 @@ const discRevealItems: DiscRevealItem[] = [
     subtitle: "Register once and manage your organization through a dedicated portal.",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&q=80&auto=format&fit=crop",
-        alt: "Professional team working together",
+        url: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=700&q=85&auto=format&fit=crop",
+        alt: "Professional organization team onboarding and collaborating",
       },
       {
-        url: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=600&q=80&auto=format&fit=crop",
-        alt: "Collaborative organization meeting",
+        url: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=700&q=85&auto=format&fit=crop",
+        alt: "Corporate leadership and organizational strategy meeting",
       },
       {
-        url: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&q=80&auto=format&fit=crop",
-        alt: "Team strategy and onboarding session",
+        url: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=700&q=85&auto=format&fit=crop",
+        alt: "Corporate representatives onboarding on dedicated portal",
       },
     ],
   },
@@ -65,16 +64,16 @@ const discRevealItems: DiscRevealItem[] = [
     subtitle: "Share one event link and let attendees register through a simple flow.",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&q=80&auto=format&fit=crop",
-        alt: "Conference stage and keynote event",
+        url: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=700&q=85&auto=format&fit=crop",
+        alt: "Corporate conference hall and keynote registration",
       },
       {
-        url: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80&auto=format&fit=crop",
-        alt: "Audience participating in professional event",
+        url: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=700&q=85&auto=format&fit=crop",
+        alt: "Event attendees registering and participating in keynote",
       },
       {
-        url: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=600&q=80&auto=format&fit=crop",
-        alt: "Event registration and presentation space",
+        url: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=700&q=85&auto=format&fit=crop",
+        alt: "Digital registration and presentation space",
       },
     ],
   },
@@ -85,16 +84,16 @@ const discRevealItems: DiscRevealItem[] = [
     subtitle: "Every attendee receives a scannable card to make connecting with others easier.",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=600&q=80&auto=format&fit=crop",
-        alt: "Conference attendees connecting and sharing ideas",
+        url: "/images/linq-attendee-card-qr.jpg",
+        alt: "Conference attendee pass with clearly visible scannable QR code scanned by smartphone",
       },
       {
-        url: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=600&q=80&auto=format&fit=crop",
-        alt: "People networking and engaging at an event",
+        url: "/images/linq-digital-pass-networking.jpg",
+        alt: "Corporate professionals networking and connecting via digital QR attendee pass",
       },
       {
-        url: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80&auto=format&fit=crop",
-        alt: "Professional connecting with peers",
+        url: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=700&q=85&auto=format&fit=crop",
+        alt: "Business event attendees building long-term professional connections",
       },
     ],
   },
@@ -223,20 +222,20 @@ export default function LinqLanding() {
         {/* Hero Content (Prominent & High Contrast above the distant crowd) */}
         <div className="relative z-20 mx-auto w-full max-w-7xl flex-1 px-6 pt-10 sm:pt-16 lg:pt-20 pb-20">
           <HeroSection4Animation className="relative max-w-3xl">
-            {/* Subtle soft white-to-transparent gradient behind text area to ensure 100% crisp readability */}
+            {/* Naturally feathered radial background gradient & subtle backdrop blur behind text area for maximum legibility */}
             <div
-              className="pointer-events-none absolute -inset-x-10 -inset-y-8 -z-10 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.9)_0%,rgba(255,255,255,0.45)_50%,transparent_80%)]"
+              className="pointer-events-none absolute -inset-x-8 -inset-y-12 -z-10 rounded-[3rem] bg-[radial-gradient(ellipse_at_top_left,rgba(255,255,255,0.96)_0%,rgba(255,255,255,0.85)_40%,rgba(255,255,255,0.35)_75%,transparent_90%)] backdrop-blur-[2.5px]"
               aria-hidden="true"
             />
 
             {/* Supporting Tagline Badge (Item 1) */}
             <motion.div
               variants={heroItemVariants}
-              className="mb-6 inline-flex items-center gap-2 rounded-full border border-violet-200/90 bg-white/95 px-4 py-1.5 text-xs sm:text-sm font-semibold tracking-wide text-violet-700 shadow-sm shadow-violet-100 backdrop-blur-md"
+              className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-violet-300 bg-white/95 px-4 py-1.5 text-xs sm:text-sm font-semibold tracking-wide text-violet-950 shadow-sm shadow-violet-200/50 backdrop-blur-md ring-1 ring-violet-200/60"
             >
-              <span className="relative flex size-2">
+              <span className="relative flex size-2.5">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-400 opacity-75"></span>
-                <span className="relative inline-flex size-2 rounded-full bg-violet-600"></span>
+                <span className="relative inline-flex size-2.5 rounded-full bg-violet-700"></span>
               </span>
               Every connection creates opportunity.
             </motion.div>
@@ -244,12 +243,12 @@ export default function LinqLanding() {
             {/* Main Headline (Item 2) */}
             <motion.h1
               variants={heroItemVariants}
-              className="text-5xl font-black leading-[1.04] tracking-tight text-slate-900 sm:text-6xl md:text-7xl lg:text-[5.25rem]"
+              className="text-5xl font-black leading-[1.04] tracking-tight sm:text-6xl md:text-7xl lg:text-[5.25rem]"
             >
-              <span className="block text-violet-700 drop-shadow-[0_1px_2px_rgba(255,255,255,0.85)]">
+              <span className="block text-[#4C1D95] drop-shadow-[0_1px_1px_rgba(255,255,255,0.9)]">
                 One Link.
               </span>
-              <span className="block bg-gradient-to-r from-violet-700 via-purple-700 to-indigo-800 bg-clip-text text-transparent drop-shadow-[0_1px_2px_rgba(255,255,255,0.85)]">
+              <span className="block bg-gradient-to-r from-[#4C1D95] via-[#5B21B6] to-[#3B0764] bg-clip-text text-transparent drop-shadow-[0_1px_1px_rgba(255,255,255,0.9)]">
                 Every Connection.
               </span>
             </motion.h1>
@@ -257,7 +256,7 @@ export default function LinqLanding() {
             {/* Short Hero Description (Item 3) */}
             <motion.p
               variants={heroItemVariants}
-              className="mt-6 max-w-xl text-lg sm:text-xl font-normal leading-relaxed text-slate-700 drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)]"
+              className="mt-6 max-w-xl text-lg sm:text-xl font-medium leading-relaxed text-slate-800 drop-shadow-[0_1px_1px_rgba(255,255,255,0.9)]"
             >
               Simplify event registration, connect attendees, and manage your organization with Linq.
             </motion.p>
@@ -311,7 +310,7 @@ export default function LinqLanding() {
           <div className="inline-flex items-center gap-1.5 rounded-full bg-violet-100/80 px-3 py-1 text-xs font-semibold text-violet-700">
             <span>Step-by-Step</span>
           </div>
-          <h2 className="mt-4 text-3xl font-bold tracking-tight text-violet-700 sm:text-4xl">
+          <h2 className="mt-4 text-3xl font-bold tracking-tight text-[#24212B] sm:text-4xl">
             From sign-up to scan in three steps
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-slate-600">
@@ -327,7 +326,7 @@ export default function LinqLanding() {
       <section id="features" className="scroll-mt-12 bg-gradient-to-b from-white via-violet-50/40 to-white px-6 py-20 sm:py-28">
         <div className="mx-auto max-w-5xl">
           <div className="text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-violet-700 sm:text-4xl">
+            <h2 className="text-3xl font-bold tracking-tight text-[#24212B] sm:text-4xl">
               Built for organizations and event creators
             </h2>
             <p className="mx-auto mt-4 max-w-lg text-slate-600">
@@ -351,18 +350,18 @@ export default function LinqLanding() {
 
       {/* ───────── 5. Final CTA ───────── */}
       <section className="px-6 py-16 sm:py-24">
-        <div className="mx-auto max-w-5xl rounded-[2.5rem] bg-[radial-gradient(ellipse_at_top,#7c3aed_0%,#5b21b6_100%)] px-6 py-16 text-center text-white shadow-2xl shadow-violet-900/20 sm:py-20">
+        <div className="mx-auto max-w-5xl rounded-[2.5rem] bg-[radial-gradient(ellipse_at_top,#7959BF_0%,#6447A8_50%,#4E3488_100%)] px-6 py-16 text-center text-white shadow-xl shadow-purple-950/15 ring-1 ring-white/15 sm:py-20">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
             Your event deserves one link.
           </h2>
-          <p className="mx-auto mt-4 max-w-md text-base sm:text-lg text-violet-100">
+          <p className="mx-auto mt-4 max-w-md text-base sm:text-lg text-[#EDE6FA]">
             Register your organization and start collecting connections.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3 sm:gap-4">
             <Button
               asChild
               size="lg"
-              className="h-12 rounded-full bg-white px-8 text-base font-semibold text-violet-700 shadow-lg shadow-black/10 transition-all duration-200 hover:-translate-y-0.5 hover:bg-violet-50 active:translate-y-0"
+              className="h-12 rounded-full bg-white px-8 text-base font-semibold text-[#5B3BA6] shadow-md shadow-purple-950/10 transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#F3EDFF] active:translate-y-0"
             >
               <a href={REGISTER_URL}>
                 <span>Register Your Organization</span>
