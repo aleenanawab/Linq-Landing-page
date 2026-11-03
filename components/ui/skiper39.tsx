@@ -245,18 +245,18 @@ const CrowdCanvas = ({
       aria-hidden
       className={cn("pointer-events-none absolute inset-0 overflow-hidden", className)}
     >
-      {/* Layer 1: full distant crowd, colourless with uniform soft blur */}
+      {/* Layer 1: full distant crowd, colourless with subtle softness and clear visibility */}
       <canvas
         ref={baseRef}
-        style={{ filter: "blur(1.8px)", WebkitFilter: "blur(1.8px)" }}
-        className="absolute inset-0 h-full w-full opacity-70 grayscale"
+        style={{ filter: "blur(0.35px)", WebkitFilter: "blur(0.35px)", opacity: 0.85 }}
+        className="absolute inset-0 h-full w-full opacity-85 grayscale"
       />
-      {/* Layer 2: same crowd in colour, revealed around the cursor with identical uniform blur */}
+      {/* Layer 2: same crowd in colour, revealed around the cursor with identical subtle softness */}
       <canvas
         ref={revealRef}
         style={{
-          filter: "blur(1.8px)",
-          WebkitFilter: "blur(1.8px)",
+          filter: "blur(0.35px)",
+          WebkitFilter: "blur(0.35px)",
           maskImage: mask,
           WebkitMaskImage: mask,
         }}
