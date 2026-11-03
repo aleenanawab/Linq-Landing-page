@@ -6,8 +6,6 @@ import {
   QrCode,
   Ticket,
   Users,
-  Sparkles,
-  ArrowRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import CrowdCanvas from "@/components/ui/skiper39";
@@ -19,74 +17,101 @@ const CROWD_SRC =
 const REGISTER_URL = "https://linq.avtive.app/organization/register";
 const LOGIN_URL = "https://linq.avtive.app/login";
 const AVTIVE_URL = "https://www.avtive.app";
+const LINKEDIN_URL = "https://www.linkedin.com/company/linqavtive/posts/?viewAsMember=true";
+const INSTAGRAM_URL = "https://www.instagram.com/linq.me/?utm_source=ig_web_button_share_sheet";
 
-// ── Overview items (Section immediately following Hero) ──
-const overviewItems = [
-  {
-    number: "01",
-    title: "Organization Management",
-    body: "Organizations can register and manage their activities through their dedicated portals.",
-    icon: Building2,
-  },
-  {
-    number: "02",
-    title: "Simple Event Registration",
-    body: "Create and share one event link so attendees can register easily.",
-    icon: Link2,
-  },
-  {
-    number: "03",
-    title: "Scannable Attendee Cards",
-    body: "Attendees receive scannable cards that make connecting with others easier.",
-    icon: QrCode,
-  },
-  {
-    number: "04",
-    title: "Global Networking",
-    body: "Help attendees and organizations create meaningful professional connections.",
-    icon: Globe2,
-  },
-];
-
-// ── How It Works Steps ──
+// ── How It Works ──
 const steps = [
   {
-    icon: Building2,
+    step: "01",
     title: "Register your organization",
     body: "Set up your organization once. Linq handles onboarding in a single step.",
   },
   {
-    icon: Link2,
+    step: "02",
     title: "Share one event link",
     body: "Send attendees a single link to register for your event.",
   },
   {
-    icon: QrCode,
-    title: "Attendees get scannable cards",
+    step: "03",
+    title: "Attendees receive scannable cards",
     body: "Each attendee generates a card that others can scan to connect.",
   },
 ];
 
-// ── Features ──
+// ── Essential Features ──
 const features = [
-  { icon: Ticket, title: "One-link registration", body: "Attendees register through a single shareable link." },
-  { icon: QrCode, title: "Scannable attendee cards", body: "Every attendee gets a card that is quick to scan and share." },
-  { icon: Building2, title: "Organization onboarding", body: "Bring each organization on board in one step." },
-  { icon: LayoutDashboard, title: "Portals for every role", body: "Event creators and organizations each work from their own portal." },
-  { icon: Users, title: "All organizations, one place", body: "Manage every organization on your events without switching tools." },
-  { icon: Globe2, title: "Global networking", body: "Connections made at your event travel well beyond the venue." },
+  {
+    icon: Ticket,
+    title: "One-link registration",
+    body: "Attendees register through a single shareable link.",
+  },
+  {
+    icon: QrCode,
+    title: "Scannable attendee cards",
+    body: "Every attendee gets a card that is quick to scan and share.",
+  },
+  {
+    icon: Building2,
+    title: "Organization onboarding",
+    body: "Bring each organization on board in one simple step.",
+  },
+  {
+    icon: LayoutDashboard,
+    title: "Portals for every role",
+    body: "Event creators and organizations each work from their own portal.",
+  },
+  {
+    icon: Users,
+    title: "All organizations, one place",
+    body: "Manage every organization on your events without switching tools.",
+  },
+  {
+    icon: Globe2,
+    title: "Global networking",
+    body: "Connections made at your event travel well beyond the venue.",
+  },
 ];
 
+// ── Minimal Brand Logo ──
 function Logo({ className = "" }: { className?: string }) {
   return (
-    <div className={`flex items-center gap-2.5 ${className}`}>
-      <span className="flex size-9 items-center justify-center rounded-xl bg-violet-600 font-extrabold text-white shadow-md shadow-violet-600/30">
-        L
-      </span>
-      <span className="text-2xl font-bold tracking-tight text-slate-900">
-        Linq
-      </span>
-    </div>
+    <span className={`text-xl font-semibold tracking-tight text-slate-900 transition-colors hover:text-violet-700 ${className}`}>
+      Linq
+    </span>
+  );
+}
+
+// ── Social Icons (Clean, lightweight SVGs) ──
+function LinkedInIcon({ className = "size-4" }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.45c-.9 0-1.62.73-1.62 1.63 0 .9.72 1.63 1.62 1.63s1.63-.73 1.63-1.63c0-.9-.73-1.63-1.63-1.63Z" />
+    </svg>
+  );
+}
+
+function InstagramIcon({ className = "size-4" }: { className?: string }) {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+    </svg>
   );
 }
 
@@ -94,201 +119,159 @@ export default function LinqLanding() {
   return (
     <main className="min-h-screen bg-white text-slate-900 antialiased selection:bg-violet-100 selection:text-violet-900">
       {/* ───────── 1. Hero ───────── */}
-      <section className="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-[radial-gradient(ellipse_80%_60%_at_80%_100%,#ede9fe_0%,#ffffff_70%)]">
-        {/* Minimal Header */}
-        <header className="relative z-20 mx-auto flex w-full max-w-7xl items-center justify-between px-6 py-5">
-          <a href="/" aria-label="Linq home" className="transition-opacity hover:opacity-90">
+      <section className="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,rgba(245,243,255,0.75)_0%,#ffffff_70%)]">
+        {/* Navigation */}
+        <header className="relative z-20 mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-6">
+          <a href="/" aria-label="Linq home">
             <Logo />
           </a>
-          <nav className="flex items-center gap-2 sm:gap-6">
-            <a href="#overview" className="hidden text-sm font-medium text-slate-600 transition-colors hover:text-violet-700 sm:block">
-              Overview
+          <nav className="flex items-center gap-6 sm:gap-8">
+            <a
+              href="#how-it-works"
+              className="text-sm font-medium text-slate-600 transition-colors hover:text-slate-900"
+            >
+              How It Works
             </a>
-            <a href="#how-it-works" className="hidden text-sm font-medium text-slate-600 transition-colors hover:text-violet-700 sm:block">
-              How it works
-            </a>
-            <a href="#features" className="hidden text-sm font-medium text-slate-600 transition-colors hover:text-violet-700 sm:block">
+            <a
+              href="#features"
+              className="text-sm font-medium text-slate-600 transition-colors hover:text-slate-900"
+            >
               Features
             </a>
-            <Button
-              asChild
-              variant="ghost"
-              className="text-sm font-medium text-slate-700 hover:bg-violet-50 hover:text-violet-700"
+            <a
+              href={LOGIN_URL}
+              className="text-sm font-medium text-slate-600 transition-colors hover:text-slate-900"
             >
-              <a href={LOGIN_URL}>Log in</a>
-            </Button>
+              Log in
+            </a>
           </nav>
         </header>
 
-        {/* Existing Human Crowd Canvas in exact original position */}
+        {/* Calm Crowd Animation in original position */}
         <CrowdCanvas src={CROWD_SRC} className="top-[38%] z-0" />
 
-        {/* Hero Content (Prominent & High Contrast) */}
-        <div className="relative z-10 mx-auto w-full max-w-7xl flex-1 px-6 pt-8 sm:pt-14 lg:pt-16 pb-20">
-          {/* Supporting Tagline Badge */}
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-violet-200/90 bg-white/95 px-4 py-1.5 text-xs sm:text-sm font-semibold tracking-wide text-violet-700 shadow-sm shadow-violet-100 backdrop-blur-md">
-            <span className="relative flex size-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-400 opacity-75"></span>
-              <span className="relative inline-flex size-2 rounded-full bg-violet-600"></span>
-            </span>
-            Every connection creates opportunity.
+        {/* Hero Content */}
+        <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-1 flex-col justify-center px-6 pt-12 pb-32 sm:pt-16 sm:pb-40">
+          <div className="max-w-2xl">
+            {/* Tagline */}
+            <p className="text-sm font-medium text-violet-700 sm:text-base">
+              Every connection creates opportunity.
+            </p>
+
+            {/* Headline */}
+            <h1 className="mt-3 text-4xl font-semibold tracking-tight text-slate-900 sm:text-5xl md:text-6xl lg:text-7xl">
+              One Link. Every Connection.
+            </h1>
+
+            {/* Supporting Line */}
+            <p className="mt-5 max-w-lg text-lg leading-relaxed text-slate-600 sm:text-xl">
+              Bring organizations, events and people together through one simple link.
+            </p>
+
+            {/* CTAs */}
+            <div className="mt-8 flex flex-wrap items-center gap-3.5 sm:gap-4">
+              <Button
+                asChild
+                size="lg"
+                className="h-11 rounded-full bg-violet-600 px-6 text-sm font-medium text-white shadow-sm transition-all duration-200 hover:bg-violet-700 active:scale-[0.98]"
+              >
+                <a href={REGISTER_URL}>Register your organization</a>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="h-11 rounded-full border border-slate-200 bg-white/70 px-6 text-sm font-medium text-slate-700 backdrop-blur-sm transition-all duration-200 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900 active:scale-[0.98]"
+              >
+                <a href="#how-it-works">How it works</a>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ───────── 2. How It Works ───────── */}
+      <section id="how-it-works" className="scroll-mt-12 px-6 py-24 sm:py-32">
+        <div className="mx-auto max-w-5xl">
+          <div className="max-w-xl">
+            <h2 className="text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
+              How it works
+            </h2>
+            <p className="mt-2 text-base text-slate-600">
+              From sign-up to scan in three simple steps.
+            </p>
           </div>
 
-          {/* Main Headline */}
-          <h1 className="max-w-4xl text-5xl font-black leading-[1.04] tracking-tight text-slate-900 sm:text-6xl md:text-7xl lg:text-[5.25rem]">
-            <span className="block text-violet-700">One Link.</span>
-            <span className="block bg-gradient-to-r from-violet-700 via-purple-700 to-indigo-800 bg-clip-text text-transparent">
-              Every Connection.
-            </span>
-          </h1>
+          <div className="mt-16 grid gap-12 sm:grid-cols-3 sm:gap-8 lg:gap-12">
+            {steps.map(({ step, title, body }) => (
+              <div key={title} className="flex flex-col">
+                <span className="font-mono text-xs font-semibold tracking-widest text-violet-600 uppercase">
+                  {step}
+                </span>
+                <h3 className="mt-3 text-lg font-medium text-slate-900">
+                  {title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">
+                  {body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-          {/* Short Hero Description */}
-          <p className="mt-6 max-w-xl text-lg sm:text-xl font-normal leading-relaxed text-slate-700">
-            Simplify event registration, connect attendees, and manage your organization with Linq.
+      {/* ───────── 3. Features ───────── */}
+      <section id="features" className="scroll-mt-12 border-t border-slate-100 bg-slate-50/50 px-6 py-24 sm:py-32">
+        <div className="mx-auto max-w-5xl">
+          <div className="max-w-xl">
+            <h2 className="text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
+              Built for modern events
+            </h2>
+            <p className="mt-2 text-base text-slate-600">
+              Everything organizations and event creators need to connect effortlessly.
+            </p>
+          </div>
+
+          <div className="mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-3 sm:gap-x-12 sm:gap-y-12">
+            {features.map(({ icon: Icon, title, body }) => (
+              <div key={title} className="flex flex-col">
+                <div className="flex size-8 items-center justify-center rounded-lg bg-violet-100/70 text-violet-700">
+                  <Icon className="size-4" strokeWidth={2} aria-hidden />
+                </div>
+                <h3 className="mt-4 text-base font-medium text-slate-900">
+                  {title}
+                </h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-slate-600">
+                  {body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ───────── 4. Final CTA ───────── */}
+      <section className="px-6 py-24 sm:py-32">
+        <div className="mx-auto max-w-4xl rounded-3xl border border-violet-100/70 bg-gradient-to-b from-violet-50/60 via-violet-50/20 to-white px-8 py-16 text-center sm:py-20 sm:px-12">
+          <h2 className="text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl md:text-4xl">
+            Your event deserves one link.
+          </h2>
+          <p className="mx-auto mt-3 max-w-md text-base text-slate-600">
+            Register your organization and start creating meaningful connections today.
           </p>
-
-          {/* Hero Action Buttons */}
-          <div className="mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
+          <div className="mt-8 flex flex-wrap justify-center gap-3.5">
             <Button
               asChild
               size="lg"
-              className="h-12 rounded-full bg-gradient-to-r from-violet-600 to-purple-600 px-8 text-base font-semibold text-white shadow-lg shadow-violet-600/30 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-violet-600/40 hover:from-violet-700 hover:to-purple-700 active:translate-y-0"
+              className="h-11 rounded-full bg-violet-600 px-6 text-sm font-medium text-white shadow-sm transition-all duration-200 hover:bg-violet-700 active:scale-[0.98]"
             >
-              <a href={REGISTER_URL}>Register Your Organization</a>
+              <a href={REGISTER_URL}>Register your organization</a>
             </Button>
             <Button
               asChild
               size="lg"
               variant="outline"
-              className="h-12 rounded-full border-2 border-violet-200 bg-white/90 px-8 text-base font-semibold text-violet-700 backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-violet-300 hover:bg-violet-50/90 hover:text-violet-800 active:translate-y-0"
-            >
-              <a href="#overview">Explore Linq</a>
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* ───────── 2. Product Information (Immediately After Hero) ───────── */}
-      <section id="overview" className="scroll-mt-12 border-t border-violet-100/70 bg-gradient-to-b from-white via-violet-50/30 to-white px-6 py-20 sm:py-28">
-        <div className="mx-auto max-w-6xl">
-          <div className="mx-auto max-w-3xl text-center">
-            <div className="inline-flex items-center gap-1.5 rounded-full bg-violet-100/80 px-3 py-1 text-xs font-semibold text-violet-700">
-              <Sparkles className="size-3.5" aria-hidden />
-              <span>Platform Overview</span>
-            </div>
-            <h2 className="mt-4 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
-              Everything You Need to Build Better Connections
-            </h2>
-            <p className="mt-4 text-lg leading-relaxed text-slate-600">
-              Linq brings organizations, event creators, and attendees together through a simple event registration and networking experience.
-            </p>
-          </div>
-
-          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {overviewItems.map(({ number, title, body, icon: Icon }) => (
-              <div
-                key={number}
-                className="group relative flex flex-col justify-between rounded-2xl border border-violet-100 bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-violet-200 hover:shadow-xl hover:shadow-violet-500/10"
-              >
-                <div>
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs font-bold tracking-wider text-violet-600 bg-violet-50 px-2.5 py-1 rounded-md border border-violet-100/80">
-                      {number}
-                    </span>
-                    <div className="grid size-10 place-items-center rounded-xl bg-violet-50 text-violet-600 transition-colors group-hover:bg-violet-600 group-hover:text-white">
-                      <Icon className="size-5" aria-hidden />
-                    </div>
-                  </div>
-                  <h3 className="mt-5 text-lg font-bold text-slate-900 transition-colors group-hover:text-violet-700">
-                    {title}
-                  </h3>
-                  <p className="mt-2.5 text-sm leading-relaxed text-slate-600">
-                    {body}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ───────── 3. How It Works ───────── */}
-      <section id="how-it-works" className="scroll-mt-12 bg-white px-6 py-20 sm:py-28">
-        <div className="mx-auto max-w-5xl text-center">
-          <div className="inline-flex items-center gap-1.5 rounded-full bg-violet-100/80 px-3 py-1 text-xs font-semibold text-violet-700">
-            <span>Step-by-Step</span>
-          </div>
-          <h2 className="mt-4 text-3xl font-bold tracking-tight text-violet-700 sm:text-4xl">
-            From sign-up to scan in three steps
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-slate-600">
-            Organizations and event creators set things up once. Attendees only need the link.
-          </p>
-        </div>
-        <ol className="mx-auto mt-14 grid max-w-5xl gap-10 sm:grid-cols-3">
-          {steps.map(({ icon: Icon, title, body }, i) => (
-            <li key={title} className="flex flex-col items-center text-center">
-              <div className="relative grid size-16 place-items-center rounded-2xl bg-white text-violet-600 shadow-[0_8px_30px_-8px_rgba(124,58,237,0.35)] ring-1 ring-violet-100">
-                <Icon className="size-7" aria-hidden />
-                <span className="absolute -right-2 -top-2 grid size-6 place-items-center rounded-full bg-violet-600 text-xs font-semibold text-white">
-                  {i + 1}
-                </span>
-              </div>
-              <h3 className="mt-6 text-lg font-semibold text-slate-900">{title}</h3>
-              <p className="mt-2 max-w-xs text-sm leading-relaxed text-slate-600">{body}</p>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      {/* ───────── 4. Features ───────── */}
-      <section id="features" className="scroll-mt-12 bg-gradient-to-b from-white via-violet-50/40 to-white px-6 py-20 sm:py-28">
-        <div className="mx-auto max-w-5xl">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold tracking-tight text-violet-700 sm:text-4xl">
-              Built for organizations and event creators
-            </h2>
-            <p className="mx-auto mt-4 max-w-lg text-slate-600">
-              Purpose-built tools to streamline your registration process and maximize networking outcomes.
-            </p>
-          </div>
-          <div className="mt-14 grid overflow-hidden rounded-3xl border border-violet-100 bg-violet-100 sm:grid-cols-2 lg:grid-cols-3 gap-px shadow-sm">
-            {features.map(({ icon: Icon, title, body }) => (
-              <div key={title} className="bg-white p-8 transition-colors hover:bg-violet-50/30">
-                <Icon className="size-6 text-violet-600" aria-hidden />
-                <h3 className="mt-5 font-semibold text-slate-900">{title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">{body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ───────── 5. Final CTA ───────── */}
-      <section className="px-6 py-16 sm:py-24">
-        <div className="mx-auto max-w-5xl rounded-[2.5rem] bg-[radial-gradient(ellipse_at_top,#7c3aed_0%,#5b21b6_100%)] px-6 py-16 text-center text-white shadow-2xl shadow-violet-900/20 sm:py-20">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
-            Your event deserves one link.
-          </h2>
-          <p className="mx-auto mt-4 max-w-md text-base sm:text-lg text-violet-100">
-            Register your organization and start collecting connections.
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3 sm:gap-4">
-            <Button
-              asChild
-              size="lg"
-              className="h-12 rounded-full bg-white px-8 text-base font-semibold text-violet-700 shadow-lg shadow-black/10 transition-all duration-200 hover:-translate-y-0.5 hover:bg-violet-50 active:translate-y-0"
-            >
-              <a href={REGISTER_URL}>
-                <span>Register Your Organization</span>
-                <ArrowRight className="ml-1.5 size-4" aria-hidden />
-              </a>
-            </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="ghost"
-              className="h-12 rounded-full px-8 text-base font-semibold text-white hover:bg-white/10 hover:text-white"
+              className="h-11 rounded-full border border-slate-200 bg-white px-6 text-sm font-medium text-slate-700 transition-all duration-200 hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900 active:scale-[0.98]"
             >
               <a href={LOGIN_URL}>Log in</a>
             </Button>
@@ -296,40 +279,73 @@ export default function LinqLanding() {
         </div>
       </section>
 
-      {/* ───────── 6. Footer ───────── */}
-      <footer className="border-t border-violet-100 bg-white px-6 py-12">
+      {/* ───────── 5. Footer ───────── */}
+      <footer className="border-t border-slate-100 bg-white px-6 py-12">
         <div className="mx-auto flex max-w-5xl flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <Logo />
-            <p className="mt-3 text-sm text-slate-500">
+            <p className="mt-2 text-sm text-slate-500">
               A product of{" "}
               <a
                 href={AVTIVE_URL}
                 target="_blank"
                 rel="noreferrer"
-                className="font-medium text-violet-700 underline-offset-4 hover:underline"
+                className="font-medium text-slate-700 underline-offset-4 hover:underline"
               >
                 Avtive
               </a>
+              .
             </p>
           </div>
-          <nav className="flex flex-wrap gap-8 text-sm font-medium text-slate-600">
-            <a href={LOGIN_URL} className="transition-colors hover:text-violet-700">
-              Log in
-            </a>
-            <a href={REGISTER_URL} className="transition-colors hover:text-violet-700">
-              Register organization
-            </a>
-            <a
-              href={AVTIVE_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="transition-colors hover:text-violet-700"
-            >
-              Avtive
-            </a>
-          </nav>
+
+          <div className="flex flex-col gap-6 sm:items-end">
+            <nav className="flex flex-wrap gap-6 text-sm text-slate-600 sm:gap-8">
+              <a
+                href={LOGIN_URL}
+                className="transition-colors hover:text-slate-900"
+              >
+                Log in
+              </a>
+              <a
+                href={REGISTER_URL}
+                className="transition-colors hover:text-slate-900"
+              >
+                Register Organization
+              </a>
+              <a
+                href={AVTIVE_URL}
+                target="_blank"
+                rel="noreferrer"
+                className="transition-colors hover:text-slate-900"
+              >
+                Avtive
+              </a>
+            </nav>
+
+            {/* Social Links */}
+            <div className="flex items-center gap-4 text-slate-500">
+              <a
+                href={LINKEDIN_URL}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="LinkedIn"
+                className="transition-colors hover:text-slate-900"
+              >
+                <LinkedInIcon className="size-4" />
+              </a>
+              <a
+                href={INSTAGRAM_URL}
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Instagram"
+                className="transition-colors hover:text-slate-900"
+              >
+                <InstagramIcon className="size-4" />
+              </a>
+            </div>
+          </div>
         </div>
+
         <div className="mx-auto mt-10 flex max-w-5xl flex-col gap-2 border-t border-slate-100 pt-6 text-xs text-slate-400 sm:flex-row sm:justify-between">
           <span>© {new Date().getFullYear()} Avtive. All rights reserved.</span>
           <span>
