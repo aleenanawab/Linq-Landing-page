@@ -16,6 +16,7 @@ import { DiscRevealList, type DiscRevealItem } from "@/components/ui/disc-reveal
 import AetherFlowBackground from "@/components/ui/aether-flow-background";
 import { motion } from "motion/react";
 import { HeroSection4Animation, heroItemVariants } from "@/components/ui/hero-section-4";
+import { HowItWorks, type StepItem } from "@/components/ui/how-it-works";
 
 // Self-host this sprite in /public for production (e.g. "/crowd/peeps.png").
 const CROWD_SRC =
@@ -90,21 +91,27 @@ const discRevealItems: DiscRevealItem[] = [
 ];
 
 // ── How It Works Steps ──
-const steps = [
+const steps: StepItem[] = [
   {
-    icon: Building2,
+    step: "01",
+    tagline: "Organization Onboarding",
     title: "Register your organization",
-    body: "Set up your organization once. Linq handles onboarding in a single step.",
+    description: "Set up your organization once. Linq handles onboarding in a single step.",
+    icon: Building2,
   },
   {
-    icon: Link2,
+    step: "02",
+    tagline: "One-Link Event Registration",
     title: "Share one event link",
-    body: "Send attendees a single link to register for your event.",
+    description: "Send attendees a single link to register for your event.",
+    icon: Link2,
   },
   {
-    icon: QrCode,
+    step: "03",
+    tagline: "Attendee Networking",
     title: "Attendees get scannable cards",
-    body: "Each attendee generates a card that others can scan to connect.",
+    description: "Each attendee generates a card that others can scan to connect.",
+    icon: QrCode,
   },
 ];
 
@@ -265,20 +272,9 @@ export default function LinqLanding() {
             Organizations and event creators set things up once. Attendees only need the link.
           </p>
         </div>
-        <ol className="mx-auto mt-14 grid max-w-5xl gap-10 sm:grid-cols-3">
-          {steps.map(({ icon: Icon, title, body }, i) => (
-            <li key={title} className="flex flex-col items-center text-center">
-              <div className="relative grid size-16 place-items-center rounded-2xl bg-white text-violet-600 shadow-[0_8px_30px_-8px_rgba(124,58,237,0.35)] ring-1 ring-violet-100">
-                <Icon className="size-7" aria-hidden />
-                <span className="absolute -right-2 -top-2 grid size-6 place-items-center rounded-full bg-violet-600 text-xs font-semibold text-white">
-                  {i + 1}
-                </span>
-              </div>
-              <h3 className="mt-6 text-lg font-semibold text-slate-900">{title}</h3>
-              <p className="mt-2 max-w-xs text-sm leading-relaxed text-slate-600">{body}</p>
-            </li>
-          ))}
-        </ol>
+        <div className="mt-14 sm:mt-16">
+          <HowItWorks features={steps} />
+        </div>
       </section>
 
       {/* ───────── 4. Features ───────── */}
