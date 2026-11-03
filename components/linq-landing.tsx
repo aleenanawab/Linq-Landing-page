@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Building2,
   Globe2,
@@ -12,6 +14,8 @@ import { Button } from "@/components/ui/button";
 import CrowdCanvas from "@/components/ui/skiper39";
 import { DiscRevealList, type DiscRevealItem } from "@/components/ui/disc-reveal-list";
 import AetherFlowBackground from "@/components/ui/aether-flow-background";
+import { motion } from "motion/react";
+import { HeroSection4Animation, heroItemVariants } from "@/components/ui/hero-section-4";
 
 // Self-host this sprite in /public for production (e.g. "/crowd/peeps.png").
 const CROWD_SRC =
@@ -165,39 +169,51 @@ export default function LinqLanding() {
 
         {/* Hero Content (Prominent & High Contrast above the distant crowd) */}
         <div className="relative z-20 mx-auto w-full max-w-7xl flex-1 px-6 pt-10 sm:pt-16 lg:pt-20 pb-20">
-          <div className="relative max-w-3xl">
+          <HeroSection4Animation className="relative max-w-3xl">
             {/* Subtle soft white-to-transparent gradient behind text area to ensure 100% crisp readability */}
             <div
               className="pointer-events-none absolute -inset-x-10 -inset-y-8 -z-10 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.9)_0%,rgba(255,255,255,0.45)_50%,transparent_80%)]"
               aria-hidden="true"
             />
 
-            {/* Supporting Tagline Badge */}
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-violet-200/90 bg-white/95 px-4 py-1.5 text-xs sm:text-sm font-semibold tracking-wide text-violet-700 shadow-sm shadow-violet-100 backdrop-blur-md">
+            {/* Supporting Tagline Badge (Item 1) */}
+            <motion.div
+              variants={heroItemVariants}
+              className="mb-6 inline-flex items-center gap-2 rounded-full border border-violet-200/90 bg-white/95 px-4 py-1.5 text-xs sm:text-sm font-semibold tracking-wide text-violet-700 shadow-sm shadow-violet-100 backdrop-blur-md"
+            >
               <span className="relative flex size-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-400 opacity-75"></span>
                 <span className="relative inline-flex size-2 rounded-full bg-violet-600"></span>
               </span>
               Every connection creates opportunity.
-            </div>
+            </motion.div>
 
-            {/* Main Headline */}
-            <h1 className="text-5xl font-black leading-[1.04] tracking-tight text-slate-900 sm:text-6xl md:text-7xl lg:text-[5.25rem]">
+            {/* Main Headline (Item 2) */}
+            <motion.h1
+              variants={heroItemVariants}
+              className="text-5xl font-black leading-[1.04] tracking-tight text-slate-900 sm:text-6xl md:text-7xl lg:text-[5.25rem]"
+            >
               <span className="block text-violet-700 drop-shadow-[0_1px_2px_rgba(255,255,255,0.85)]">
                 One Link.
               </span>
               <span className="block bg-gradient-to-r from-violet-700 via-purple-700 to-indigo-800 bg-clip-text text-transparent drop-shadow-[0_1px_2px_rgba(255,255,255,0.85)]">
                 Every Connection.
               </span>
-            </h1>
+            </motion.h1>
 
-            {/* Short Hero Description */}
-            <p className="mt-6 max-w-xl text-lg sm:text-xl font-normal leading-relaxed text-slate-700 drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)]">
+            {/* Short Hero Description (Item 3) */}
+            <motion.p
+              variants={heroItemVariants}
+              className="mt-6 max-w-xl text-lg sm:text-xl font-normal leading-relaxed text-slate-700 drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)]"
+            >
               Simplify event registration, connect attendees, and manage your organization with Linq.
-            </p>
+            </motion.p>
 
-            {/* Hero Action Buttons */}
-            <div className="mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
+            {/* Hero Action Buttons (Item 4) */}
+            <motion.div
+              variants={heroItemVariants}
+              className="mt-8 flex flex-wrap items-center gap-3 sm:gap-4"
+            >
               <Button
                 asChild
                 size="lg"
@@ -213,8 +229,8 @@ export default function LinqLanding() {
               >
                 <a href="#overview">Explore Linq</a>
               </Button>
-            </div>
-          </div>
+            </motion.div>
+          </HeroSection4Animation>
         </div>
       </section>
 
