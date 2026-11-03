@@ -6,11 +6,11 @@ import {
   QrCode,
   Ticket,
   Users,
-  Sparkles,
   ArrowRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import CrowdCanvas from "@/components/ui/skiper39";
+import { DiscRevealList, type DiscRevealItem } from "@/components/ui/disc-reveal-list";
 
 // Self-host this sprite in /public for production (e.g. "/crowd/peeps.png").
 const CROWD_SRC =
@@ -20,31 +20,67 @@ const REGISTER_URL = "https://linq.avtive.app/organization/register";
 const LOGIN_URL = "https://linq.avtive.app/login";
 const AVTIVE_URL = "https://www.avtive.app";
 
-// ── Overview items (Section immediately following Hero) ──
-const overviewItems = [
+// ── Linq Core Services (Disc Reveal List) ──
+const discRevealItems: DiscRevealItem[] = [
   {
+    id: "organization-onboarding",
     number: "01",
-    title: "Organization Management",
-    body: "Organizations can register and manage their activities through their dedicated portals.",
-    icon: Building2,
+    title: "Organization Onboarding",
+    subtitle: "Register once and manage your organization through a dedicated portal.",
+    images: [
+      {
+        url: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&q=80&auto=format&fit=crop",
+        alt: "Professional team working together",
+      },
+      {
+        url: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=600&q=80&auto=format&fit=crop",
+        alt: "Collaborative organization meeting",
+      },
+      {
+        url: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&q=80&auto=format&fit=crop",
+        alt: "Team strategy and onboarding session",
+      },
+    ],
   },
   {
+    id: "one-link-registration",
     number: "02",
-    title: "Simple Event Registration",
-    body: "Create and share one event link so attendees can register easily.",
-    icon: Link2,
+    title: "One-Link Registration",
+    subtitle: "Share one event link and let attendees register through a simple flow.",
+    images: [
+      {
+        url: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&q=80&auto=format&fit=crop",
+        alt: "Conference stage and keynote event",
+      },
+      {
+        url: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80&auto=format&fit=crop",
+        alt: "Audience participating in professional event",
+      },
+      {
+        url: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=600&q=80&auto=format&fit=crop",
+        alt: "Event registration and presentation space",
+      },
+    ],
   },
   {
+    id: "attendee-networking",
     number: "03",
-    title: "Scannable Attendee Cards",
-    body: "Attendees receive scannable cards that make connecting with others easier.",
-    icon: QrCode,
-  },
-  {
-    number: "04",
-    title: "Global Networking",
-    body: "Help attendees and organizations create meaningful professional connections.",
-    icon: Globe2,
+    title: "Attendee Networking",
+    subtitle: "Every attendee receives a scannable card to make connecting with others easier.",
+    images: [
+      {
+        url: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=600&q=80&auto=format&fit=crop",
+        alt: "Conference attendees connecting and sharing ideas",
+      },
+      {
+        url: "https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=600&q=80&auto=format&fit=crop",
+        alt: "People networking and engaging at an event",
+      },
+      {
+        url: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=80&auto=format&fit=crop",
+        alt: "Professional connecting with peers",
+      },
+    ],
   },
 ];
 
@@ -178,46 +214,20 @@ export default function LinqLanding() {
         </div>
       </section>
 
-      {/* ───────── 2. Product Information (Immediately After Hero) ───────── */}
-      <section id="overview" className="scroll-mt-12 border-t border-violet-100/70 bg-gradient-to-b from-white via-violet-50/30 to-white px-6 py-20 sm:py-28">
+      {/* ───────── 2. Services (Disc Reveal List) ───────── */}
+      <section id="overview" className="scroll-mt-12 border-t border-violet-100/70 bg-gradient-to-b from-white via-violet-50/25 to-white px-6 py-20 sm:py-28">
         <div className="mx-auto max-w-6xl">
           <div className="mx-auto max-w-3xl text-center">
-            <div className="inline-flex items-center gap-1.5 rounded-full bg-violet-100/80 px-3 py-1 text-xs font-semibold text-violet-700">
-              <Sparkles className="size-3.5" aria-hidden />
-              <span>Platform Overview</span>
-            </div>
-            <h2 className="mt-4 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
-              Everything You Need to Build Better Connections
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+              What Linq brings together.
             </h2>
-            <p className="mt-4 text-lg leading-relaxed text-slate-600">
-              Linq brings organizations, event creators, and attendees together through a simple event registration and networking experience.
+            <p className="mt-4 text-base sm:text-lg leading-relaxed text-slate-600">
+              From organization onboarding to attendee networking, Linq brings the entire event registration experience into one place.
             </p>
           </div>
 
-          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {overviewItems.map(({ number, title, body, icon: Icon }) => (
-              <div
-                key={number}
-                className="group relative flex flex-col justify-between rounded-2xl border border-violet-100 bg-white p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-violet-200 hover:shadow-xl hover:shadow-violet-500/10"
-              >
-                <div>
-                  <div className="flex items-center justify-between">
-                    <span className="font-mono text-xs font-bold tracking-wider text-violet-600 bg-violet-50 px-2.5 py-1 rounded-md border border-violet-100/80">
-                      {number}
-                    </span>
-                    <div className="grid size-10 place-items-center rounded-xl bg-violet-50 text-violet-600 transition-colors group-hover:bg-violet-600 group-hover:text-white">
-                      <Icon className="size-5" aria-hidden />
-                    </div>
-                  </div>
-                  <h3 className="mt-5 text-lg font-bold text-slate-900 transition-colors group-hover:text-violet-700">
-                    {title}
-                  </h3>
-                  <p className="mt-2.5 text-sm leading-relaxed text-slate-600">
-                    {body}
-                  </p>
-                </div>
-              </div>
-            ))}
+          <div className="mt-14 sm:mt-16">
+            <DiscRevealList items={discRevealItems} />
           </div>
         </div>
       </section>
