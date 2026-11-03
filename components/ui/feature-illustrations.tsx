@@ -532,6 +532,280 @@ export function OrgOnboardingIllustration() {
   );
 }
 
+// ── 003. QR Check-in & Attendance Illustration ──
+export function QrCheckInIllustration() {
+  const shouldReduceMotion = useReducedMotion();
+
+  return (
+    <div className="relative flex h-full w-full items-center justify-center">
+      <svg
+        viewBox="0 0 280 160"
+        className="h-full w-full max-h-40 select-none overflow-visible"
+        fill="none"
+        aria-hidden="true"
+      >
+        <defs>
+          <linearGradient id="qrPassGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#FFFFFF" />
+            <stop offset="100%" stopColor="#F9F6FE" />
+          </linearGradient>
+          <linearGradient id="scanBeamGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#8B5CF6" stopOpacity="0" />
+            <stop offset="25%" stopColor="#8B5CF6" stopOpacity="0.8" />
+            <stop offset="50%" stopColor="#7546C8" stopOpacity="1" />
+            <stop offset="75%" stopColor="#8B5CF6" stopOpacity="0.8" />
+            <stop offset="100%" stopColor="#8B5CF6" stopOpacity="0" />
+          </linearGradient>
+          <filter id="scanBeamGlow" x="-20%" y="-40%" width="140%" height="180%">
+            <feGaussianBlur stdDeviation="2.5" result="glow" />
+            <feComposite in="SourceGraphic" in2="glow" operator="over" />
+          </filter>
+        </defs>
+
+        {/* Ambient background glow */}
+        <circle cx="140" cy="80" r="56" fill="#F3EDFF" opacity="0.65" />
+
+        {/* Attendee QR Pass Card */}
+        <motion.g
+          animate={
+            shouldReduceMotion
+              ? {}
+              : {
+                  y: [-2, 2, -2],
+                }
+          }
+          transition={{ repeat: Infinity, duration: 4.2, ease: "easeInOut" }}
+        >
+          {/* Card shadow & body */}
+          <rect
+            x="48"
+            y="22"
+            width="96"
+            height="116"
+            rx="10"
+            fill="url(#qrPassGrad)"
+            stroke="#D8CEF6"
+            strokeWidth="1.5"
+            className="shadow-sm"
+          />
+
+          {/* Lanyard loop slot */}
+          <rect x="86" y="15" width="20" height="5" rx="2.5" fill="#C4B5FD" />
+          <circle cx="96" cy="17.5" r="1.5" fill="#FFFFFF" />
+
+          {/* Pass Top Banner */}
+          <path
+            d="M 48 32 C 48 26.5 52.5 22 58 22 L 134 22 C 139.5 22 144 26.5 144 32 L 144 36 L 48 36 Z"
+            fill="#7546C8"
+          />
+          <text
+            x="96"
+            y="32"
+            textAnchor="middle"
+            fill="#FFFFFF"
+            fontSize="6.5"
+            fontWeight="bold"
+            letterSpacing="0.8"
+          >
+            ATTENDEE PASS
+          </text>
+
+          {/* QR Code Container */}
+          <rect
+            x="59"
+            y="44"
+            width="74"
+            height="62"
+            rx="6"
+            fill="#FFFFFF"
+            stroke="#E9E0FA"
+            strokeWidth="1"
+          />
+
+          {/* QR Corner Position Markers */}
+          {/* Top-Left */}
+          <rect x="65" y="50" width="16" height="16" rx="2" fill="none" stroke="#302544" strokeWidth="2.5" />
+          <rect x="69.5" y="54.5" width="7" height="7" rx="1" fill="#7546C8" />
+          {/* Top-Right */}
+          <rect x="111" y="50" width="16" height="16" rx="2" fill="none" stroke="#302544" strokeWidth="2.5" />
+          <rect x="115.5" y="54.5" width="7" height="7" rx="1" fill="#7546C8" />
+          {/* Bottom-Left */}
+          <rect x="65" y="84" width="16" height="16" rx="2" fill="none" stroke="#302544" strokeWidth="2.5" />
+          <rect x="69.5" y="88.5" width="7" height="7" rx="1" fill="#7546C8" />
+
+          {/* Center QR Matrix Pixels */}
+          <rect x="86" y="51" width="4" height="4" rx="0.8" fill="#302544" />
+          <rect x="94" y="51" width="4" height="4" rx="0.8" fill="#7546C8" />
+          <rect x="101" y="51" width="4" height="4" rx="0.8" fill="#302544" />
+          <rect x="86" y="60" width="4" height="4" rx="0.8" fill="#7546C8" />
+          <rect x="93" y="60" width="7" height="4" rx="0.8" fill="#302544" />
+          <rect x="86" y="69" width="6" height="4" rx="0.8" fill="#302544" />
+          <rect x="95" y="69" width="4" height="4" rx="0.8" fill="#7546C8" />
+          <rect x="102" y="69" width="5" height="4" rx="0.8" fill="#302544" />
+          <rect x="86" y="78" width="4" height="4" rx="0.8" fill="#7546C8" />
+          <rect x="94" y="78" width="7" height="4" rx="0.8" fill="#302544" />
+          <rect x="86" y="87" width="5" height="4" rx="0.8" fill="#302544" />
+          <rect x="95" y="87" width="5" height="4" rx="0.8" fill="#7546C8" />
+          <rect x="104" y="87" width="4" height="4" rx="0.8" fill="#302544" />
+          <rect x="111" y="74" width="5" height="4" rx="0.8" fill="#302544" />
+          <rect x="120" y="74" width="4" height="4" rx="0.8" fill="#7546C8" />
+          <rect x="114" y="83" width="7" height="4" rx="0.8" fill="#302544" />
+          <rect x="111" y="92" width="6" height="4" rx="0.8" fill="#7546C8" />
+          <rect x="120" y="92" width="4" height="4" rx="0.8" fill="#302544" />
+
+          {/* Attendee Name & Role Placeholder */}
+          <rect x="62" y="114" width="38" height="4" rx="2" fill="#7546C8" />
+          <rect x="62" y="122" width="22" height="3" rx="1.5" fill="#A78BFA" opacity="0.7" />
+          <rect x="107" y="114" width="23" height="11" rx="5.5" fill="#F3EDFF" stroke="#E0D4FC" strokeWidth="1" />
+          <text x="118.5" y="122" textAnchor="middle" fill="#7546C8" fontSize="5.5" fontWeight="bold">
+            CONFIRMED
+          </text>
+
+          {/* Viewport Scanner Brackets */}
+          <path d="M 56 50 L 56 42 L 64 42" stroke="#7546C8" strokeWidth="2" strokeLinecap="round" />
+          <path d="M 136 50 L 136 42 L 128 42" stroke="#7546C8" strokeWidth="2" strokeLinecap="round" />
+          <path d="M 56 100 L 56 108 L 64 108" stroke="#7546C8" strokeWidth="2" strokeLinecap="round" />
+          <path d="M 136 100 L 136 108 L 128 108" stroke="#7546C8" strokeWidth="2" strokeLinecap="round" />
+
+          {/* Animated Sweeping Scan Laser Beam */}
+          {!shouldReduceMotion && (
+            <motion.g
+              animate={{
+                y: [46, 102, 46],
+              }}
+              transition={{
+                repeat: Infinity,
+                duration: 2.4,
+                ease: "easeInOut",
+              }}
+            >
+              <line
+                x1="54"
+                y1="0"
+                x2="138"
+                y2="0"
+                stroke="url(#scanBeamGrad)"
+                strokeWidth="2.5"
+                filter="url(#scanBeamGlow)"
+              />
+              <circle cx="96" cy="0" r="2" fill="#FFFFFF" opacity="0.9" />
+            </motion.g>
+          )}
+        </motion.g>
+
+        {/* Floating Success Verification Card (Right Side) */}
+        <motion.g
+          animate={
+            shouldReduceMotion
+              ? {}
+              : {
+                  y: [2, -2, 2],
+                  scale: [0.98, 1.02, 0.98],
+                }
+          }
+          transition={{ repeat: Infinity, duration: 3.6, ease: "easeInOut", delay: 0.2 }}
+        >
+          {/* Card Container */}
+          <rect
+            x="158"
+            y="38"
+            width="104"
+            height="84"
+            rx="12"
+            fill="#FFFFFF"
+            stroke="#E9E0FA"
+            strokeWidth="1.5"
+            className="shadow-md"
+          />
+
+          {/* Verified Header Pill */}
+          <rect x="168" y="48" width="84" height="20" rx="10" fill="#ECFDF5" stroke="#A7F3D0" strokeWidth="1" />
+          
+          {/* Animated Green Checkmark Pulse */}
+          <motion.circle
+            cx="180"
+            cy="58"
+            r="6"
+            fill="#10B981"
+            animate={
+              shouldReduceMotion
+                ? {}
+                : {
+                    scale: [1, 1.15, 1],
+                  }
+            }
+            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+          />
+          <path
+            d="M 177.5 58 L 179.5 60 L 183 56"
+            stroke="#FFFFFF"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <text x="215" y="61.5" textAnchor="middle" fill="#065F46" fontSize="7.5" fontWeight="bold">
+            CHECK-IN VERIFIED
+          </text>
+
+          {/* Attendee Details Rows */}
+          <text x="168" y="80" fill="#64748B" fontSize="6.5" fontWeight="500">
+            Status:
+          </text>
+          <text x="200" y="80" fill="#10B981" fontSize="6.5" fontWeight="bold">
+            Admitted ✓
+          </text>
+
+          <text x="168" y="93" fill="#64748B" fontSize="6.5" fontWeight="500">
+            Card ID:
+          </text>
+          <text x="200" y="93" fill="#302544" fontSize="6.5" fontWeight="600" fontFamily="monospace">
+            #LNQ-8492
+          </text>
+
+          <text x="168" y="106" fill="#64748B" fontSize="6.5" fontWeight="500">
+            Attendance:
+          </text>
+          <text x="212" y="106" fill="#7546C8" fontSize="6.5" fontWeight="bold">
+            Recorded Live
+          </text>
+
+          {/* Live indicator dot */}
+          <motion.circle
+            cx="248"
+            cy="104.5"
+            r="2"
+            fill="#10B981"
+            animate={shouldReduceMotion ? {} : { opacity: [0.3, 1, 0.3] }}
+            transition={{ repeat: Infinity, duration: 1.5 }}
+          />
+        </motion.g>
+
+        {/* Sparkles / Ambient dots */}
+        {!shouldReduceMotion && (
+          <>
+            <motion.circle
+              cx="40"
+              cy="48"
+              r="2"
+              fill="#A78BFA"
+              animate={{ opacity: [0.2, 0.8, 0.2], scale: [0.8, 1.2, 0.8] }}
+              transition={{ repeat: Infinity, duration: 2.2 }}
+            />
+            <motion.circle
+              cx="268"
+              cy="80"
+              r="2.5"
+              fill="#8B5CF6"
+              animate={{ opacity: [0.3, 0.9, 0.3], scale: [1, 1.3, 1] }}
+              transition={{ repeat: Infinity, duration: 2.8, delay: 0.5 }}
+            />
+          </>
+        )}
+      </svg>
+    </div>
+  );
+}
+
 // ── 004. Portals for Every Role Illustration ──
 export function RolePortalsIllustration() {
   const shouldReduceMotion = useReducedMotion();

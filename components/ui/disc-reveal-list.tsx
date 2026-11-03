@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { cn } from "@/lib/utils";
-import { ArrowUpRight } from "lucide-react";
 
 export interface DiscRevealItem {
   id: string;
@@ -120,18 +119,6 @@ export function DiscRevealList({ items, className }: DiscRevealListProps) {
                           </motion.p>
                         )}
                       </AnimatePresence>
-                    </div>
-
-                    {/* Arrow indicator */}
-                    <div
-                      className={cn(
-                        "mt-3 grid size-9 place-items-center rounded-full border transition-all duration-300 shrink-0",
-                        isActive
-                          ? "border-violet-300 bg-violet-600 text-white shadow-md shadow-violet-600/20 translate-x-1"
-                          : "border-slate-200 bg-white text-slate-400 group-hover:border-violet-200 group-hover:text-violet-600"
-                      )}
-                    >
-                      <ArrowUpRight className="size-4" />
                     </div>
                   </div>
 
