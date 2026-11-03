@@ -76,33 +76,13 @@ export function DiscRevealList({ items, className }: DiscRevealListProps) {
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex flex-col">
                       {/* Step Number */}
-                      <span className="font-mono text-xs font-semibold tracking-widest text-violet-600 uppercase">
+                      <span className="text-xs font-semibold tracking-wider text-violet-700 uppercase">
                         {item.number}
                       </span>
 
-                      {/* Animated Scattered Heading */}
-                      <h3 className="mt-2 text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900 transition-colors">
-                        {item.title.split("").map((char, charIdx) => (
-                          <motion.span
-                            key={`${char}-${charIdx}`}
-                            className="inline-block"
-                            animate={
-                              isActive && !reduceMotion
-                                ? {
-                                    y: [0, charIdx % 2 === 0 ? -3 : 3, 0],
-                                    rotate: [0, charIdx % 3 === 0 ? -2 : 2, 0],
-                                  }
-                                : { y: 0, rotate: 0 }
-                            }
-                            transition={{
-                              duration: 0.35,
-                              delay: charIdx * 0.015,
-                              ease: "easeOut",
-                            }}
-                          >
-                            {char === " " ? "\u00A0" : char}
-                          </motion.span>
-                        ))}
+                      {/* Clean, Modern Heading */}
+                      <h3 className="mt-2 text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-slate-900 transition-colors duration-200 group-hover:text-violet-950">
+                        {item.title}
                       </h3>
 
                       {/* Subtitle (Fades in smoothly) */}
