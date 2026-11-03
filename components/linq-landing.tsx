@@ -17,6 +17,7 @@ import AetherFlowBackground from "@/components/ui/aether-flow-background";
 import { motion } from "motion/react";
 import { HeroSection4Animation, heroItemVariants } from "@/components/ui/hero-section-4";
 import { HowItWorks, type StepItem } from "@/components/ui/how-it-works";
+import { AnimatedFeatureCard } from "@/components/ui/feature-card-1";
 
 // Self-host this sprite in /public for production (e.g. "/crowd/peeps.png").
 const CROWD_SRC =
@@ -117,12 +118,60 @@ const steps: StepItem[] = [
 
 // ── Features ──
 const features = [
-  { icon: Ticket, title: "One-link registration", body: "Attendees register through a single shareable link." },
-  { icon: QrCode, title: "Scannable attendee cards", body: "Every attendee gets a card that is quick to scan and share." },
-  { icon: Building2, title: "Organization onboarding", body: "Bring each organization on board in one step." },
-  { icon: LayoutDashboard, title: "Portals for every role", body: "Event creators and organizations each work from their own portal." },
-  { icon: Users, title: "All organizations, one place", body: "Manage every organization on your events without switching tools." },
-  { icon: Globe2, title: "Global networking", body: "Connections made at your event travel well beyond the venue." },
+  {
+    index: "001",
+    tag: "EVENT REGISTRATION",
+    title: "One-link registration",
+    description: "Attendees register through a single shareable link.",
+    imageSrc:
+      "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=600&q=80&auto=format&fit=crop",
+    imageAlt: "Event and digital registration environment",
+  },
+  {
+    index: "002",
+    tag: "ATTENDEE NETWORKING",
+    title: "Scannable attendee cards",
+    description: "Every attendee gets a card that is quick to scan and share.",
+    imageSrc:
+      "https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=600&q=80&auto=format&fit=crop",
+    imageAlt: "Digital attendee pass and card on mobile device",
+  },
+  {
+    index: "003",
+    tag: "ORGANIZATION SETUP",
+    title: "Organization onboarding",
+    description: "Bring each organization on board in one step.",
+    imageSrc:
+      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&q=80&auto=format&fit=crop",
+    imageAlt: "Professional team onboarding and collaborating",
+  },
+  {
+    index: "004",
+    tag: "ORGANIZATION PORTALS",
+    title: "Portals for every role",
+    description: "Event creators and organizations each work from their own portal.",
+    imageSrc:
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80&auto=format&fit=crop",
+    imageAlt: "Organization management portal workspace",
+  },
+  {
+    index: "005",
+    tag: "MANAGEMENT",
+    title: "All organizations, one place",
+    description: "Manage every organization on your events without switching tools.",
+    imageSrc:
+      "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=600&q=80&auto=format&fit=crop",
+    imageAlt: "Centralized organization management meeting",
+  },
+  {
+    index: "006",
+    tag: "GLOBAL NETWORKING",
+    title: "Global networking",
+    description: "Connections made at your event travel well beyond the venue.",
+    imageSrc:
+      "https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=600&q=80&auto=format&fit=crop",
+    imageAlt: "Professionals networking and connecting at event",
+  },
 ];
 
 function Logo({ className = "" }: { className?: string }) {
@@ -288,13 +337,17 @@ export default function LinqLanding() {
               Purpose-built tools to streamline your registration process and maximize networking outcomes.
             </p>
           </div>
-          <div className="mt-14 grid overflow-hidden rounded-3xl border border-violet-100 bg-violet-100 sm:grid-cols-2 lg:grid-cols-3 gap-px shadow-sm">
-            {features.map(({ icon: Icon, title, body }) => (
-              <div key={title} className="bg-white p-8 transition-colors hover:bg-violet-50/30">
-                <Icon className="size-6 text-violet-600" aria-hidden />
-                <h3 className="mt-5 font-semibold text-slate-900">{title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-slate-600">{body}</p>
-              </div>
+          <div className="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+            {features.map((feature) => (
+              <AnimatedFeatureCard
+                key={feature.title}
+                index={feature.index}
+                tag={feature.tag}
+                title={feature.title}
+                description={feature.description}
+                imageSrc={feature.imageSrc}
+                imageAlt={feature.imageAlt}
+              />
             ))}
           </div>
         </div>
