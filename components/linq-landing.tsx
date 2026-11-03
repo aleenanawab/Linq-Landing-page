@@ -18,6 +18,7 @@ import { motion } from "motion/react";
 import { HeroSection4Animation, heroItemVariants } from "@/components/ui/hero-section-4";
 import { HowItWorks, type StepItem } from "@/components/ui/how-it-works";
 import { AnimatedFeatureCard } from "@/components/ui/feature-card-1";
+import { DoodleCrewFooter } from "@/components/ui/doodle-crew-footer";
 
 // Self-host this sprite in /public for production (e.g. "/crowd/peeps.png").
 const CROWD_SRC =
@@ -385,55 +386,53 @@ export default function LinqLanding() {
         </div>
       </section>
 
-      {/* ───────── 6. Footer ───────── */}
-      <footer className="border-t border-violet-100 bg-white px-6 py-12">
-        <div className="mx-auto flex max-w-5xl flex-col gap-8 sm:flex-row sm:items-start sm:justify-between">
-          <div>
-            <Logo />
-            <p className="mt-3 text-sm text-slate-500">
-              A product of{" "}
-              <a
-                href={AVTIVE_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="font-medium text-violet-700 underline-offset-4 hover:underline"
-              >
-                Avtive
-              </a>
-            </p>
-          </div>
-          <nav className="flex flex-wrap gap-8 text-sm font-medium text-slate-600">
-            <a href={LOGIN_URL} className="transition-colors hover:text-violet-700">
-              Log in
-            </a>
-            <a href={REGISTER_URL} className="transition-colors hover:text-violet-700">
-              Register organization
-            </a>
-            <a
-              href={AVTIVE_URL}
-              target="_blank"
-              rel="noreferrer"
-              className="transition-colors hover:text-violet-700"
-            >
-              Avtive
-            </a>
-          </nav>
-        </div>
-        <div className="mx-auto mt-10 flex max-w-5xl flex-col gap-2 border-t border-slate-100 pt-6 text-xs text-slate-400 sm:flex-row sm:justify-between">
-          <span>© {new Date().getFullYear()} Avtive. All rights reserved.</span>
+      {/* ───────── 6. Footer (Doodle Crew Footer) ───────── */}
+      <DoodleCrewFooter
+        logo={<Logo />}
+        brandDescription="A product of Avtive. Bringing organizations, events and people together through one simple link."
+        columns={[
+          {
+            title: "Explore",
+            links: [
+              { label: "Overview", href: "#overview" },
+              { label: "How it works", href: "#how-it-works" },
+              { label: "Features", href: "#features" },
+            ],
+          },
+          {
+            title: "Company",
+            links: [
+              { label: "Avtive", href: AVTIVE_URL, external: true },
+            ],
+          },
+        ]}
+        primaryCta={{
+          label: "Register your organization",
+          href: REGISTER_URL,
+        }}
+        secondaryCta={{
+          label: "Log in",
+          href: LOGIN_URL,
+        }}
+        socialLinks={{
+          linkedin: "https://www.linkedin.com/company/linqavtive/posts/?viewAsMember=true",
+          instagram: "https://www.instagram.com/linq.me/?utm_source=ig_web_button_share_sheet",
+        }}
+        copyright={`© ${new Date().getFullYear()} Avtive. All rights reserved.`}
+        attribution={
           <span>
             Crowd animation adapted from Skiper UI · illustration by{" "}
             <a
               href="https://www.openpeeps.com/"
               target="_blank"
-              rel="noreferrer"
-              className="underline-offset-2 hover:underline"
+              rel="noopener noreferrer"
+              className="underline-offset-2 hover:text-[#7546C8] hover:underline"
             >
               Open Peeps
             </a>
           </span>
-        </div>
-      </footer>
+        }
+      />
     </main>
   );
 }
