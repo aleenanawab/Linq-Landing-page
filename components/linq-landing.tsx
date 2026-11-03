@@ -123,47 +123,57 @@ export default function LinqLanding() {
         {/* Existing Human Crowd Canvas in exact original position */}
         <CrowdCanvas src={CROWD_SRC} className="top-[38%] z-0" />
 
-        {/* Hero Content (Prominent & High Contrast) */}
-        <div className="relative z-10 mx-auto w-full max-w-7xl flex-1 px-6 pt-8 sm:pt-14 lg:pt-16 pb-20">
-          {/* Supporting Tagline Badge */}
-          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-violet-200/90 bg-white/95 px-4 py-1.5 text-xs sm:text-sm font-semibold tracking-wide text-violet-700 shadow-sm shadow-violet-100 backdrop-blur-md">
-            <span className="relative flex size-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-400 opacity-75"></span>
-              <span className="relative inline-flex size-2 rounded-full bg-violet-600"></span>
-            </span>
-            Every connection creates opportunity.
-          </div>
+        {/* Hero Content (Prominent & High Contrast above the distant crowd) */}
+        <div className="relative z-20 mx-auto w-full max-w-7xl flex-1 px-6 pt-10 sm:pt-16 lg:pt-20 pb-20">
+          <div className="relative max-w-3xl">
+            {/* Subtle soft white-to-transparent gradient behind text area to ensure 100% crisp readability */}
+            <div
+              className="pointer-events-none absolute -inset-x-8 -inset-y-6 -z-10 rounded-3xl bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.94)_0%,rgba(255,255,255,0.65)_55%,transparent_100%)] blur-md"
+              aria-hidden="true"
+            />
 
-          {/* Main Headline */}
-          <h1 className="max-w-4xl text-5xl font-black leading-[1.04] tracking-tight text-slate-900 sm:text-6xl md:text-7xl lg:text-[5.25rem]">
-            <span className="block text-violet-700">One Link.</span>
-            <span className="block bg-gradient-to-r from-violet-700 via-purple-700 to-indigo-800 bg-clip-text text-transparent">
-              Every Connection.
-            </span>
-          </h1>
+            {/* Supporting Tagline Badge */}
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-violet-200/90 bg-white/95 px-4 py-1.5 text-xs sm:text-sm font-semibold tracking-wide text-violet-700 shadow-sm shadow-violet-100 backdrop-blur-md">
+              <span className="relative flex size-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-violet-400 opacity-75"></span>
+                <span className="relative inline-flex size-2 rounded-full bg-violet-600"></span>
+              </span>
+              Every connection creates opportunity.
+            </div>
 
-          {/* Short Hero Description */}
-          <p className="mt-6 max-w-xl text-lg sm:text-xl font-normal leading-relaxed text-slate-700">
-            Simplify event registration, connect attendees, and manage your organization with Linq.
-          </p>
+            {/* Main Headline */}
+            <h1 className="text-5xl font-black leading-[1.04] tracking-tight text-slate-900 sm:text-6xl md:text-7xl lg:text-[5.25rem]">
+              <span className="block text-violet-700 drop-shadow-[0_1px_2px_rgba(255,255,255,0.85)]">
+                One Link.
+              </span>
+              <span className="block bg-gradient-to-r from-violet-700 via-purple-700 to-indigo-800 bg-clip-text text-transparent drop-shadow-[0_1px_2px_rgba(255,255,255,0.85)]">
+                Every Connection.
+              </span>
+            </h1>
 
-          {/* Hero Action Buttons */}
-          <div className="mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
-            <Button
-              asChild
-              size="lg"
-              className="h-12 rounded-full bg-gradient-to-r from-violet-600 to-purple-600 px-8 text-base font-semibold text-white shadow-lg shadow-violet-600/30 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-violet-600/40 hover:from-violet-700 hover:to-purple-700 active:translate-y-0"
-            >
-              <a href={REGISTER_URL}>Register Your Organization</a>
-            </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="h-12 rounded-full border-2 border-violet-200 bg-white/90 px-8 text-base font-semibold text-violet-700 backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-violet-300 hover:bg-violet-50/90 hover:text-violet-800 active:translate-y-0"
-            >
-              <a href="#overview">Explore Linq</a>
-            </Button>
+            {/* Short Hero Description */}
+            <p className="mt-6 max-w-xl text-lg sm:text-xl font-normal leading-relaxed text-slate-700 drop-shadow-[0_1px_1px_rgba(255,255,255,0.8)]">
+              Simplify event registration, connect attendees, and manage your organization with Linq.
+            </p>
+
+            {/* Hero Action Buttons */}
+            <div className="mt-8 flex flex-wrap items-center gap-3 sm:gap-4">
+              <Button
+                asChild
+                size="lg"
+                className="h-12 rounded-full bg-gradient-to-r from-violet-600 to-purple-600 px-8 text-base font-semibold text-white shadow-lg shadow-violet-600/30 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-violet-600/40 hover:from-violet-700 hover:to-purple-700 active:translate-y-0"
+              >
+                <a href={REGISTER_URL}>Register Your Organization</a>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="h-12 rounded-full border-2 border-violet-200 bg-white/95 px-8 text-base font-semibold text-violet-700 backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-violet-300 hover:bg-violet-50/90 hover:text-violet-800 active:translate-y-0"
+              >
+                <a href="#overview">Explore Linq</a>
+              </Button>
+            </div>
           </div>
         </div>
       </section>

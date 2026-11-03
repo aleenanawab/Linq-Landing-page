@@ -26,6 +26,7 @@ type Peep = {
   y: number;
   anchorY: number;
   scaleX: number;
+  scale: number;
   walk: gsap.core.Timeline | null;
 };
 
@@ -39,7 +40,7 @@ const CrowdCanvas = ({
   src,
   rows = 15,
   cols = 7,
-  spotlight = 170,
+  spotlight = 160,
   tint = 0.32,
   className,
 }: CrowdCanvasProps) => {
@@ -65,29 +66,44 @@ const CrowdCanvas = ({
     const availablePeeps: Peep[] = [];
     const crowd: Peep[] = [];
 
-    // ---------- walking ----------
+    // ---------- walking with distant perspective & 55-65% scale ----------
     const resetPeep = (peep: Peep) => {
       const direction = Math.random() > 0.5 ? 1 : -1;
-      const offsetY = 100 - 250 * gsap.parseEase("power2.in")(Math.random());
-      const startY = stage.height - peep.height + offsetY;
-      const startX = direction === 1 ? -peep.width : stage.width + peep.width;
-      const endX = direction === 1 ? stage.width : 0;
+
+      // Depth perception: 0 = closest in distance audience, 1 = furthest back
+      const depthFactor = gsap.parseEase("power2.in")(Math.random());
+
+      // Scale between 55% and 65% for distant perspective
+      const scale = 0.55 + 0.10 * (1 - depthFactor);
+
+      // Distant ground placement: farther figures walk slightly higher on the ground plane
+      const verticalSpread = Math.min(180, stage.height * 0.45);
+      const offsetY = 45 - verticalSpread * depthFactor;
+      const startY = stage.height - peep.height * scale + offsetY;
+
+      const visualWidth = peep.width * scale;
+      const startX = direction === 1 ? -visualWidth - 25 : stage.width + 25;
+      const endX = direction === 1 ? stage.width + 25 : -visualWidth - 25;
+
       peep.scaleX = direction;
+      peep.scale = scale;
       peep.x = startX;
       peep.y = startY;
-      peep.anchorY = startY;
+      peep.anchorY = startY + peep.height * scale;
       return { startY, endX };
     };
 
     const normalWalk = (peep: Peep, { startY, endX }: { startY: number; endX: number }) => {
-      const xDuration = 10;
-      const yDuration = 0.25;
+      // Natural pacing for distant walkers
+      const xDuration = 12 / (0.85 + 0.3 * (peep.scale / 0.6));
+      const yDuration = 0.26;
+      const bob = 5 * (peep.scale / 0.6);
       const tl = gsap.timeline();
-      tl.timeScale(randomRange(0.5, 1.5));
+      tl.timeScale(randomRange(0.65, 1.3));
       tl.to(peep, { duration: xDuration, x: endX, ease: "none" }, 0);
       tl.to(
         peep,
-        { duration: yDuration, repeat: xDuration / yDuration, yoyo: true, y: startY - 10 },
+        { duration: yDuration, repeat: Math.ceil(xDuration / yDuration), yoyo: true, y: startY - bob },
         0,
       );
       return tl;
@@ -106,6 +122,7 @@ const CrowdCanvas = ({
       return peep;
     };
 
+    // Keep EXACT full crowd quantity: all sprites active simultaneously
     const initCrowd = () => {
       while (availablePeeps.length) addPeepToCrowd().walk?.progress(Math.random());
       if (reduceMotion) crowd.forEach((p) => p.walk?.pause());
@@ -124,6 +141,7 @@ const CrowdCanvas = ({
           y: 0,
           anchorY: 0,
           scaleX: 1,
+          scale: 0.6,
           walk: null,
         });
       }
@@ -138,7 +156,7 @@ const CrowdCanvas = ({
       crowd.forEach((p) => {
         ctx.save();
         ctx.translate(p.x, p.y);
-        ctx.scale(p.scaleX, 1);
+        ctx.scale(p.scaleX * p.scale, p.scale);
         ctx.drawImage(img, p.rect[0], p.rect[1], p.rect[2], p.rect[3], 0, 0, p.width, p.height);
         ctx.restore();
       });
@@ -174,8 +192,8 @@ const CrowdCanvas = ({
     };
 
     const render = () => {
-      current.x += (target.x - current.x) * 0.18;
-      current.y += (target.y - current.y) * 0.18;
+      current.x += (target.x - current.x) * 0.16;
+      current.y += (target.y - current.y) * 0.16;
       reveal.style.setProperty("--mx", `${current.x}px`);
       reveal.style.setProperty("--my", `${current.y}px`);
       draw(baseCtx, base);
@@ -227,9 +245,9 @@ const CrowdCanvas = ({
       aria-hidden
       className={cn("pointer-events-none absolute inset-0 overflow-hidden", className)}
     >
-      {/* Layer 1: the whole crowd, colourless */}
-      <canvas ref={baseRef} className="absolute inset-0 h-full w-full opacity-80 grayscale" />
-      {/* Layer 2: same crowd in colour, revealed only around the cursor */}
+      {/* Layer 1: full distant crowd, colourless with atmospheric depth */}
+      <canvas ref={baseRef} className="absolute inset-0 h-full w-full opacity-70 grayscale" />
+      {/* Layer 2: same crowd in colour, revealed around the cursor */}
       <canvas
         ref={revealRef}
         className="absolute inset-0 h-full w-full opacity-0 transition-opacity duration-300"
@@ -241,15 +259,3 @@ const CrowdCanvas = ({
 
 export { CrowdCanvas };
 export default CrowdCanvas;
-
-/**
- * Skiper 39 Canvas_Landing_004 — React + Canvas
- * Inspired by and adapted from <https://codepen.io/zadvorsky/pen/xxwbBQV>
- * illustration by <https://www.openpeeps.com/>
- * Adapted for Linq: grayscale crowd + cursor colour spotlight, typed, StrictMode-safe.
- *
- * License & Usage (Skiper UI):
- * - Free to use and modify in personal and commercial projects.
- * - Attribution to Skiper UI is required when using the free version.
- * - No attribution required with Skiper UI Pro.
- */
