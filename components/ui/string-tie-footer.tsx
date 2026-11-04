@@ -11,7 +11,7 @@ import * as React from "react";
  * - Dark slate typography (#302544)
  * - Violet accents (#7546C8) and string (#8B5CF6)
  * - Rotating grommet buttons with interactive tying / untying cord simulation
- * - Hidden note revealed upon opening: "A simpler way to bring organizations, events and people together. One link. Every connection."
+ * - Hidden note revealed upon opening: "A simpler way to bring organizations, events and people together. "
  * - Minimal clean navigation, social links, and attribution.
  */
 
@@ -583,11 +583,11 @@ export interface StringTieFooterProps {
 
 export default function StringTieFooter({
   logo,
-  meta = ["Event Platform", "By Avtive", "One Link. Every Connection."],
+  meta = [],
   title = "Linq",
   titleAccent = "",
-  tapes = ["Every connection", "creates opportunity."],
-  noteMessage = "A simpler way to bring organizations, events and people together. One link. Every connection.",
+  tapes = [],
+  noteMessage = "A simpler way to bring organizations, events and people together.",
   noteCta = {
     label: "Register organization",
     href: "https://linq.avtive.app/organization/register",
@@ -1048,7 +1048,6 @@ export default function StringTieFooter({
               </text>
               <path d="M66 18q10-5 20 0t20 0 20 0 20 0M66 28q10-5 20 0t20 0 20 0 20 0M66 38q10-5 20 0t20 0 20 0 20 0M66 48q10-5 20 0t20 0 20 0 20 0" />
             </svg>
-            <p className="stt-note-k">One Link. Every Connection.</p>
             <p className="stt-note-t">{noteMessage}</p>
             <div className="stt-note-row">
               {noteCta && (

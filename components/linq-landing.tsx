@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import {
   Building2,
-  Calendar,
   CalendarPlus,
   CheckCircle2,
   LayoutDashboard,
@@ -15,8 +14,6 @@ import {
   Sparkles,
   ArrowRight,
   UserCheck,
-  UserPlus,
-  Users,
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -133,67 +130,55 @@ const discRevealItems: DiscRevealItem[] = [
   },
 ];
 
-// ── Complete Linq Event Workflow (A-to-Z 10-Step Lifecycle) ──
+// ── Complete Linq Event Workflow (A-to-Z 8-Step Lifecycle) ──
 const completeWorkflowSteps: StepItem[] = [
   {
     step: "01",
-    title: "Create your Linq account",
-    description: "Sign up with your credentials to initialize your account on the Linq platform.",
-    icon: UserPlus,
-  },
-  {
-    step: "02",
-    title: "Register your organization",
-    description: "Submit your organization name, profile, and branding in a single onboarding step.",
+    title: "Submit Organization Registration Request",
+    description: "Complete the organization registration form to request access to Linq.",
     icon: Building2,
   },
   {
-    step: "03",
+    step: "02",
     title: "Access your organization portal",
     description: "Open your dedicated portal to view past events, active registrations, and team settings.",
     icon: LayoutDashboard,
   },
   {
-    step: "04",
+    step: "03",
     title: "Set up your event",
     description: "Configure your event schedule, dates, venue, attendee limits, and ticketing details.",
     icon: CalendarPlus,
   },
   {
-    step: "05",
+    step: "04",
     title: "Generate the event registration link",
     description: "Create your unique, branded event registration URL directly in your event workspace.",
     icon: Link2,
   },
   {
-    step: "06",
+    step: "05",
     title: "Share the registration link with attendees",
     description: "Distribute your registration link across invitations, emails, and promotion channels.",
     icon: Send,
   },
   {
-    step: "07",
+    step: "06",
     title: "Attendees complete event registration",
     description: "Guests open the link and register in seconds on any mobile device or desktop browser.",
     icon: UserCheck,
   },
   {
-    step: "08",
+    step: "07",
     title: "Registered attendees receive digital cards",
     description: "Each confirmed attendee receives a digital pass containing their unique, scannable QR card.",
     icon: QrCode,
   },
   {
-    step: "09",
+    step: "08",
     title: "Scan attendee cards and record attendance",
     description: "Event teams scan attendee cards at venue entrances to verify entry and record live attendance.",
     icon: ScanLine,
-  },
-  {
-    step: "10",
-    title: "Enable attendees to connect and network",
-    description: "Attendees use their digital cards to exchange contacts and build valuable relationships.",
-    icon: Users,
   },
 ];
 
@@ -231,26 +216,30 @@ const features = [
   },
 ];
 
-// ── Verified Reach Metrics Structure ──
+// ── Verified Product Capability Metrics ──
 const reachMetrics = [
   {
-    label: "Total Registered Organizations",
-    description: "Organizations and enterprises managing portals on Linq",
+    value: "01",
+    label: "Connected Event Platform",
+    description: "One unified ecosystem for organizations, event creators, and attendees",
     icon: Building2,
   },
   {
-    label: "Total Events Created",
-    description: "Conferences, summits, and business events powered by Linq",
-    icon: Calendar,
+    value: "03",
+    label: "Core Services",
+    description: "One-link registration, scannable QR passes, and role-based portals",
+    icon: LayoutDashboard,
   },
   {
-    label: "Total Attendee Registrations",
-    description: "Attendees registered through one-link event flows",
-    icon: UserCheck,
+    value: "06",
+    label: "Key Platform Features",
+    description: "End-to-end tooling from shareable event links to live entrance scanning",
+    icon: Sparkles,
   },
   {
-    label: "Total QR Check-ins Recorded",
-    description: "Real-time verified admissions at venue entrance gates",
+    value: "08",
+    label: "Workflow Steps",
+    description: "A continuous guided journey from organization onboarding to event check-in",
     icon: ScanLine,
   },
 ];
@@ -676,15 +665,15 @@ export default function LinqLanding() {
                       <Icon className="size-5" />
                     </div>
                     <span className="inline-flex items-center gap-1 rounded-full bg-violet-50 px-2.5 py-1 text-[10px] font-semibold text-violet-700 border border-violet-200/60">
-                      ● Live Platform
+                      ● Capability
                     </span>
                   </div>
 
                   <div className="mt-8">
-                    <div className="text-2xl sm:text-3xl font-extrabold text-[#24212B] tracking-tight">
-                      —
+                    <div className="text-3xl sm:text-4xl font-extrabold text-[#7546C8] tracking-tight">
+                      {metric.value}
                     </div>
-                    <h3 className="mt-2 text-sm font-semibold text-slate-900 leading-tight">
+                    <h3 className="mt-2 text-base font-semibold text-slate-900 leading-tight">
                       {metric.label}
                     </h3>
                     <p className="mt-1 text-xs leading-relaxed text-slate-500">
@@ -877,8 +866,9 @@ export default function LinqLanding() {
         logo={<Logo />}
         title="Linq"
         titleAccent=""
-        tapes={["Every connection", "creates opportunity."]}
-        noteMessage="A simpler way to bring organizations, events and people together. One link. Every connection."
+        meta={[]}
+        tapes={[]}
+        noteMessage="A simpler way to bring organizations, events and people together."
         noteCta={{
           label: "Register organization",
           href: REGISTER_URL,
