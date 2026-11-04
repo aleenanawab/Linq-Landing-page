@@ -2,18 +2,21 @@
 
 import { useState, useEffect } from "react";
 import {
+  ArrowRight,
   Building2,
   CalendarPlus,
+  Check,
   CheckCircle2,
   LayoutDashboard,
   Link2,
   Menu,
   QrCode,
+  Quote,
   ScanLine,
   Send,
   Sparkles,
-  ArrowRight,
   UserCheck,
+  Users,
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -25,7 +28,6 @@ import { HeroSection4Animation, heroItemVariants } from "@/components/ui/hero-se
 import { HowItWorks, type StepItem } from "@/components/ui/how-it-works";
 import { AnimatedFeatureCard } from "@/components/ui/feature-card-1";
 import StringTieFooter from "@/components/ui/string-tie-footer";
-import { cn } from "@/lib/utils";
 import {
   OneLinkIllustration,
   ScannableCardIllustration,
@@ -45,6 +47,7 @@ import {
   EventCreatorDashboardMockup,
   RolePortalsSwitcherMockup,
 } from "@/components/ui/overview-illustrations";
+import { cn } from "@/lib/utils";
 
 // Production crowd sprite source
 const CROWD_SRC =
@@ -130,117 +133,234 @@ const discRevealItems: DiscRevealItem[] = [
   },
 ];
 
-// ── Complete Linq Event Workflow (A-to-Z 8-Step Lifecycle) ──
+// ── Complete Linq Event Workflow (A-to-Z 9-Step Lifecycle from Official Brochure) ──
 const completeWorkflowSteps: StepItem[] = [
   {
     step: "01",
     title: "Submit Organization Registration Request",
-    description: "Complete the organization registration form to request access to Linq.",
+    description: "Complete the organization registration form to request registration.",
     icon: Building2,
   },
   {
     step: "02",
-    title: "Access your organization portal",
-    description: "Open your dedicated portal to view past events, active registrations, and team settings.",
+    title: "Access the company panel after registration",
+    description: "Log in to your dedicated company dashboard to manage your organization's entire event operations.",
     icon: LayoutDashboard,
   },
   {
     step: "03",
-    title: "Set up your event",
-    description: "Configure your event schedule, dates, venue, attendee limits, and ticketing details.",
-    icon: CalendarPlus,
+    title: "Assign team roles and permissions",
+    description: "Configure role-based access for team members, administrators, and event coordinators.",
+    icon: Users,
   },
   {
     step: "04",
-    title: "Generate the event registration link",
-    description: "Create your unique, branded event registration URL directly in your event workspace.",
-    icon: Link2,
+    title: "Configure company card branding, sponsors and leads",
+    description: "Customize digital card branding, upload sponsor logos, and configure inbound lead management.",
+    icon: Sparkles,
   },
   {
     step: "05",
-    title: "Share the registration link with attendees",
-    description: "Distribute your registration link across invitations, emails, and promotion channels.",
-    icon: Send,
+    title: "Create and manage independent campaigns or events",
+    description: "Set up and manage independent campaigns and events tailored to each company initiative.",
+    icon: CalendarPlus,
   },
   {
     step: "06",
-    title: "Attendees complete event registration",
-    description: "Guests open the link and register in seconds on any mobile device or desktop browser.",
-    icon: UserCheck,
+    title: "Generate and share event registration links",
+    description: "Create branded event registration links to distribute across invitations and promotion channels.",
+    icon: Link2,
   },
   {
     step: "07",
-    title: "Registered attendees receive digital cards",
-    description: "Each confirmed attendee receives a digital pass containing their unique, scannable QR card.",
-    icon: QrCode,
+    title: "Guests register and become active members",
+    description: "Attendees complete a simple registration form and instantly become active event participants.",
+    icon: UserCheck,
   },
   {
     step: "08",
+    title: "Attendees receive and share digital cards",
+    description: "Guests receive their unique digital cards and can share them on LinkedIn with the event link.",
+    icon: QrCode,
+  },
+  {
+    step: "09",
     title: "Scan attendee cards and record attendance",
     description: "Event teams scan attendee cards at venue entrances to verify entry and record live attendance.",
     icon: ScanLine,
   },
 ];
 
-// ── Six Animated Features ──
+// ── Six Animated Features Enriched with Official Brochure Specifications ──
 const features = [
   {
-    title: "One-Link Registration",
-    description: "Attendees register through a single shareable event link.",
+    title: "One-Link Registration & Active Membership",
+    description: "Guests register through a simple, branded form to instantly become active event members, accessing registration in seconds from a single shareable link.",
     visual: <OneLinkIllustration />,
   },
   {
-    title: "Scannable Attendee Cards",
-    description: "Every attendee receives a digital card with a QR code that is quick to scan and share.",
+    title: "Branded Digital Cards & LinkedIn Sharing",
+    description: "Manage organization card branding. Each attendee receives a digital QR card they can share directly on LinkedIn with the event registration link.",
     visual: <ScannableCardIllustration />,
   },
   {
-    title: "QR Check-in & Attendance",
-    description: "Scan attendee QR cards to verify event entry and record attendance.",
+    title: "QR Check-in & Attendance Verification",
+    description: "Scan attendee QR cards at venue entrances through authorized check-in devices to eliminate queues and record verified attendance in real time.",
     visual: <QrCheckInIllustration />,
   },
   {
-    title: "Portals for Every Role",
-    description: "Event creators and organizations each work from their own portal.",
+    title: "Role Assignment & Permission Management",
+    description: "Dedicated portals for organization administrators, event creators, and team members with granular permission management and clear access controls.",
     visual: <RolePortalsIllustration />,
   },
   {
-    title: "Centralized Organization Management",
-    description: "Manage multiple organizations and their event activities from one place.",
+    title: "Company Panel, Sponsors & Lead Management",
+    description: "Full company-panel control after registration to oversee organization profiles, run independent campaigns, manage sponsors, and capture leads.",
     visual: <AllOrgsIllustration />,
   },
   {
-    title: "Attendee Networking",
-    description: "Help attendees make meaningful professional connections at your events and beyond.",
+    title: "Attendee Networking & Connected Community",
+    description: "Foster active participant networking where attendees use their digital cards to exchange verified professional contacts and drive post-event value.",
     visual: <GlobalNetworkingIllustration />,
   },
 ];
 
-// ── Verified Product Capability Metrics ──
+// ── Verified Ecosystem Partners (from Brochure Page 5) ──
+const partners = [
+  { name: "LEAP Pakistan" },
+  { name: "NSTP" },
+];
+
+// ── Verified Testimonials (from Brochure Page 6) ──
+const testimonials = [
+  {
+    quote: "Managing our campaign from one panel gave us complete control over our team, sponsors, and leads.",
+    author: "Aseer Abbas",
+    role: "CEO",
+    company: "LEAP Pakistan",
+    initials: "AA",
+  },
+  {
+    quote: "Role-based access made it clear who could do what, and our team worked without confusion.",
+    author: "Muzna Khan",
+    role: "CEO",
+    company: "EMRChains",
+    initials: "MK",
+  },
+  {
+    quote: "Linq gave our brand clear visibility and made our sponsorship easy to track.",
+    author: "Umer Farooq",
+    role: "CEO",
+    company: "Techvando",
+    initials: "UF",
+  },
+];
+
+// ── Official Subscription Plans (from Brochure Page 7) ──
+const subscriptionPlans = [
+  {
+    name: "Free",
+    price: "$0",
+    period: "/month",
+    description: "For small teams starting with event management",
+    highlight: false,
+    badge: null,
+    features: [
+      "1 to 10 employees",
+      "7 campaigns",
+      "50 leads per campaign",
+      "100 attendees per event",
+      "Basic roles",
+      "Standard support",
+    ],
+    ctaText: "Get Started Free",
+    ctaHref: REGISTER_URL,
+  },
+  {
+    name: "Starter",
+    price: "$30",
+    period: "/month",
+    description: "For growing organizations hosting recurring events",
+    highlight: false,
+    badge: null,
+    features: [
+      "11 to 50 employees",
+      "20 campaigns",
+      "500 leads per campaign",
+      "500 attendees per event",
+      "Full roles",
+      "Priority support",
+    ],
+    ctaText: "Choose Starter",
+    ctaHref: REGISTER_URL,
+  },
+  {
+    name: "Growth",
+    price: "$50",
+    period: "/month",
+    description: "For established companies managing high-capacity events",
+    highlight: true,
+    badge: "Most Popular",
+    features: [
+      "51 to 500 employees",
+      "50 campaigns",
+      "2,000 leads per campaign",
+      "2,500 attendees per event",
+      "Full roles",
+      "Priority support",
+    ],
+    ctaText: "Choose Growth",
+    ctaHref: REGISTER_URL,
+  },
+  {
+    name: "Enterprise",
+    price: "Custom",
+    period: "",
+    description: "For large enterprises with dedicated event infrastructure",
+    highlight: false,
+    badge: null,
+    features: [
+      "500+ employees",
+      "Unlimited campaigns",
+      "Unlimited leads",
+      "Custom attendee limits",
+      "Full roles",
+      "Dedicated support",
+    ],
+    ctaText: "Contact Us",
+    ctaHref: "mailto:info@avtive.app?subject=Linq%20Enterprise%20Plan%20Inquiry",
+  },
+];
+
+// ── Verified Platform Capacity Allowances (from Brochure Page 7) ──
 const reachMetrics = [
   {
-    value: "01",
-    label: "Connected Event Platform",
-    description: "One unified ecosystem for organizations, event creators, and attendees",
+    value: "4",
+    planTag: "All Tiers",
+    label: "Subscription Plans",
+    description: "Free, Starter, Growth, and Enterprise plans tailored for different organization sizes",
     icon: Building2,
   },
   {
-    value: "03",
-    label: "Core Services",
-    description: "One-link registration, scannable QR passes, and role-based portals",
-    icon: LayoutDashboard,
+    value: "2,500",
+    planTag: "Growth Plan Allowance",
+    label: "Attendees Per Event",
+    description: "High-capacity event check-in and attendee management, with custom limits on Enterprise",
+    icon: UserCheck,
   },
   {
-    value: "06",
-    label: "Key Platform Features",
-    description: "End-to-end tooling from shareable event links to live entrance scanning",
+    value: "50",
+    planTag: "Growth Plan Allowance",
+    label: "Campaigns Per Organization",
+    description: "Independent event campaigns managed concurrently from a single company panel",
+    icon: CalendarPlus,
+  },
+  {
+    value: "2,000",
+    planTag: "Growth Plan Allowance",
+    label: "Leads Per Campaign",
+    description: "Attendee and sponsor lead capture capacity, with unlimited leads on Enterprise",
     icon: Sparkles,
-  },
-  {
-    value: "08",
-    label: "Workflow Steps",
-    description: "A continuous guided journey from organization onboarding to event check-in",
-    icon: ScanLine,
   },
 ];
 
@@ -303,7 +423,7 @@ export default function LinqLanding() {
     const body = encodeURIComponent(
       `Full Name: ${demoName}\nWork Email: ${demoEmail}\nOrganization: ${demoOrg}\nEstimated Event Attendees: ${demoAttendees}\n\nRequested via Linq Landing Page.`
     );
-    window.location.href = `mailto:avtiveai@gmail.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:info@avtive.app?subject=${subject}&body=${body}`;
     setDemoSubmitted(true);
   };
 
@@ -317,7 +437,7 @@ export default function LinqLanding() {
 
   // Scroll spy for header active-section indication
   useEffect(() => {
-    const sectionIds = ["overview", "how-it-works", "features"];
+    const sectionIds = ["overview", "how-it-works", "features", "pricing"];
 
     const handleScroll = () => {
       if (window.scrollY < 260) {
@@ -388,6 +508,17 @@ export default function LinqLanding() {
               )}
             >
               Features
+            </a>
+            <a
+              href="#pricing"
+              className={cn(
+                "rounded-full px-4 py-2 text-sm font-medium transition-all duration-200",
+                activeSection === "pricing"
+                  ? "bg-violet-100/90 text-violet-900 font-semibold shadow-xs ring-1 ring-violet-200/80"
+                  : "text-slate-600 hover:bg-violet-50/70 hover:text-violet-700 active:text-violet-800"
+              )}
+            >
+              Pricing
             </a>
           </nav>
 
@@ -478,6 +609,21 @@ export default function LinqLanding() {
                   )}
                 >
                   Features
+                </a>
+                <a
+                  href="#pricing"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setActiveSection("pricing");
+                  }}
+                  className={cn(
+                    "rounded-xl px-4 py-3 text-base font-medium transition-colors",
+                    activeSection === "pricing"
+                      ? "bg-violet-100/90 text-violet-900 font-semibold"
+                      : "text-slate-700 hover:bg-violet-50 hover:text-violet-700"
+                  )}
+                >
+                  Pricing
                 </a>
                 <div className="mt-4 flex flex-col gap-2.5 pt-4 border-t border-violet-100/80">
                   <Button
@@ -570,7 +716,7 @@ export default function LinqLanding() {
         </div>
       </section>
 
-      {/* ───────── 3. Overview (Disc Reveal List) ───────── */}
+      {/* ───────── 3. Overview (Digital Event Management & Problem Solving) ───────── */}
       <section
         id="overview"
         className="scroll-mt-20 border-t border-violet-100/70 bg-gradient-to-b from-white via-violet-50/25 to-white px-6 py-20 sm:py-28"
@@ -578,11 +724,58 @@ export default function LinqLanding() {
         <div className="mx-auto max-w-6xl">
           <div className="mx-auto max-w-3xl text-center">
             <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
-              Everything Your Event Needs, Connected.
+              One platform for your entire event lifecycle
             </h2>
             <p className="mt-4 text-base sm:text-lg leading-relaxed text-slate-600">
-              From registration to attendee check-in, Linq simplifies the event experience for organizations, event creators, and attendees.
+              Linq is a digital event management platform that brings planning, registration, communication, and on-site operations into one integrated system. By replacing fragmented, manual workflows with real-time visibility and control, Linq helps organizations deliver well-executed events with confidence and precision.
             </p>
+          </div>
+
+          {/* Problem vs. Solution Modern Comparison Pill */}
+          <div className="mt-12 rounded-3xl border border-violet-100 bg-white/90 p-6 sm:p-8 shadow-xs backdrop-blur-xs">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
+              <div className="rounded-2xl bg-rose-50/50 p-5 sm:p-6 border border-rose-100/70">
+                <div className="flex items-center gap-2 text-rose-800 text-xs font-bold uppercase tracking-wider">
+                  <X className="size-4 text-rose-600" />
+                  Fragmented Event Challenges
+                </div>
+                <ul className="mt-3 space-y-2 text-xs sm:text-sm text-slate-700 leading-relaxed">
+                  <li className="flex items-start gap-2">
+                    <span className="text-rose-500 font-bold">•</span>
+                    <span>Spreadsheet-based event management and paper-based attendance registers</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-rose-500 font-bold">•</span>
+                    <span>Duplicate attendee records and missed communication updates</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-rose-500 font-bold">•</span>
+                    <span>Long check-in queues, scattered event information, and limited operational visibility</span>
+                  </li>
+                </ul>
+              </div>
+
+              <div className="rounded-2xl bg-[#F7F3FF] p-5 sm:p-6 border border-[#E9E0FA]">
+                <div className="flex items-center gap-2 text-[#7546C8] text-xs font-bold uppercase tracking-wider">
+                  <CheckCircle2 className="size-4 text-[#7546C8]" />
+                  The Linq Digital Platform
+                </div>
+                <ul className="mt-3 space-y-2 text-xs sm:text-sm text-slate-700 leading-relaxed">
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#7546C8] font-bold">•</span>
+                    <span>Unified company panel for organization registration, roles, and campaigns</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#7546C8] font-bold">•</span>
+                    <span>One-link registration and branded digital attendee cards with LinkedIn sharing</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[#7546C8] font-bold">•</span>
+                    <span>Instant QR-based entrance check-in with real-time operational control</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
 
           <div className="mt-14 sm:mt-16">
@@ -601,7 +794,7 @@ export default function LinqLanding() {
             How Linq Works
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-slate-600">
-            The complete event process from organization registration to digital QR card check-in and attendee networking.
+            The complete 9-stage event process from organization registration request to digital attendee cards and real-time entrance check-in.
           </p>
         </div>
         <div className="mt-14 sm:mt-16">
@@ -636,7 +829,156 @@ export default function LinqLanding() {
         </div>
       </section>
 
-      {/* ───────── 6. Reach / Impact Section (Linq in Numbers) ───────── */}
+      {/* ───────── 6. Supported By (Ecosystem Sponsorship from Brochure) ───────── */}
+      <section className="border-t border-violet-100/70 bg-gradient-to-b from-white via-violet-50/20 to-white py-16 px-6">
+        <div className="mx-auto max-w-5xl text-center">
+          <p className="text-xs font-bold tracking-widest text-[#7546C8] uppercase">
+            Supported By
+          </p>
+          <h2 className="mt-2 text-2xl font-bold tracking-tight text-[#24212B] sm:text-3xl">
+            Trusted by leading ecosystem partners
+          </h2>
+          <p className="mt-3 text-sm text-slate-600 max-w-xl mx-auto">
+            Linq is proudly sponsored by LEAP Pakistan & NSTP — reflecting trust in our platform and its potential.
+          </p>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-6 sm:gap-10">
+            {partners.map((p) => (
+              <div
+                key={p.name}
+                className="flex items-center justify-center rounded-2xl border border-violet-100 bg-white px-8 py-4.5 shadow-xs transition-transform duration-200 hover:-translate-y-0.5"
+              >
+                <span className="font-extrabold text-xl sm:text-2xl tracking-tight text-slate-800">
+                  {p.name}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ───────── 7. Testimonials (from Brochure Page 6) ───────── */}
+      <section className="border-t border-violet-100/70 bg-[#FBFAFF] py-20 sm:py-28 px-6">
+        <div className="mx-auto max-w-6xl">
+          <div className="text-center max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold tracking-tight text-[#24212B] sm:text-4xl">
+              What event leaders say about Linq
+            </h2>
+            <p className="mt-3 text-sm sm:text-base text-slate-600">
+              Verified experiences from organizations managing events, teams, and sponsorships.
+            </p>
+          </div>
+
+          <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+            {testimonials.map((t) => (
+              <div
+                key={t.author}
+                className="flex flex-col justify-between rounded-3xl border border-[#E9E0FA] bg-white p-7 shadow-xs transition-all duration-300 hover:border-[#D4C5F9] hover:shadow-md hover:-translate-y-1"
+              >
+                <div>
+                  <Quote className="size-8 text-violet-300 mb-4" />
+                  <p className="text-sm sm:text-base leading-relaxed text-slate-700 italic">
+                    "{t.quote}"
+                  </p>
+                </div>
+                <div className="mt-6 flex items-center gap-3 pt-4 border-t border-violet-100/80">
+                  <div className="grid size-10 place-items-center rounded-full bg-violet-100 text-xs font-bold text-[#7546C8]">
+                    {t.initials}
+                  </div>
+                  <div>
+                    <div className="text-sm font-bold text-slate-900">{t.author}</div>
+                    <div className="text-xs text-slate-500">{t.role}, {t.company}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ───────── 8. Subscription Plans (from Brochure Page 7) ───────── */}
+      <section
+        id="pricing"
+        className="scroll-mt-20 border-t border-violet-100/70 bg-gradient-to-b from-white via-violet-50/20 to-white py-20 sm:py-28 px-6"
+      >
+        <div className="mx-auto max-w-7xl">
+          <div className="text-center max-w-2xl mx-auto">
+            <h2 className="text-3xl font-bold tracking-tight text-[#24212B] sm:text-4xl">
+              Simple, transparent subscription plans
+            </h2>
+            <p className="mt-3 text-base text-slate-600">
+              Select the right plan capacity for your team size, campaigns, and attendee volume.
+            </p>
+          </div>
+
+          <div className="mt-14 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 lg:gap-8">
+            {subscriptionPlans.map((plan) => (
+              <div
+                key={plan.name}
+                className={cn(
+                  "relative flex flex-col justify-between rounded-3xl bg-white p-7 transition-all duration-300",
+                  plan.highlight
+                    ? "border-2 border-[#7546C8] shadow-[0_12px_36px_-6px_rgba(117,70,200,0.18)] ring-4 ring-violet-100"
+                    : "border border-[#E9E0FA] shadow-xs hover:border-[#D4C5F9] hover:shadow-md"
+                )}
+              >
+                {plan.badge && (
+                  <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-[#7546C8] px-3.5 py-1 text-[11px] font-bold text-white shadow-xs uppercase tracking-wider">
+                    {plan.badge}
+                  </span>
+                )}
+
+                <div>
+                  <h3 className="text-xl font-bold text-[#24212B]">{plan.name}</h3>
+                  <p className="mt-1 text-xs text-slate-500 leading-relaxed min-h-[36px]">
+                    {plan.description}
+                  </p>
+
+                  <div className="mt-5 flex items-baseline gap-1">
+                    <span className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+                      {plan.price}
+                    </span>
+                    {plan.period && (
+                      <span className="text-sm font-medium text-slate-500">
+                        {plan.period}
+                      </span>
+                    )}
+                  </div>
+
+                  <ul className="mt-6 space-y-3 pt-6 border-t border-violet-100/70 text-xs sm:text-sm text-slate-700">
+                    {plan.features.map((feat) => (
+                      <li key={feat} className="flex items-center gap-2.5">
+                        <Check className="size-4 text-[#7546C8] shrink-0" />
+                        <span>{feat}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="mt-8 pt-4">
+                  <Button
+                    asChild
+                    variant={plan.highlight ? "default" : "outline"}
+                    className={cn(
+                      "w-full h-11 rounded-full text-sm font-semibold transition-all duration-200",
+                      plan.highlight
+                        ? "bg-[#7546C8] hover:bg-[#6439B3] text-white shadow-sm shadow-violet-600/20"
+                        : "border-violet-200 text-[#7546C8] hover:bg-violet-50"
+                    )}
+                  >
+                    <a href={plan.ctaHref}>{plan.ctaText}</a>
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <p className="mt-8 text-center text-xs text-slate-500">
+            All prices in USD as specified in official product rate sheets. Contact our team to confirm current package availability.
+          </p>
+        </div>
+      </section>
+
+      {/* ───────── 9. Reach / Impact Section (Linq in Numbers) ───────── */}
       <section
         id="reach"
         className="scroll-mt-20 border-t border-violet-100/70 bg-gradient-to-b from-white via-violet-50/30 to-[#FBFAFF] px-6 py-20 sm:py-28"
@@ -647,7 +989,7 @@ export default function LinqLanding() {
               Linq in Numbers
             </h2>
             <p className="mt-4 text-base sm:text-lg leading-relaxed text-slate-600">
-              Bringing organizations, events and attendees together through one connected platform.
+              Flexible event management capacity for organizations of different sizes.
             </p>
           </div>
 
@@ -665,7 +1007,7 @@ export default function LinqLanding() {
                       <Icon className="size-5" />
                     </div>
                     <span className="inline-flex items-center gap-1 rounded-full bg-violet-50 px-2.5 py-1 text-[10px] font-semibold text-violet-700 border border-violet-200/60">
-                      ● Capability
+                      ● {metric.planTag}
                     </span>
                   </div>
 
@@ -842,7 +1184,7 @@ export default function LinqLanding() {
                     Demo Request Prepared
                   </h4>
                   <p className="mt-2 text-sm text-slate-600 leading-relaxed max-w-xs mx-auto">
-                    Your request details have been opened in your email client to reach the Avtive team directly.
+                    Your request details have been opened in your email client to reach the Avtive team directly at info@avtive.app.
                   </p>
                   <div className="mt-6">
                     <Button
@@ -880,7 +1222,7 @@ export default function LinqLanding() {
               { label: "Overview", href: "#overview" },
               { label: "How it works", href: "#how-it-works" },
               { label: "Features", href: "#features" },
-              { label: "Reach", href: "#reach" },
+              { label: "Pricing", href: "#pricing" },
             ],
           },
           {
@@ -889,6 +1231,14 @@ export default function LinqLanding() {
               { label: "Register organization", href: REGISTER_URL, external: true },
               { label: "Log in", href: LOGIN_URL, external: true },
               { label: "Avtive", href: AVTIVE_URL, external: true },
+            ],
+          },
+          {
+            title: "Contact",
+            links: [
+              { label: "info@avtive.app", href: "mailto:info@avtive.app", external: true },
+              { label: "+92 312 5175041", href: "tel:+923125175041", external: true },
+              { label: "linq.avtive.app", href: "https://linq.avtive.app", external: true },
             ],
           },
         ]}
