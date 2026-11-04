@@ -10,7 +10,8 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Linq — One Link. Every Connection.",
-  description: "Linq turns event registration and organization onboarding into a single step. Share one link and every attendee leaves with a scannable card.",
+  description:
+    "Linq is a B2B event registration and attendee management platform. Share one event link, issue digital QR attendee passes, and verify check-ins in real time.",
   icons: {
     icon: "/linq-logo.png",
   },

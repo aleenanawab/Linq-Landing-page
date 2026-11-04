@@ -35,8 +35,8 @@ export function OneLinkIllustration() {
             shouldReduceMotion
               ? {}
               : {
-                  x: [-3, 3, -3],
-                }
+                x: [-3, 3, -3],
+              }
           }
           transition={{ repeat: Infinity, duration: 3.2, ease: "easeInOut" }}
         >
@@ -59,8 +59,8 @@ export function OneLinkIllustration() {
             shouldReduceMotion
               ? {}
               : {
-                  x: [3, -3, 3],
-                }
+                x: [3, -3, 3],
+              }
           }
           transition={{ repeat: Infinity, duration: 3.2, ease: "easeInOut" }}
         >
@@ -88,8 +88,8 @@ export function OneLinkIllustration() {
             shouldReduceMotion
               ? {}
               : {
-                  strokeDashoffset: [0, -20],
-                }
+                strokeDashoffset: [0, -20],
+              }
           }
           transition={{ repeat: Infinity, duration: 1.8, ease: "linear" }}
         />
@@ -115,8 +115,8 @@ export function OneLinkIllustration() {
             shouldReduceMotion
               ? {}
               : {
-                  y: [-2, 2, -2],
-                }
+                y: [-2, 2, -2],
+              }
           }
           transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
         >
@@ -184,18 +184,37 @@ export function ScannableCardIllustration() {
         aria-hidden="true"
       >
         <defs>
-          <linearGradient id="cardBg" x1="0%" y1="0%" x2="0%" y2="100%">
+          <linearGradient id="attendeeCardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
             <stop offset="0%" stopColor="#FFFFFF" />
             <stop offset="100%" stopColor="#FAF7FF" />
           </linearGradient>
-          <linearGradient id="laserBeam" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="rgba(124, 58, 237, 0.4)" />
-            <stop offset="100%" stopColor="rgba(139, 92, 246, 0)" />
+          <linearGradient id="cardLaserGlow" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="rgba(117, 70, 200, 0.45)" />
+            <stop offset="100%" stopColor="rgba(117, 70, 200, 0)" />
           </linearGradient>
+          <linearGradient id="lanyardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#A78BFA" />
+            <stop offset="100%" stopColor="#7546C8" />
+          </linearGradient>
+          <filter id="laserLineGlow" x="-20%" y="-40%" width="140%" height="180%">
+            <feGaussianBlur stdDeviation="2" result="blur" />
+            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+          </filter>
         </defs>
 
         {/* Ambient background glow */}
-        <circle cx="140" cy="80" r="50" fill="#F3EDFF" opacity="0.6" />
+        <circle cx="140" cy="80" r="54" fill="#F3EDFF" opacity="0.65" />
+
+        {/* Lanyard Strap at Top */}
+        <path
+          d="M 125 0 L 133 16 M 155 0 L 147 16"
+          stroke="url(#lanyardGrad)"
+          strokeWidth="3.5"
+          strokeLinecap="round"
+        />
+        {/* Metal Clip & Slot */}
+        <rect x="131" y="14" width="18" height="6" rx="3" fill="#DDD6FE" stroke="#7546C8" strokeWidth="1" />
+        <rect x="135" y="16" width="10" height="2" rx="1" fill="#7546C8" />
 
         {/* Floating Digital Attendee Card */}
         <motion.g
@@ -203,129 +222,204 @@ export function ScannableCardIllustration() {
             shouldReduceMotion
               ? {}
               : {
-                  y: [-3, 3, -3],
-                }
+                y: [-3, 3, -3],
+              }
           }
-          transition={{ repeat: Infinity, duration: 3.6, ease: "easeInOut" }}
+          transition={{ repeat: Infinity, duration: 3.8, ease: "easeInOut" }}
         >
           {/* Card Body */}
           <rect
-            x="78"
-            y="24"
-            width="124"
-            height="112"
-            rx="14"
-            fill="url(#cardBg)"
-            stroke="#E9E0FA"
+            x="70"
+            y="20"
+            width="140"
+            height="126"
+            rx="12"
+            fill="url(#attendeeCardGrad)"
+            stroke="#D8CEF6"
             strokeWidth="1.5"
             className="shadow-md"
           />
 
-          {/* Card Header (Attendee Chip) */}
-          <circle cx="98" cy="42" r="6" fill="#EDE9FE" stroke="#7546C8" strokeWidth="1" />
-          <rect x="110" y="38" width="46" height="4" rx="2" fill="#7546C8" />
-          <rect x="110" y="45" width="28" height="3" rx="1.5" fill="#C4B5FD" />
+          {/* Top Banner */}
+          <path
+            d="M 70 30 C 70 24.5 74.5 20 80 20 L 200 20 C 205.5 20 210 24.5 210 30 L 210 35 L 70 35 Z"
+            fill="#7546C8"
+          />
+          <text
+            x="140"
+            y="30"
+            textAnchor="middle"
+            fill="#FFFFFF"
+            fontSize="6.5"
+            fontWeight="bold"
+            letterSpacing="0.8"
+          >
+            LINQ DIGITAL ATTENDEE PASS
+          </text>
 
-          {/* QR Code Container */}
+          {/* Attendee Profile Row */}
+          <g transform="translate(78, 40)">
+            {/* Avatar Circle */}
+            <circle cx="8" cy="8" r="8" fill="#EDE9FE" stroke="#C4B5FD" strokeWidth="1" />
+            <circle cx="8" cy="6.2" r="2.8" fill="#7546C8" />
+            <path d="M 3.2 13 C 3.8 10.4 5.6 9.5 8 9.5 C 10.4 9.5 12.2 10.4 12.8 13" fill="#7546C8" />
+            <circle cx="14" cy="13" r="1.8" fill="#10B981" stroke="#FFFFFF" strokeWidth="0.8" />
+
+            {/* Name & Badge Info */}
+            <text x="20" y="7" fill="#1E1435" fontSize="7" fontWeight="bold">
+              Sarah Jenkins
+            </text>
+            <text x="20" y="14" fill="#7546C8" fontSize="5" fontWeight="600">
+              Tech Summit 2026 • Verified Attendee
+            </text>
+          </g>
+
+          {/* Authentic Square QR Code Container */}
           <rect
-            x="96"
+            x="106"
             y="58"
-            width="88"
-            height="66"
-            rx="8"
+            width="68"
+            height="68"
+            rx="6"
             fill="#FFFFFF"
             stroke="#EDE9FE"
             strokeWidth="1"
           />
 
-          {/* QR Code Matrix Elements */}
-          {/* Top-Left Corner Marker */}
-          <rect x="104" y="66" width="16" height="16" rx="3" fill="#302544" />
-          <rect x="107" y="69" width="10" height="10" rx="1" fill="#FFFFFF" />
-          <rect x="109" y="71" width="6" height="6" fill="#7546C8" />
+          {/* 3 Prominent QR Corner Finder Squares (Authentic 1:1 Square QR Geometry) */}
+          {/* Top-Left Finder */}
+          <rect x="111" y="63" width="16" height="16" rx="2" fill="none" stroke="#2B1E4A" strokeWidth="2.5" />
+          <rect x="115.5" y="67.5" width="7" height="7" rx="1" fill="#7546C8" />
 
-          {/* Top-Right Corner Marker */}
-          <rect x="160" y="66" width="16" height="16" rx="3" fill="#302544" />
-          <rect x="163" y="69" width="10" height="10" rx="1" fill="#FFFFFF" />
-          <rect x="165" y="71" width="6" height="6" fill="#7546C8" />
+          {/* Top-Right Finder */}
+          <rect x="153" y="63" width="16" height="16" rx="2" fill="none" stroke="#2B1E4A" strokeWidth="2.5" />
+          <rect x="157.5" y="67.5" width="7" height="7" rx="1" fill="#7546C8" />
 
-          {/* Bottom-Left Corner Marker */}
-          <rect x="104" y="100" width="16" height="16" rx="3" fill="#302544" />
-          <rect x="107" y="103" width="10" height="10" rx="1" fill="#FFFFFF" />
-          <rect x="109" y="105" width="6" height="6" fill="#7546C8" />
+          {/* Bottom-Left Finder */}
+          <rect x="111" y="105" width="16" height="16" rx="2" fill="none" stroke="#2B1E4A" strokeWidth="2.5" />
+          <rect x="115.5" y="109.5" width="7" height="7" rx="1" fill="#7546C8" />
 
-          {/* QR Data Dots */}
-          <rect x="126" y="66" width="5" height="5" rx="1" fill="#7546C8" />
-          <rect x="135" y="66" width="5" height="5" rx="1" fill="#302544" />
-          <rect x="145" y="66" width="5" height="5" rx="1" fill="#7546C8" />
-          <rect x="126" y="76" width="5" height="5" rx="1" fill="#302544" />
-          <rect x="135" y="82" width="12" height="5" rx="1" fill="#7546C8" />
-          <rect x="150" y="82" width="5" height="12" rx="1" fill="#302544" />
-          <rect x="126" y="92" width="8" height="5" rx="1" fill="#8B5CF6" />
-          <rect x="138" y="92" width="5" height="5" rx="1" fill="#302544" />
-          <rect x="146" y="98" width="8" height="5" rx="1" fill="#7546C8" />
-          <rect x="126" y="104" width="5" height="10" rx="1" fill="#302544" />
-          <rect x="135" y="108" width="12" height="5" rx="1" fill="#8B5CF6" />
-          <rect x="156" y="108" width="5" height="5" rx="1" fill="#7546C8" />
+          {/* Central QR Data Grid Patterns */}
+          <rect x="130" y="64" width="4.5" height="4.5" rx="0.8" fill="#2B1E4A" />
+          <rect x="138" y="64" width="4.5" height="8" rx="0.8" fill="#7546C8" />
+          <rect x="146" y="64" width="4.5" height="4.5" rx="0.8" fill="#2B1E4A" />
 
-          {/* Laser Scanner Sweep Beam */}
+          <rect x="130" y="73" width="4.5" height="8" rx="0.8" fill="#7546C8" />
+          <rect x="146" y="73" width="4.5" height="4.5" rx="0.8" fill="#7546C8" />
+
+          <rect x="130" y="85" width="4.5" height="4.5" rx="0.8" fill="#2B1E4A" />
+          <rect x="138" y="76" width="4.5" height="4.5" rx="0.8" fill="#2B1E4A" />
+          <rect x="138" y="84" width="4.5" height="8" rx="0.8" fill="#7546C8" />
+          <rect x="146" y="82" width="4.5" height="8" rx="0.8" fill="#2B1E4A" />
+
+          <rect x="130" y="94" width="4.5" height="8" rx="0.8" fill="#7546C8" />
+          <rect x="138" y="96" width="4.5" height="4.5" rx="0.8" fill="#2B1E4A" />
+          <rect x="146" y="94" width="4.5" height="4.5" rx="0.8" fill="#7546C8" />
+
+          {/* Bottom-Right Quadrant Modules */}
+          <rect x="153" y="84" width="4.5" height="4.5" rx="0.8" fill="#2B1E4A" />
+          <rect x="162" y="84" width="4.5" height="8" rx="0.8" fill="#7546C8" />
+          <rect x="153" y="92" width="8" height="4.5" rx="0.8" fill="#7546C8" />
+          <rect x="153" y="100" width="4.5" height="8" rx="0.8" fill="#2B1E4A" />
+          <rect x="162" y="100" width="4.5" height="4.5" rx="0.8" fill="#7546C8" />
+          <rect x="153" y="112" width="12" height="4.5" rx="0.8" fill="#2B1E4A" />
+
+          {/* Bottom timing strip */}
+          <rect x="130" y="106" width="4.5" height="4.5" rx="0.8" fill="#2B1E4A" />
+          <rect x="138" y="105" width="4.5" height="8" rx="0.8" fill="#2B1E4A" />
+          <rect x="146" y="103" width="4.5" height="8" rx="0.8" fill="#2B1E4A" />
+          <rect x="130" y="115" width="4.5" height="4.5" rx="0.8" fill="#7546C8" />
+          <rect x="138" y="117" width="4.5" height="4.5" rx="0.8" fill="#7546C8" />
+          <rect x="146" y="115" width="4.5" height="4.5" rx="0.8" fill="#7546C8" />
+
+          {/* Subtitle at Bottom of Card */}
+          <text
+            x="140"
+            y="136"
+            textAnchor="middle"
+            fill="#7546C8"
+            fontSize="5"
+            fontWeight="bold"
+            letterSpacing="0.6"
+            fontFamily="monospace"
+          >
+            SCAN FOR ENTRY & NETWORKING
+          </text>
+
+          {/* Scanner Targeting Corner Brackets around Square QR */}
+          <path d="M 101 68 L 101 56 L 112 56" stroke="#7546C8" strokeWidth="1.8" strokeLinecap="round" />
+          <path d="M 179 68 L 179 56 L 168 56" stroke="#7546C8" strokeWidth="1.8" strokeLinecap="round" />
+          <path d="M 101 118 L 101 129 L 112 129" stroke="#7546C8" strokeWidth="1.8" strokeLinecap="round" />
+          <path d="M 179 118 L 179 129 L 168 129" stroke="#7546C8" strokeWidth="1.8" strokeLinecap="round" />
+
+          {/* Animated Sweeping Laser Beam across Square QR */}
           {!shouldReduceMotion && (
-            <>
-              {/* Soft beam gradient */}
-              <motion.rect
-                x="96"
-                width="88"
-                height="16"
-                fill="url(#laserBeam)"
-                animate={{
-                  y: [58, 110, 58],
-                }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 2.2,
-                  ease: "easeInOut",
-                }}
+            <motion.g
+              animate={{
+                y: [60, 122, 60],
+              }}
+              transition={{
+                repeat: Infinity,
+                duration: 2.2,
+                ease: "easeInOut",
+              }}
+            >
+              {/* Laser glow field */}
+              <rect
+                x="104"
+                y="-5"
+                width="72"
+                height="10"
+                fill="url(#cardLaserGlow)"
               />
               {/* Sharp laser line */}
-              <motion.line
-                x1="94"
-                x2="186"
+              <line
+                x1="104"
+                y1="0"
+                x2="176"
+                y2="0"
                 stroke="#8B5CF6"
                 strokeWidth="2"
-                strokeLinecap="round"
-                animate={{
-                  y1: [58, 124, 58],
-                  y2: [58, 124, 58],
-                }}
-                transition={{
-                  repeat: Infinity,
-                  duration: 2.2,
-                  ease: "easeInOut",
-                }}
+                filter="url(#laserLineGlow)"
               />
-            </>
+              <circle cx="140" cy="0" r="1.5" fill="#FFFFFF" />
+            </motion.g>
           )}
 
-          {/* Verified Success Badge */}
+          {/* Floating Verified Check-in Badge on Top Right */}
           <motion.g
             animate={
               shouldReduceMotion
                 ? {}
                 : {
-                    scale: [0.94, 1.06, 0.94],
-                  }
+                  scale: [0.96, 1.05, 0.96],
+                }
             }
-            transition={{ repeat: Infinity, duration: 2.5, ease: "easeInOut" }}
+            transition={{ repeat: Infinity, duration: 2.6, ease: "easeInOut" }}
           >
-            <circle cx="192" cy="30" r="9" fill="#7546C8" stroke="#FFFFFF" strokeWidth="2" />
+            <rect
+              x="184"
+              y="12"
+              width="60"
+              height="18"
+              rx="9"
+              fill="#FFFFFF"
+              stroke="#A7F3D0"
+              strokeWidth="1.2"
+              className="shadow-sm"
+            />
+            <circle cx="194" cy="21" r="5" fill="#10B981" />
             <path
-              d="M 188 30 L 191 33 L 196 28"
+              d="M 191.5 21 L 193.5 23 L 196.5 19"
               fill="none"
               stroke="#FFFFFF"
-              strokeWidth="1.8"
+              strokeWidth="1.3"
               strokeLinecap="round"
               strokeLinejoin="round"
             />
+            <text x="221" y="24" textAnchor="middle" fill="#065F46" fontSize="6" fontWeight="bold">
+              ADMITTED ✓
+            </text>
           </motion.g>
         </motion.g>
       </svg>
@@ -364,8 +458,8 @@ export function OrgOnboardingIllustration() {
             shouldReduceMotion
               ? {}
               : {
-                  y: [-2, 2, -2],
-                }
+                y: [-2, 2, -2],
+              }
           }
           transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
         >
@@ -571,8 +665,8 @@ export function QrCheckInIllustration() {
             shouldReduceMotion
               ? {}
               : {
-                  y: [-2, 2, -2],
-                }
+                y: [-2, 2, -2],
+              }
           }
           transition={{ repeat: Infinity, duration: 4.2, ease: "easeInOut" }}
         >
@@ -699,9 +793,9 @@ export function QrCheckInIllustration() {
             shouldReduceMotion
               ? {}
               : {
-                  y: [2, -2, 2],
-                  scale: [0.98, 1.02, 0.98],
-                }
+                y: [2, -2, 2],
+                scale: [0.98, 1.02, 0.98],
+              }
           }
           transition={{ repeat: Infinity, duration: 3.6, ease: "easeInOut", delay: 0.2 }}
         >
@@ -720,7 +814,7 @@ export function QrCheckInIllustration() {
 
           {/* Verified Header Pill */}
           <rect x="168" y="48" width="84" height="20" rx="10" fill="#ECFDF5" stroke="#A7F3D0" strokeWidth="1" />
-          
+
           {/* Animated Green Checkmark Pulse */}
           <motion.circle
             cx="180"
@@ -731,8 +825,8 @@ export function QrCheckInIllustration() {
               shouldReduceMotion
                 ? {}
                 : {
-                    scale: [1, 1.15, 1],
-                  }
+                  scale: [1, 1.15, 1],
+                }
             }
             transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
           />
@@ -834,8 +928,8 @@ export function RolePortalsIllustration() {
             shouldReduceMotion
               ? {}
               : {
-                  y: [-2, 2, -2],
-                }
+                y: [-2, 2, -2],
+              }
           }
           transition={{ repeat: Infinity, duration: 4.2, ease: "easeInOut" }}
         >
@@ -1135,8 +1229,8 @@ export function AllOrgsIllustration() {
             shouldReduceMotion
               ? {}
               : {
-                  scale: [0.97, 1.03, 0.97],
-                }
+                scale: [0.97, 1.03, 0.97],
+              }
           }
           transition={{ repeat: Infinity, duration: 3.5, ease: "easeInOut" }}
         >
