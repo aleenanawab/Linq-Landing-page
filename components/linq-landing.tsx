@@ -3,11 +3,20 @@
 import { useState, useEffect } from "react";
 import {
   Building2,
+  Calendar,
+  CalendarPlus,
+  CheckCircle2,
+  LayoutDashboard,
   Link2,
   Menu,
   QrCode,
+  ScanLine,
+  Send,
   Sparkles,
   ArrowRight,
+  UserCheck,
+  UserPlus,
+  Users,
   X,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -124,74 +133,125 @@ const discRevealItems: DiscRevealItem[] = [
   },
 ];
 
-// ── How It Works Steps ──
-const steps: StepItem[] = [
+// ── Complete Linq Event Workflow (A-to-Z 10-Step Lifecycle) ──
+const completeWorkflowSteps: StepItem[] = [
   {
     step: "01",
-    tagline: "Organization Setup",
-    title: "Set Up Your Organization",
-    description: "Register your organization and access its dedicated Linq portal to get started.",
-    icon: Building2,
+    title: "Create your Linq account",
+    description: "Sign up with your credentials to initialize your account on the Linq platform.",
+    icon: UserPlus,
   },
   {
     step: "02",
-    tagline: "One Event Link",
-    title: "Share One Event Link",
-    description: "Create and share a single registration link so attendees can easily sign up for your event.",
-    icon: Link2,
+    title: "Register your organization",
+    description: "Submit your organization name, profile, and branding in a single onboarding step.",
+    icon: Building2,
   },
   {
     step: "03",
-    tagline: "Attendee Check-in",
-    title: "Scan Attendee Cards",
-    description: "Give attendees their QR-based cards and scan them to verify entry and record event attendance.",
+    title: "Access your organization portal",
+    description: "Open your dedicated portal to view past events, active registrations, and team settings.",
+    icon: LayoutDashboard,
+  },
+  {
+    step: "04",
+    title: "Set up your event",
+    description: "Configure your event schedule, dates, venue, attendee limits, and ticketing details.",
+    icon: CalendarPlus,
+  },
+  {
+    step: "05",
+    title: "Generate the event registration link",
+    description: "Create your unique, branded event registration URL directly in your event workspace.",
+    icon: Link2,
+  },
+  {
+    step: "06",
+    title: "Share the registration link with attendees",
+    description: "Distribute your registration link across invitations, emails, and promotion channels.",
+    icon: Send,
+  },
+  {
+    step: "07",
+    title: "Attendees complete event registration",
+    description: "Guests open the link and register in seconds on any mobile device or desktop browser.",
+    icon: UserCheck,
+  },
+  {
+    step: "08",
+    title: "Registered attendees receive digital cards",
+    description: "Each confirmed attendee receives a digital pass containing their unique, scannable QR card.",
     icon: QrCode,
+  },
+  {
+    step: "09",
+    title: "Scan attendee cards and record attendance",
+    description: "Event teams scan attendee cards at venue entrances to verify entry and record live attendance.",
+    icon: ScanLine,
+  },
+  {
+    step: "10",
+    title: "Enable attendees to connect and network",
+    description: "Attendees use their digital cards to exchange contacts and build valuable relationships.",
+    icon: Users,
   },
 ];
 
 // ── Six Animated Features ──
 const features = [
   {
-    index: "001",
-    tag: "EVENT REGISTRATION",
     title: "One-Link Registration",
     description: "Attendees register through a single shareable event link.",
     visual: <OneLinkIllustration />,
   },
   {
-    index: "002",
-    tag: "ATTENDEE PASSES",
     title: "Scannable Attendee Cards",
     description: "Every attendee receives a digital card with a QR code that is quick to scan and share.",
     visual: <ScannableCardIllustration />,
   },
   {
-    index: "003",
-    tag: "ATTENDANCE TRACKING",
     title: "QR Check-in & Attendance",
     description: "Scan attendee QR cards to verify event entry and record attendance.",
     visual: <QrCheckInIllustration />,
   },
   {
-    index: "004",
-    tag: "DEDICATED PORTALS",
     title: "Portals for Every Role",
     description: "Event creators and organizations each work from their own portal.",
     visual: <RolePortalsIllustration />,
   },
   {
-    index: "005",
-    tag: "ORGANIZATION SUITE",
     title: "Centralized Organization Management",
     description: "Manage multiple organizations and their event activities from one place.",
     visual: <AllOrgsIllustration />,
   },
   {
-    index: "006",
-    tag: "EVENT NETWORKING",
     title: "Attendee Networking",
     description: "Help attendees make meaningful professional connections at your events and beyond.",
     visual: <GlobalNetworkingIllustration />,
+  },
+];
+
+// ── Verified Reach Metrics Structure ──
+const reachMetrics = [
+  {
+    label: "Total Registered Organizations",
+    description: "Organizations and enterprises managing portals on Linq",
+    icon: Building2,
+  },
+  {
+    label: "Total Events Created",
+    description: "Conferences, summits, and business events powered by Linq",
+    icon: Calendar,
+  },
+  {
+    label: "Total Attendee Registrations",
+    description: "Attendees registered through one-link event flows",
+    icon: UserCheck,
+  },
+  {
+    label: "Total QR Check-ins Recorded",
+    description: "Real-time verified admissions at venue entrance gates",
+    icon: ScanLine,
   },
 ];
 
@@ -220,11 +280,57 @@ export default function LinqLanding() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
 
+  // Book a Demo Modal State
+  const [isDemoModalOpen, setIsDemoModalOpen] = useState(false);
+  const [demoName, setDemoName] = useState("");
+  const [demoEmail, setDemoEmail] = useState("");
+  const [demoOrg, setDemoOrg] = useState("");
+  const [demoAttendees, setDemoAttendees] = useState("100 - 500 attendees");
+  const [demoSubmitted, setDemoSubmitted] = useState(false);
+  const [demoError, setDemoError] = useState("");
+
+  // Handle escape key to close demo modal
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isDemoModalOpen) {
+        setIsDemoModalOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isDemoModalOpen]);
+
+  // Handle demo request submission
+  const handleDemoSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!demoName.trim() || !demoEmail.trim() || !demoOrg.trim()) {
+      setDemoError("Please fill out all required fields.");
+      return;
+    }
+    setDemoError("");
+
+    // Dispatch via official Avtive contact destination
+    const subject = encodeURIComponent(`Linq Demo Request: ${demoOrg}`);
+    const body = encodeURIComponent(
+      `Full Name: ${demoName}\nWork Email: ${demoEmail}\nOrganization: ${demoOrg}\nEstimated Event Attendees: ${demoAttendees}\n\nRequested via Linq Landing Page.`
+    );
+    window.location.href = `mailto:avtiveai@gmail.com?subject=${subject}&body=${body}`;
+    setDemoSubmitted(true);
+  };
+
+  const resetDemoModal = () => {
+    setIsDemoModalOpen(false);
+    setTimeout(() => {
+      setDemoSubmitted(false);
+      setDemoError("");
+    }, 200);
+  };
+
+  // Scroll spy for header active-section indication
   useEffect(() => {
     const sectionIds = ["overview", "how-it-works", "features"];
 
     const handleScroll = () => {
-      // If user is at the hero section near top, reset active indication
       if (window.scrollY < 260) {
         setActiveSection("");
         return;
@@ -417,7 +523,7 @@ export default function LinqLanding() {
           className="bottom-0 top-auto h-[44%] md:h-[48%] pointer-events-none z-0"
         />
 
-        {/* Hero Content (Positioned cleanly in upper half with crisp contrast, zero rectangular blur or white panel) */}
+        {/* Hero Content (Cleanly positioned with crisp contrast, zero rectangular blur or white panel) */}
         <div className="relative z-20 mx-auto w-full max-w-7xl px-6 pt-12 sm:pt-16 lg:pt-20 pb-32 md:pb-40">
           <HeroSection4Animation className="relative max-w-3xl">
             {/* Tagline Badge */}
@@ -482,10 +588,7 @@ export default function LinqLanding() {
       >
         <div className="mx-auto max-w-6xl">
           <div className="mx-auto max-w-3xl text-center">
-            <div className="inline-flex items-center gap-1.5 rounded-full bg-violet-100/80 px-3.5 py-1 text-xs font-semibold text-violet-700">
-              <span>Platform Overview</span>
-            </div>
-            <h2 className="mt-4 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl lg:text-5xl">
               Everything Your Event Needs, Connected.
             </h2>
             <p className="mt-4 text-base sm:text-lg leading-relaxed text-slate-600">
@@ -499,24 +602,21 @@ export default function LinqLanding() {
         </div>
       </section>
 
-      {/* ───────── 4. How It Works (Three-Step Timeline) ───────── */}
+      {/* ───────── 4. How It Works (Complete 10-Step Lifecycle) ───────── */}
       <section
         id="how-it-works"
         className="scroll-mt-20 border-t border-violet-100/60 bg-white px-6 py-20 sm:py-28"
       >
         <div className="mx-auto max-w-5xl text-center">
-          <div className="inline-flex items-center gap-1.5 rounded-full bg-violet-100/80 px-3.5 py-1 text-xs font-semibold text-violet-700">
-            <span>Three-Step Workflow</span>
-          </div>
-          <h2 className="mt-4 text-3xl font-bold tracking-tight text-[#24212B] sm:text-4xl">
-            From Registration to Check-in in Three Steps.
+          <h2 className="text-3xl font-bold tracking-tight text-[#24212B] sm:text-4xl">
+            How Linq Works
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-slate-600">
-            Set up your organization, share one event link, and manage attendee check-in through scannable digital cards.
+            The complete event process from organization registration to digital QR card check-in and attendee networking.
           </p>
         </div>
         <div className="mt-14 sm:mt-16">
-          <HowItWorks features={steps} />
+          <HowItWorks steps={completeWorkflowSteps} />
         </div>
       </section>
 
@@ -527,10 +627,7 @@ export default function LinqLanding() {
       >
         <div className="mx-auto max-w-5xl">
           <div className="text-center">
-            <div className="inline-flex items-center gap-1.5 rounded-full bg-violet-100/80 px-3.5 py-1 text-xs font-semibold text-violet-700">
-              <span>Core Capabilities</span>
-            </div>
-            <h2 className="mt-4 text-3xl font-bold tracking-tight text-[#24212B] sm:text-4xl">
+            <h2 className="text-3xl font-bold tracking-tight text-[#24212B] sm:text-4xl">
               Built for organizations and event creators
             </h2>
             <p className="mx-auto mt-4 max-w-lg text-slate-600">
@@ -541,8 +638,6 @@ export default function LinqLanding() {
             {features.map((feature) => (
               <AnimatedFeatureCard
                 key={feature.title}
-                index={feature.index}
-                tag={feature.tag}
                 title={feature.title}
                 description={feature.description}
                 visual={feature.visual}
@@ -552,7 +647,232 @@ export default function LinqLanding() {
         </div>
       </section>
 
-      {/* ───────── 6. Footer (Minimal String Tie Envelope Footer) ───────── */}
+      {/* ───────── 6. Reach / Impact Section (Linq in Numbers) ───────── */}
+      <section
+        id="reach"
+        className="scroll-mt-20 border-t border-violet-100/70 bg-gradient-to-b from-white via-violet-50/30 to-[#FBFAFF] px-6 py-20 sm:py-28"
+      >
+        <div className="mx-auto max-w-6xl">
+          <div className="mx-auto max-w-2xl text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+              Linq in Numbers
+            </h2>
+            <p className="mt-4 text-base sm:text-lg leading-relaxed text-slate-600">
+              Bringing organizations, events and attendees together through one connected platform.
+            </p>
+          </div>
+
+          {/* 4 Metric Cards */}
+          <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {reachMetrics.map((metric) => {
+              const Icon = metric.icon;
+              return (
+                <div
+                  key={metric.label}
+                  className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-[#E9E0FA] bg-white p-6 shadow-[0_4px_20px_-4px_rgba(124,58,237,0.04)] transition-all duration-300 hover:border-[#D4C5F9] hover:shadow-[0_12px_28px_-6px_rgba(124,58,237,0.1)]"
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="grid size-11 place-items-center rounded-2xl bg-violet-50 text-[#7546C8] ring-1 ring-violet-200/70">
+                      <Icon className="size-5" />
+                    </div>
+                    <span className="inline-flex items-center gap-1 rounded-full bg-violet-50 px-2.5 py-1 text-[10px] font-semibold text-violet-700 border border-violet-200/60">
+                      ● Live Platform
+                    </span>
+                  </div>
+
+                  <div className="mt-8">
+                    <div className="text-2xl sm:text-3xl font-extrabold text-[#24212B] tracking-tight">
+                      —
+                    </div>
+                    <h3 className="mt-2 text-sm font-semibold text-slate-900 leading-tight">
+                      {metric.label}
+                    </h3>
+                    <p className="mt-1 text-xs leading-relaxed text-slate-500">
+                      {metric.description}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Book a Demo CTA Action */}
+          <div className="mt-16 text-center">
+            <Button
+              type="button"
+              onClick={() => setIsDemoModalOpen(true)}
+              size="lg"
+              className="h-12 rounded-full bg-[#7546C8] hover:bg-[#6439B3] px-9 text-base font-semibold text-white shadow-md shadow-violet-600/25 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0"
+            >
+              Book a Demo
+            </Button>
+            <p className="mt-3 text-xs text-slate-500">
+              Prefer self-service?{" "}
+              <a href={REGISTER_URL} className="text-violet-700 font-semibold hover:underline">
+                Register your organization directly
+              </a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ───────── Book a Demo Modal Dialog ───────── */}
+      <AnimatePresence>
+        {isDemoModalOpen && (
+          <div
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="demo-modal-title"
+          >
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={resetDemoModal}
+              className="fixed inset-0 bg-slate-950/60 backdrop-blur-xs"
+              aria-hidden="true"
+            />
+
+            {/* Modal Dialog Body */}
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 15 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 15 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="relative z-10 w-full max-w-lg rounded-3xl border border-violet-100 bg-white p-6 sm:p-8 shadow-2xl shadow-violet-950/20 my-auto"
+            >
+              {/* Close Button */}
+              <button
+                type="button"
+                onClick={resetDemoModal}
+                className="absolute right-5 top-5 inline-flex size-9 items-center justify-center rounded-full text-slate-400 hover:bg-violet-50 hover:text-slate-700 transition-colors"
+                aria-label="Close modal"
+              >
+                <X className="size-5" />
+              </button>
+
+              {!demoSubmitted ? (
+                <>
+                  <div className="pr-8">
+                    <h3 id="demo-modal-title" className="text-2xl font-bold tracking-tight text-slate-900">
+                      Book Your Linq Demo
+                    </h3>
+                    <p className="mt-1.5 text-sm text-slate-600 leading-relaxed">
+                      Tell us a little about your organization and our team can help you explore Linq.
+                    </p>
+                  </div>
+
+                  <form onSubmit={handleDemoSubmit} className="mt-6 space-y-4">
+                    {demoError && (
+                      <div className="rounded-xl bg-rose-50 border border-rose-200 p-3 text-xs font-semibold text-rose-700">
+                        {demoError}
+                      </div>
+                    )}
+
+                    <div>
+                      <label htmlFor="modal-name" className="block text-xs font-semibold text-slate-700 uppercase tracking-wider">
+                        Full Name <span className="text-rose-500">*</span>
+                      </label>
+                      <input
+                        id="modal-name"
+                        type="text"
+                        required
+                        value={demoName}
+                        onChange={(e) => setDemoName(e.target.value)}
+                        placeholder="e.g. Sarah Jenkins"
+                        className="mt-1.5 w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-violet-500 focus:outline-hidden focus:ring-2 focus:ring-violet-200"
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="modal-email" className="block text-xs font-semibold text-slate-700 uppercase tracking-wider">
+                        Work Email <span className="text-rose-500">*</span>
+                      </label>
+                      <input
+                        id="modal-email"
+                        type="email"
+                        required
+                        value={demoEmail}
+                        onChange={(e) => setDemoEmail(e.target.value)}
+                        placeholder="name@organization.com"
+                        className="mt-1.5 w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-violet-500 focus:outline-hidden focus:ring-2 focus:ring-violet-200"
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="modal-org" className="block text-xs font-semibold text-slate-700 uppercase tracking-wider">
+                        Organization Name <span className="text-rose-500">*</span>
+                      </label>
+                      <input
+                        id="modal-org"
+                        type="text"
+                        required
+                        value={demoOrg}
+                        onChange={(e) => setDemoOrg(e.target.value)}
+                        placeholder="e.g. Acme Tech Summit"
+                        className="mt-1.5 w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-violet-500 focus:outline-hidden focus:ring-2 focus:ring-violet-200"
+                      />
+                    </div>
+
+                    <div>
+                      <label htmlFor="modal-attendees" className="block text-xs font-semibold text-slate-700 uppercase tracking-wider">
+                        Estimated Event Attendees
+                      </label>
+                      <select
+                        id="modal-attendees"
+                        value={demoAttendees}
+                        onChange={(e) => setDemoAttendees(e.target.value)}
+                        className="mt-1.5 w-full rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm text-slate-900 focus:border-violet-500 focus:outline-hidden focus:ring-2 focus:ring-violet-200"
+                      >
+                        <option value="Under 100 attendees">Under 100 attendees</option>
+                        <option value="100 - 500 attendees">100 - 500 attendees</option>
+                        <option value="500 - 2,000 attendees">500 - 2,000 attendees</option>
+                        <option value="2,000+ attendees">2,000+ attendees</option>
+                      </select>
+                    </div>
+
+                    <div className="pt-2">
+                      <Button
+                        type="submit"
+                        className="h-11 w-full rounded-xl bg-[#7546C8] hover:bg-[#6439B3] text-sm font-semibold text-white shadow-sm shadow-violet-600/20"
+                      >
+                        Request a Demo
+                      </Button>
+                    </div>
+                  </form>
+                </>
+              ) : (
+                <div className="py-4 text-center">
+                  <div className="mx-auto flex size-12 items-center justify-center rounded-full bg-emerald-100 text-emerald-600">
+                    <CheckCircle2 className="size-6" />
+                  </div>
+                  <h4 className="mt-4 text-xl font-bold text-slate-900">
+                    Demo Request Prepared
+                  </h4>
+                  <p className="mt-2 text-sm text-slate-600 leading-relaxed max-w-xs mx-auto">
+                    Your request details have been opened in your email client to reach the Avtive team directly.
+                  </p>
+                  <div className="mt-6">
+                    <Button
+                      type="button"
+                      onClick={resetDemoModal}
+                      variant="outline"
+                      className="rounded-full px-6 text-sm font-semibold"
+                    >
+                      Close Window
+                    </Button>
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      {/* ───────── 7. Footer (Minimal String Tie Envelope Footer) ───────── */}
       <StringTieFooter
         logo={<Logo />}
         title="Linq"
@@ -570,6 +890,7 @@ export default function LinqLanding() {
               { label: "Overview", href: "#overview" },
               { label: "How it works", href: "#how-it-works" },
               { label: "Features", href: "#features" },
+              { label: "Reach", href: "#reach" },
             ],
           },
           {

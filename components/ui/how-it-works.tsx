@@ -14,10 +14,10 @@ export interface StepItem {
 }
 
 export interface StepPosition {
-  top?: string;
-  left?: string;
-  right?: string;
-  bottom?: string;
+  top?: string | number;
+  left?: string | number;
+  right?: string | number;
+  bottom?: string | number;
   rotation?: number;
 }
 
@@ -31,89 +31,152 @@ export interface HowItWorksProps {
 export const defaultLinqSteps: StepItem[] = [
   {
     step: "01",
-    tagline: "Organization Onboarding",
     title: "Register your organization",
     description: "Set up your organization once. Linq handles onboarding in a single step.",
     icon: Building2,
   },
   {
     step: "02",
-    tagline: "One-Link Event Registration",
     title: "Share one event link",
     description: "Send attendees a single link to register for your event.",
     icon: Link2,
   },
   {
     step: "03",
-    tagline: "Attendee Networking",
     title: "Attendees get scannable cards",
     description: "Each attendee generates a card that others can scan to connect.",
     icon: QrCode,
   },
 ];
 
-const defaultDesktopPositions: StepPosition[] = [
-  { top: "0%", left: "4%", rotation: -1.2 },
-  { top: "28%", right: "4%", rotation: 1.5 },
-  { top: "58%", left: "14%", rotation: -0.8 },
-];
-
 export function HowItWorks({
   features,
   steps,
   className,
-  stepPositions = defaultDesktopPositions,
+  stepPositions,
 }: HowItWorksProps) {
   const items = features || steps || defaultLinqSteps;
   const shouldReduceMotion = useReducedMotion();
+  const count = items.length;
+
+  // Stagger height between alternating zigzag rows on desktop
+  const rowHeight = 168;
+  const topPadding = 15;
+  const totalHeight = Math.max(560, (count - 1) * rowHeight + 220);
+
+  // Generate dynamic sinusoidal connecting path across all steps
+  let svgPath = "";
+  if (count > 1) {
+    for (let i = 0; i < count - 1; i++) {
+      const isCurrLeft = i % 2 === 0;
+      const currX = isCurrLeft ? 280 : 720;
+      const currY = i * rowHeight + 85;
+
+      const isNextLeft = (i + 1) % 2 === 0;
+      const nextX = isNextLeft ? 280 : 720;
+      const nextY = (i + 1) * rowHeight + 85;
+
+      // Horizontal bezier control points
+      const spanX = nextX - currX;
+      const cp1X = currX + spanX * 0.45;
+      const cp1Y = currY + 10;
+      const cp2X = nextX - spanX * 0.45;
+      const cp2Y = nextY - 10;
+
+      if (i === 0) {
+        svgPath = `M ${currX} ${currY} C ${cp1X} ${cp1Y}, ${cp2X} ${cp2Y}, ${nextX} ${nextY}`;
+      } else {
+        svgPath += ` C ${cp1X} ${cp1Y}, ${cp2X} ${cp2Y}, ${nextX} ${nextY}`;
+      }
+    }
+  }
 
   return (
     <LazyMotion features={domAnimation}>
       <div className={cn("relative mx-auto w-full max-w-5xl", className)}>
         {/* ── Desktop Connected Zigzag Timeline (>= md) ── */}
-        <div className="hidden md:block relative w-full min-h-[560px] lg:min-h-[580px]">
-          {/* Subtle curved dashed SVG connector line */}
-          <svg
-            className="pointer-events-none absolute inset-0 h-full w-full -z-0 overflow-visible"
-            viewBox="0 0 1000 580"
-            fill="none"
-            preserveAspectRatio="none"
-          >
-            {/* Background static dashed guide */}
-            <path
-              d="M 320 100 C 560 100, 580 230, 670 230 C 740 230, 710 350, 580 380 C 490 400, 440 400, 410 420"
-              stroke="#E9E0FA"
-              strokeWidth="2.5"
-              strokeDasharray="6 8"
-              strokeLinecap="round"
-              vectorEffect="non-scaling-stroke"
-            />
+        <div
+          className="hidden md:block relative w-full"
+          style={{ height: `${totalHeight}px` }}
+        >
+          {/* Dynamically generated SVG connector line connecting all steps */}
+          {count > 1 && (
+            <svg
+              className="pointer-events-none absolute inset-0 h-full w-full -z-0 overflow-visible"
+              viewBox={`0 0 1000 ${totalHeight}`}
+              fill="none"
+              preserveAspectRatio="none"
+            >
+              {/* Static background dashed guide line */}
+              <path
+                d={svgPath}
+                stroke="#E9E0FA"
+                strokeWidth="2.5"
+                strokeDasharray="6 8"
+                strokeLinecap="round"
+                vectorEffect="non-scaling-stroke"
+              />
 
-            {/* Animated dashed line overlay */}
-            <m.path
-              d="M 320 100 C 560 100, 580 230, 670 230 C 740 230, 710 350, 580 380 C 490 400, 440 400, 410 420"
-              stroke="#C4B5FD"
-              strokeWidth="2.5"
-              strokeDasharray="6 8"
-              strokeLinecap="round"
-              vectorEffect="non-scaling-stroke"
-              initial={{ strokeDashoffset: 0 }}
-              animate={
-                shouldReduceMotion
-                  ? { strokeDashoffset: 0 }
-                  : { strokeDashoffset: -28 }
-              }
-              transition={
-                shouldReduceMotion
-                  ? { duration: 0 }
-                  : { repeat: Infinity, duration: 2.8, ease: "linear" }
-              }
-            />
-          </svg>
+              {/* Animated pulsing dashed line */}
+              <m.path
+                d={svgPath}
+                stroke="#C4B5FD"
+                strokeWidth="2.5"
+                strokeDasharray="6 8"
+                strokeLinecap="round"
+                vectorEffect="non-scaling-stroke"
+                initial={{ strokeDashoffset: 0 }}
+                animate={
+                  shouldReduceMotion
+                    ? { strokeDashoffset: 0 }
+                    : { strokeDashoffset: -28 }
+                }
+                transition={
+                  shouldReduceMotion
+                    ? { duration: 0 }
+                    : { repeat: Infinity, duration: 2.8, ease: "linear" }
+                }
+              />
 
-          {/* Connected Floating Cards in Zigzag Pattern */}
-          {items.slice(0, 3).map((item, index) => {
-            const pos = stepPositions[index] || defaultDesktopPositions[index];
+              {/* Step Anchor Nodes */}
+              {items.map((_, idx) => {
+                const isLeft = idx % 2 === 0;
+                const nodeX = isLeft ? 280 : 720;
+                const nodeY = idx * rowHeight + 85;
+                return (
+                  <circle
+                    key={idx}
+                    cx={nodeX}
+                    cy={nodeY}
+                    r="4.5"
+                    fill="#7546C8"
+                    stroke="#FFFFFF"
+                    strokeWidth="2"
+                    className="shadow-xs"
+                  />
+                );
+              })}
+            </svg>
+          )}
+
+          {/* Connected Floating Cards in Zigzag Pattern for ALL Workflow Steps */}
+          {items.map((item, index) => {
+            const isLeft = index % 2 === 0;
+            const top = index * rowHeight + topPadding;
+            const customPos = stepPositions?.[index];
+
+            const left = customPos?.left ?? (isLeft ? "4%" : undefined);
+            const right = customPos?.right ?? (!isLeft ? "4%" : undefined);
+            const rotation =
+              customPos?.rotation ??
+              (isLeft
+                ? index % 4 === 0
+                  ? -1.2
+                  : -0.8
+                : index % 4 === 1
+                ? 1.4
+                : 1.0);
+
             const Icon = item.icon;
 
             return (
@@ -123,45 +186,38 @@ export function HowItWorks({
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{
-                  duration: shouldReduceMotion ? 0.2 : 0.65,
-                  delay: shouldReduceMotion ? 0 : index * 0.16,
+                  duration: shouldReduceMotion ? 0.2 : 0.6,
+                  delay: shouldReduceMotion ? 0 : Math.min(index * 0.08, 0.4),
                   ease: [0.25, 0.1, 0.25, 1],
                 }}
                 whileHover={
                   shouldReduceMotion
                     ? {}
                     : {
-                        y: -6,
+                        y: -5,
                         scale: 1.015,
                         transition: { duration: 0.2 },
                       }
                 }
                 style={{
-                  top: pos?.top,
-                  left: pos?.left,
-                  right: pos?.right,
-                  bottom: pos?.bottom,
-                  rotate: shouldReduceMotion ? 0 : `${pos?.rotation ?? 0}deg`,
+                  top: `${top}px`,
+                  left,
+                  right,
+                  rotate: shouldReduceMotion ? 0 : `${rotation}deg`,
                 }}
-                className="group absolute z-10 w-[290px] lg:w-[320px] rounded-2xl border border-[#E9E0FA] bg-white p-2.5 shadow-[0_8px_30px_-6px_rgba(124,58,237,0.06)] transition-all duration-300 hover:border-[#D4C5F9] hover:shadow-[0_14px_36px_-6px_rgba(124,58,237,0.12)]"
+                className="group absolute z-10 w-[310px] lg:w-[350px] rounded-2xl border border-[#E9E0FA] bg-white p-2.5 shadow-[0_8px_30px_-6px_rgba(124,58,237,0.06)] transition-all duration-300 hover:border-[#D4C5F9] hover:shadow-[0_14px_36px_-6px_rgba(124,58,237,0.12)]"
               >
-                <div className="rounded-xl bg-[#F7F3FF] p-5 lg:p-6 transition-colors duration-200">
-                  <div className="flex items-center justify-between gap-3 mb-3">
+                <div className="rounded-xl bg-[#F7F3FF] p-5 lg:p-5.5 transition-colors duration-200">
+                  <div className="flex items-center justify-between gap-3 mb-2.5">
                     <span className="text-xs font-bold tracking-widest text-[#7546C8] uppercase">
                       Step {item.step}
                     </span>
-                    <div className="grid size-10 place-items-center rounded-xl bg-white text-[#7546C8] shadow-sm ring-1 ring-[#E9E0FA] transition-transform duration-200 group-hover:scale-105">
-                      <Icon className="size-5" aria-hidden />
+                    <div className="grid size-9 place-items-center rounded-xl bg-white text-[#7546C8] shadow-sm ring-1 ring-[#E9E0FA] transition-transform duration-200 group-hover:scale-105">
+                      <Icon className="size-4.5" aria-hidden />
                     </div>
                   </div>
 
-                  {item.tagline && (
-                    <p className="text-[11px] font-medium tracking-wide text-violet-600/90 mb-1">
-                      {item.tagline}
-                    </p>
-                  )}
-
-                  <h3 className="text-base font-semibold text-[#27213A] tracking-tight">
+                  <h3 className="text-base font-semibold text-[#27213A] tracking-tight leading-snug">
                     {item.title}
                   </h3>
 
@@ -174,7 +230,7 @@ export function HowItWorks({
           })}
         </div>
 
-        {/* ── Mobile Stacked Timeline (< md) ── */}
+        {/* ── Mobile Stacked Timeline (< md) for ALL Workflow Steps ── */}
         <div className="block md:hidden relative w-full max-w-md mx-auto pt-4 pb-2">
           {/* Vertical dashed line guide connecting the steps */}
           <div
@@ -182,8 +238,8 @@ export function HowItWorks({
             aria-hidden="true"
           />
 
-          <div className="flex flex-col gap-5">
-            {items.slice(0, 3).map((item, index) => {
+          <div className="flex flex-col gap-4">
+            {items.map((item, index) => {
               const Icon = item.icon;
 
               return (
@@ -194,13 +250,13 @@ export function HowItWorks({
                   viewport={{ once: true, margin: "-30px" }}
                   transition={{
                     duration: shouldReduceMotion ? 0.2 : 0.5,
-                    delay: shouldReduceMotion ? 0 : index * 0.12,
+                    delay: shouldReduceMotion ? 0 : Math.min(index * 0.06, 0.3),
                     ease: [0.25, 0.1, 0.25, 1],
                   }}
                   className="relative z-10 w-full rounded-2xl border border-[#E9E0FA] bg-white p-2.5 shadow-[0_6px_24px_-6px_rgba(124,58,237,0.06)]"
                 >
                   <div className="rounded-xl bg-[#F7F3FF] p-5">
-                    <div className="flex items-center justify-between gap-3 mb-3">
+                    <div className="flex items-center justify-between gap-3 mb-2.5">
                       <div className="inline-flex items-center gap-2">
                         <span className="grid size-6 place-items-center rounded-full bg-[#7546C8] text-[11px] font-bold text-white shadow-sm">
                           {index + 1}
@@ -214,13 +270,7 @@ export function HowItWorks({
                       </div>
                     </div>
 
-                    {item.tagline && (
-                      <p className="text-[11px] font-medium tracking-wide text-violet-600/90 mb-1">
-                        {item.tagline}
-                      </p>
-                    )}
-
-                    <h3 className="text-base font-semibold text-[#27213A] tracking-tight">
+                    <h3 className="text-base font-semibold text-[#27213A] tracking-tight leading-snug">
                       {item.title}
                     </h3>
 

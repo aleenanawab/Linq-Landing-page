@@ -6,8 +6,8 @@ import { cn } from "@/lib/utils";
 
 export interface AnimatedFeatureCardProps
   extends Omit<HTMLMotionProps<"div">, "children" | "title"> {
-  index: string | number;
-  tag: string;
+  index?: string | number;
+  tag?: string;
   title: string;
   description: string;
   visual?: React.ReactNode;
@@ -37,8 +37,6 @@ export const AnimatedFeatureCard = React.forwardRef<
     ref
   ) => {
     const shouldReduceMotion = useReducedMotion();
-    const formattedIndex =
-      typeof index === "number" ? String(index).padStart(3, "0") : index;
 
     return (
       <motion.div
@@ -54,12 +52,12 @@ export const AnimatedFeatureCard = React.forwardRef<
           shouldReduceMotion
             ? {}
             : {
-                y: -7,
+                y: -6,
                 transition: { duration: 0.25, ease: "easeOut" },
               }
         }
         className={cn(
-          "group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-[#E9E0FA] bg-gradient-to-b from-white via-[#FCFAFF] to-[#F7F3FF] p-6 shadow-[0_4px_20px_-4px_rgba(124,58,237,0.05)] transition-all duration-300 hover:border-[#D4C5F9] hover:shadow-[0_16px_36px_-6px_rgba(124,58,237,0.12)] min-h-[350px] sm:min-h-[370px]",
+          "group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-[#E9E0FA] bg-gradient-to-b from-white via-[#FCFAFF] to-[#F7F3FF] p-6 shadow-[0_4px_20px_-4px_rgba(124,58,237,0.05)] transition-all duration-300 hover:border-[#D4C5F9] hover:shadow-[0_16px_36px_-6px_rgba(124,58,237,0.12)] min-h-[320px] sm:min-h-[340px]",
           className
         )}
         {...props}
@@ -70,18 +68,8 @@ export const AnimatedFeatureCard = React.forwardRef<
           aria-hidden="true"
         />
 
-        {/* Top Header: Index number and Category tag */}
-        <div className="relative z-10 flex items-center justify-between gap-3">
-          <span className="font-mono text-xs font-semibold tracking-wider text-violet-600/80">
-            {formattedIndex}
-          </span>
-          <span className="inline-flex items-center rounded-full bg-violet-100/80 px-2.5 py-1 text-[10px] font-bold tracking-wider text-violet-700 uppercase">
-            {tag}
-          </span>
-        </div>
-
         {/* Central Visual Area: Hosts the continuous animated illustration */}
-        <div className="relative z-10 my-4 flex h-36 sm:h-40 w-full items-center justify-center overflow-hidden rounded-2xl bg-white/70 p-2 ring-1 ring-violet-100/80 shadow-sm transition-transform duration-500 ease-out group-hover:scale-105">
+        <div className="relative z-10 my-2 flex h-36 sm:h-40 w-full items-center justify-center overflow-hidden rounded-2xl bg-white/70 p-2 ring-1 ring-violet-100/80 shadow-sm transition-transform duration-500 ease-out group-hover:scale-105">
           {visual ? (
             visual
           ) : imageSrc ? (
@@ -95,7 +83,7 @@ export const AnimatedFeatureCard = React.forwardRef<
         </div>
 
         {/* Bottom Content Area: Semantic Title and Description */}
-        <div className="relative z-10 mt-auto pt-1">
+        <div className="relative z-10 mt-auto pt-2">
           <h3 className="text-lg font-semibold tracking-tight text-[#27213A] sm:text-xl transition-colors duration-200 group-hover:text-violet-900">
             {title}
           </h3>
