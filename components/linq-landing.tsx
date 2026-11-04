@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Building2,
   Link2,
@@ -19,6 +19,7 @@ import { HeroSection4Animation, heroItemVariants } from "@/components/ui/hero-se
 import { HowItWorks, type StepItem } from "@/components/ui/how-it-works";
 import { AnimatedFeatureCard } from "@/components/ui/feature-card-1";
 import StringTieFooter from "@/components/ui/string-tie-footer";
+import { cn } from "@/lib/utils";
 import {
   OneLinkIllustration,
   ScannableCardIllustration,
@@ -27,6 +28,17 @@ import {
   AllOrgsIllustration,
   GlobalNetworkingIllustration,
 } from "@/components/ui/feature-illustrations";
+import {
+  RegistrationFormMockup,
+  ShareableLinkMockup,
+  RegistrationConfirmedMockup,
+  AttendeePassCardMockup,
+  DoorCheckInScannerMockup,
+  LiveAttendanceCounterMockup,
+  OrgPortalDashboardMockup,
+  EventCreatorDashboardMockup,
+  RolePortalsSwitcherMockup,
+} from "@/components/ui/overview-illustrations";
 
 // Production crowd sprite source
 const CROWD_SRC =
@@ -36,7 +48,7 @@ const REGISTER_URL = "https://linq.avtive.app/organization/register";
 const LOGIN_URL = "https://linq.avtive.app/login";
 const AVTIVE_URL = "https://www.avtive.app";
 
-// ── Linq Core Services (Disc Reveal List) ──
+// ── Linq Core Services (Disc Reveal List with Realistic SaaS Mockup Cards) ──
 const discRevealItems: DiscRevealItem[] = [
   {
     id: "one-link-registration",
@@ -44,18 +56,21 @@ const discRevealItems: DiscRevealItem[] = [
     title: "One-Link Event Registration",
     subtitle:
       "Create and share one event registration link. Attendees can access the registration flow through a single, simple link.",
-    images: [
+    cards: [
       {
-        url: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=700&q=85&auto=format&fit=crop",
-        alt: "Corporate conference hall and keynote registration",
+        id: "one-link-share",
+        alt: "Shareable Linq event registration link",
+        render: <ShareableLinkMockup />,
       },
       {
-        url: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=700&q=85&auto=format&fit=crop",
-        alt: "Event attendees registering and participating in keynote",
+        id: "one-link-form",
+        alt: "Realistic Linq one-link event registration interface",
+        render: <RegistrationFormMockup />,
       },
       {
-        url: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?w=700&q=85&auto=format&fit=crop",
-        alt: "Digital registration and presentation space",
+        id: "one-link-confirm",
+        alt: "Instant digital pass registration confirmation",
+        render: <RegistrationConfirmedMockup />,
       },
     ],
   },
@@ -65,18 +80,21 @@ const discRevealItems: DiscRevealItem[] = [
     title: "QR Attendee Cards & Check-in",
     subtitle:
       "Every registered attendee receives a scannable digital card. Event teams can scan the QR code to verify entry and record attendance.",
-    images: [
+    cards: [
       {
-        url: "/images/linq-attendee-card-qr.jpg",
-        alt: "Conference attendee pass with clearly visible scannable QR code scanned by smartphone",
+        id: "qr-door-scanner",
+        alt: "Gate staff handheld QR check-in scanner interface",
+        render: <DoorCheckInScannerMockup />,
       },
       {
-        url: "/images/linq-digital-pass-networking.jpg",
-        alt: "Corporate professionals networking and connecting via digital QR attendee pass",
+        id: "qr-attendee-pass",
+        alt: "Linq digital attendee card with scannable square QR code",
+        render: <AttendeePassCardMockup />,
       },
       {
-        url: "https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=700&q=85&auto=format&fit=crop",
-        alt: "Business event attendees building long-term professional connections",
+        id: "qr-live-attendance",
+        alt: "Live venue attendance recording counter",
+        render: <LiveAttendanceCounterMockup />,
       },
     ],
   },
@@ -86,18 +104,21 @@ const discRevealItems: DiscRevealItem[] = [
     title: "Organization & Event Management",
     subtitle:
       "Dedicated portals help organizations and event creators manage their work and keep event activities organized in one place.",
-    images: [
+    cards: [
       {
-        url: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=700&q=85&auto=format&fit=crop",
-        alt: "Professional organization team onboarding and collaborating",
+        id: "org-portal-dashboard",
+        alt: "Dedicated Organization Portal dashboard for multi-event governance",
+        render: <OrgPortalDashboardMockup />,
       },
       {
-        url: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=700&q=85&auto=format&fit=crop",
-        alt: "Corporate leadership and organizational strategy meeting",
+        id: "event-creator-dashboard",
+        alt: "Dedicated Event Creator Portal dashboard for live event execution",
+        render: <EventCreatorDashboardMockup />,
       },
       {
-        url: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=700&q=85&auto=format&fit=crop",
-        alt: "Corporate representatives managing portal operations",
+        id: "role-portals-dual",
+        alt: "Dual dedicated role portals for organizations and event creators",
+        render: <RolePortalsSwitcherMockup />,
       },
     ],
   },
@@ -197,6 +218,36 @@ function Logo({
 
 export default function LinqLanding() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("");
+
+  useEffect(() => {
+    const sectionIds = ["overview", "how-it-works", "features"];
+
+    const handleScroll = () => {
+      // If user is at the hero section near top, reset active indication
+      if (window.scrollY < 260) {
+        setActiveSection("");
+        return;
+      }
+
+      const scrollPosition = window.scrollY + 220;
+      for (let i = sectionIds.length - 1; i >= 0; i--) {
+        const id = sectionIds[i];
+        const el = document.getElementById(id);
+        if (el) {
+          const top = el.offsetTop;
+          if (scrollPosition >= top) {
+            setActiveSection(id);
+            return;
+          }
+        }
+      }
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <main className="min-h-screen bg-white text-slate-900 antialiased selection:bg-violet-100 selection:text-violet-900">
@@ -208,23 +259,38 @@ export default function LinqLanding() {
             <Logo />
           </a>
 
-          {/* Center Navigation (Desktop) */}
+          {/* Center Navigation (Desktop) with Active Indication */}
           <nav className="hidden md:flex items-center gap-1 lg:gap-2">
             <a
               href="#overview"
-              className="rounded-full px-4 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-violet-50/70 hover:text-violet-700 active:text-violet-800"
+              className={cn(
+                "rounded-full px-4 py-2 text-sm font-medium transition-all duration-200",
+                activeSection === "overview"
+                  ? "bg-violet-100/90 text-violet-900 font-semibold shadow-xs ring-1 ring-violet-200/80"
+                  : "text-slate-600 hover:bg-violet-50/70 hover:text-violet-700 active:text-violet-800"
+              )}
             >
               Overview
             </a>
             <a
               href="#how-it-works"
-              className="rounded-full px-4 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-violet-50/70 hover:text-violet-700 active:text-violet-800"
+              className={cn(
+                "rounded-full px-4 py-2 text-sm font-medium transition-all duration-200",
+                activeSection === "how-it-works"
+                  ? "bg-violet-100/90 text-violet-900 font-semibold shadow-xs ring-1 ring-violet-200/80"
+                  : "text-slate-600 hover:bg-violet-50/70 hover:text-violet-700 active:text-violet-800"
+              )}
             >
               How It Works
             </a>
             <a
               href="#features"
-              className="rounded-full px-4 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-violet-50/70 hover:text-violet-700 active:text-violet-800"
+              className={cn(
+                "rounded-full px-4 py-2 text-sm font-medium transition-all duration-200",
+                activeSection === "features"
+                  ? "bg-violet-100/90 text-violet-900 font-semibold shadow-xs ring-1 ring-violet-200/80"
+                  : "text-slate-600 hover:bg-violet-50/70 hover:text-violet-700 active:text-violet-800"
+              )}
             >
               Features
             </a>
@@ -275,22 +341,46 @@ export default function LinqLanding() {
               <nav className="flex flex-col gap-1">
                 <a
                   href="#overview"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="rounded-xl px-4 py-3 text-base font-medium text-slate-700 transition-colors hover:bg-violet-50 hover:text-violet-700"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setActiveSection("overview");
+                  }}
+                  className={cn(
+                    "rounded-xl px-4 py-3 text-base font-medium transition-colors",
+                    activeSection === "overview"
+                      ? "bg-violet-100/90 text-violet-900 font-semibold"
+                      : "text-slate-700 hover:bg-violet-50 hover:text-violet-700"
+                  )}
                 >
                   Overview
                 </a>
                 <a
                   href="#how-it-works"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="rounded-xl px-4 py-3 text-base font-medium text-slate-700 transition-colors hover:bg-violet-50 hover:text-violet-700"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setActiveSection("how-it-works");
+                  }}
+                  className={cn(
+                    "rounded-xl px-4 py-3 text-base font-medium transition-colors",
+                    activeSection === "how-it-works"
+                      ? "bg-violet-100/90 text-violet-900 font-semibold"
+                      : "text-slate-700 hover:bg-violet-50 hover:text-violet-700"
+                  )}
                 >
                   How It Works
                 </a>
                 <a
                   href="#features"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="rounded-xl px-4 py-3 text-base font-medium text-slate-700 transition-colors hover:bg-violet-50 hover:text-violet-700"
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    setActiveSection("features");
+                  }}
+                  className={cn(
+                    "rounded-xl px-4 py-3 text-base font-medium transition-colors",
+                    activeSection === "features"
+                      ? "bg-violet-100/90 text-violet-900 font-semibold"
+                      : "text-slate-700 hover:bg-violet-50 hover:text-violet-700"
+                  )}
                 >
                   Features
                 </a>
@@ -327,7 +417,7 @@ export default function LinqLanding() {
           className="bottom-0 top-auto h-[44%] md:h-[48%] pointer-events-none z-0"
         />
 
-        {/* Hero Content (Positioned cleanly in upper half with crisp contrast) */}
+        {/* Hero Content (Positioned cleanly in upper half with crisp contrast, zero rectangular blur or white panel) */}
         <div className="relative z-20 mx-auto w-full max-w-7xl px-6 pt-12 sm:pt-16 lg:pt-20 pb-32 md:pb-40">
           <HeroSection4Animation className="relative max-w-3xl">
             {/* Tagline Badge */}
@@ -349,12 +439,12 @@ export default function LinqLanding() {
               </span>
             </motion.h1>
 
-            {/* Clear SaaS Positioning Description */}
+            {/* Exact Required SaaS Hero Description */}
             <motion.p
               variants={heroItemVariants}
               className="mt-5 max-w-xl text-base sm:text-lg md:text-xl font-normal leading-relaxed text-slate-700"
             >
-              Linq is a B2B event registration and attendee management platform. Share one link per event, issue digital QR attendee passes, and verify check-ins in real time.
+              Linq helps organizations and event creators manage event registration, issue scannable attendee cards, track event attendance and bring people together.
             </motion.p>
 
             {/* Hero Action Buttons */}

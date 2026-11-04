@@ -4,17 +4,25 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { cn } from "@/lib/utils";
 
+export interface DiscRevealCard {
+  id?: string;
+  alt: string;
+  render?: React.ReactNode;
+  url?: string;
+}
+
 export interface DiscRevealItem {
   id: string;
   number: string;
   title: string;
   subtitle: string;
-  images: {
+  images?: {
     url: string;
     alt: string;
     rotation?: number;
     offset?: { x: number; y: number };
   }[];
+  cards?: DiscRevealCard[];
 }
 
 interface DiscRevealListProps {
@@ -44,6 +52,18 @@ export function DiscRevealList({ items, className }: DiscRevealListProps) {
 
   const activeItem = items[activeIndex] || items[0];
 
+  const getItemCards = (item: DiscRevealItem): DiscRevealCard[] => {
+    if (item.cards && item.cards.length > 0) return item.cards;
+    if (item.images && item.images.length > 0) {
+      return item.images.map((img, i) => ({
+        id: `${item.id}-img-${i}`,
+        alt: img.alt,
+        url: img.url,
+      }));
+    }
+    return [];
+  };
+
   return (
     <div className={cn("relative mx-auto w-full max-w-6xl", className)}>
       <div className="relative grid grid-cols-1 lg:grid-cols-12 lg:gap-12 items-center">
@@ -52,6 +72,7 @@ export function DiscRevealList({ items, className }: DiscRevealListProps) {
           <div className="divide-y divide-violet-100/80 border-y border-violet-100/80">
             {items.map((item, idx) => {
               const isActive = activeIndex === idx;
+              const currentCards = getItemCards(item);
 
               return (
                 <div
@@ -102,26 +123,32 @@ export function DiscRevealList({ items, className }: DiscRevealListProps) {
                     </div>
                   </div>
 
-                  {/* Mobile Inline Photos */}
+                  {/* Mobile Inline Visuals */}
                   {isMobile && isActive && (
                     <motion.div
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
                       exit={{ opacity: 0, height: 0 }}
                       transition={{ duration: 0.35 }}
-                      className="mt-6 grid grid-cols-3 gap-2.5 overflow-hidden pt-2"
+                      className="mt-6 flex flex-col gap-3 overflow-hidden pt-2"
                     >
-                      {item.images.map((img, imgIdx) => (
+                      {currentCards.map((card, cardIdx) => (
                         <div
-                          key={imgIdx}
-                          className="relative aspect-4/3 overflow-hidden rounded-xl border border-violet-100/80 shadow-sm"
+                          key={card.id || cardIdx}
+                          className="relative w-full overflow-hidden rounded-xl border border-violet-100/90 bg-white shadow-sm"
                         >
-                          <img
-                            src={img.url}
-                            alt={img.alt}
-                            className="h-full w-full object-cover"
-                            loading="lazy"
-                          />
+                          {card.render ? (
+                            <div className="w-full h-[185px] sm:h-[200px]">{card.render}</div>
+                          ) : (
+                            <div className="relative aspect-4/3 w-full">
+                              <img
+                                src={card.url}
+                                alt={card.alt}
+                                className="h-full w-full object-cover"
+                                loading="lazy"
+                              />
+                            </div>
+                          )}
                         </div>
                       ))}
                     </motion.div>
@@ -150,12 +177,11 @@ export function DiscRevealList({ items, className }: DiscRevealListProps) {
                 transition={{ duration: 0.25 }}
                 className="relative w-full h-full"
               >
-                {activeItem.images.map((img, imgIdx) => {
-                  // Carefully tuned layout so 3 images spread naturally without overlapping text
+                {getItemCards(activeItem).map((card, imgIdx) => {
                   const layoutConfigs = [
-                    // Image 1: Top-Left
+                    // Card 1: Top-Left
                     {
-                      className: "top-4 left-4 w-[240px] h-[170px] z-10",
+                      className: "top-4 left-4 w-[255px] h-[180px] z-10",
                       initial: { opacity: 0, scale: 0.85, y: 20, rotate: -8 },
                       animate: { opacity: 1, scale: 1, y: 0, rotate: -4 },
                       transition: {
@@ -165,9 +191,9 @@ export function DiscRevealList({ items, className }: DiscRevealListProps) {
                         delay: 0.05,
                       },
                     },
-                    // Image 2: Center-Right (Hero Photo)
+                    // Card 2: Center-Right (Hero Photo)
                     {
-                      className: "top-20 right-2 w-[270px] h-[190px] z-20",
+                      className: "top-14 right-1 w-[290px] h-[205px] z-20",
                       initial: { opacity: 0, scale: 0.85, y: 30, rotate: 6 },
                       animate: { opacity: 1, scale: 1, y: 0, rotate: 3 },
                       transition: {
@@ -177,9 +203,9 @@ export function DiscRevealList({ items, className }: DiscRevealListProps) {
                         delay: 0.12,
                       },
                     },
-                    // Image 3: Bottom-Center
+                    // Card 3: Bottom-Center
                     {
-                      className: "bottom-6 left-12 w-[230px] h-[160px] z-15",
+                      className: "bottom-4 left-8 w-[250px] h-[175px] z-15",
                       initial: { opacity: 0, scale: 0.85, y: 25, rotate: -4 },
                       animate: { opacity: 1, scale: 1, y: 0, rotate: -2 },
                       transition: {
@@ -195,7 +221,7 @@ export function DiscRevealList({ items, className }: DiscRevealListProps) {
 
                   return (
                     <motion.div
-                      key={`${activeItem.id}-${imgIdx}`}
+                      key={card.id || `${activeItem.id}-${imgIdx}`}
                       initial={reduceMotion ? { opacity: 0 } : config.initial}
                       animate={reduceMotion ? { opacity: 1 } : config.animate}
                       exit={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.9, y: 10 }}
@@ -205,11 +231,15 @@ export function DiscRevealList({ items, className }: DiscRevealListProps) {
                         config.className
                       )}
                     >
-                      <img
-                        src={img.url}
-                        alt={img.alt}
-                        className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
-                      />
+                      {card.render ? (
+                        <div className="h-full w-full">{card.render}</div>
+                      ) : (
+                        <img
+                          src={card.url}
+                          alt={card.alt}
+                          className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+                        />
+                      )}
                     </motion.div>
                   );
                 })}
