@@ -332,34 +332,26 @@ const subscriptionPlans = [
   },
 ];
 
-// ── Verified Platform Capacity Allowances (from Brochure Page 7) ──
+// ── Clean Platform Capacity Metrics (from Brochure Page 7) ──
 const reachMetrics = [
   {
     value: "4",
-    planTag: "All Tiers",
     label: "Subscription Plans",
-    description: "Free, Starter, Growth, and Enterprise plans tailored for different organization sizes",
     icon: Building2,
   },
   {
     value: "2,500",
-    planTag: "Growth Plan Allowance",
     label: "Attendees Per Event",
-    description: "High-capacity event check-in and attendee management, with custom limits on Enterprise",
     icon: UserCheck,
   },
   {
     value: "50",
-    planTag: "Growth Plan Allowance",
     label: "Campaigns Per Organization",
-    description: "Independent event campaigns managed concurrently from a single company panel",
     icon: CalendarPlus,
   },
   {
     value: "2,000",
-    planTag: "Growth Plan Allowance",
     label: "Leads Per Campaign",
-    description: "Attendee and sponsor lead capture capacity, with unlimited leads on Enterprise",
     icon: Sparkles,
   },
 ];
@@ -661,14 +653,6 @@ export default function LinqLanding() {
         {/* Hero Content (Cleanly positioned with crisp contrast, zero rectangular blur or white panel) */}
         <div className="relative z-20 mx-auto w-full max-w-7xl px-6 pt-12 sm:pt-16 lg:pt-20 pb-32 md:pb-40">
           <HeroSection4Animation className="relative max-w-3xl">
-            {/* Tagline Badge */}
-            <motion.div variants={heroItemVariants} className="mb-4 sm:mb-5">
-              <span className="inline-flex items-center gap-2 rounded-full border border-violet-200/90 bg-white/95 px-4 py-1.5 text-xs sm:text-sm font-semibold tracking-wide text-violet-800 shadow-xs">
-                <Sparkles className="size-3.5 text-violet-600" />
-                Every connection creates opportunity.
-              </span>
-            </motion.div>
-
             {/* Main Headline */}
             <motion.h1
               variants={heroItemVariants}
@@ -680,10 +664,18 @@ export default function LinqLanding() {
               </span>
             </motion.h1>
 
+            {/* Hero Tagline */}
+            <motion.p
+              variants={heroItemVariants}
+              className="mt-4 text-xl sm:text-2xl font-semibold tracking-tight text-[#7546C8]"
+            >
+              Every connection creates opportunity.
+            </motion.p>
+
             {/* Exact Required SaaS Hero Description */}
             <motion.p
               variants={heroItemVariants}
-              className="mt-5 max-w-xl text-base sm:text-lg md:text-xl font-normal leading-relaxed text-slate-700"
+              className="mt-4 max-w-xl text-base sm:text-lg md:text-xl font-normal leading-relaxed text-slate-700"
             >
               Linq helps organizations and event creators manage event registration, issue scannable attendee cards, track event attendance and bring people together.
             </motion.p>
@@ -988,9 +980,6 @@ export default function LinqLanding() {
             <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
               Linq in Numbers
             </h2>
-            <p className="mt-4 text-base sm:text-lg leading-relaxed text-slate-600">
-              Flexible event management capacity for organizations of different sizes.
-            </p>
           </div>
 
           {/* 4 Metric Cards */}
@@ -1002,13 +991,8 @@ export default function LinqLanding() {
                   key={metric.label}
                   className="group relative flex flex-col justify-between overflow-hidden rounded-3xl border border-[#E9E0FA] bg-white p-6 shadow-[0_4px_20px_-4px_rgba(124,58,237,0.04)] transition-all duration-300 hover:border-[#D4C5F9] hover:shadow-[0_12px_28px_-6px_rgba(124,58,237,0.1)]"
                 >
-                  <div className="flex items-center justify-between">
-                    <div className="grid size-11 place-items-center rounded-2xl bg-violet-50 text-[#7546C8] ring-1 ring-violet-200/70">
-                      <Icon className="size-5" />
-                    </div>
-                    <span className="inline-flex items-center gap-1 rounded-full bg-violet-50 px-2.5 py-1 text-[10px] font-semibold text-violet-700 border border-violet-200/60">
-                      ● {metric.planTag}
-                    </span>
+                  <div className="grid size-11 place-items-center rounded-2xl bg-violet-50 text-[#7546C8] ring-1 ring-violet-200/70">
+                    <Icon className="size-5" />
                   </div>
 
                   <div className="mt-8">
@@ -1018,9 +1002,6 @@ export default function LinqLanding() {
                     <h3 className="mt-2 text-base font-semibold text-slate-900 leading-tight">
                       {metric.label}
                     </h3>
-                    <p className="mt-1 text-xs leading-relaxed text-slate-500">
-                      {metric.description}
-                    </p>
                   </div>
                 </div>
               );
