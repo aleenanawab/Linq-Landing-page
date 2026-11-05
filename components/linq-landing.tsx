@@ -5,15 +5,12 @@ import {
   ArrowRight,
   Building2,
   CalendarPlus,
-  Check,
   CheckCircle2,
   LayoutDashboard,
   Link2,
   Menu,
   QrCode,
-  Quote,
   ScanLine,
-  Send,
   Sparkles,
   UserCheck,
   Users,
@@ -27,7 +24,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { HeroSection4Animation, heroItemVariants } from "@/components/ui/hero-section-4";
 import { HowItWorks, type StepItem } from "@/components/ui/how-it-works";
 import { AnimatedFeatureCard } from "@/components/ui/feature-card-1";
-import StringTieFooter from "@/components/ui/string-tie-footer";
+import StickerSlapFooter from "@/components/ui/sticker-slap-footer";
 import {
   OneLinkIllustration,
   ScannableCardIllustration,
@@ -225,113 +222,6 @@ const features = [
   },
 ];
 
-// ── Verified Ecosystem Partners (from Brochure Page 5) ──
-const partners = [
-  { name: "LEAP Pakistan" },
-  { name: "NSTP" },
-];
-
-// ── Verified Testimonials (from Brochure Page 6) ──
-const testimonials = [
-  {
-    quote: "Managing our campaign from one panel gave us complete control over our team, sponsors, and leads.",
-    author: "Aseer Abbas",
-    role: "CEO",
-    company: "LEAP Pakistan",
-    initials: "AA",
-  },
-  {
-    quote: "Role-based access made it clear who could do what, and our team worked without confusion.",
-    author: "Muzna Khan",
-    role: "CEO",
-    company: "EMRChains",
-    initials: "MK",
-  },
-  {
-    quote: "Linq gave our brand clear visibility and made our sponsorship easy to track.",
-    author: "Umer Farooq",
-    role: "CEO",
-    company: "Techvando",
-    initials: "UF",
-  },
-];
-
-// ── Official Subscription Plans (from Brochure Page 7) ──
-const subscriptionPlans = [
-  {
-    name: "Free",
-    price: "$0",
-    period: "/month",
-    description: "For small teams starting with event management",
-    highlight: false,
-    badge: null,
-    features: [
-      "1 to 10 employees",
-      "7 campaigns",
-      "50 leads per campaign",
-      "100 attendees per event",
-      "Basic roles",
-      "Standard support",
-    ],
-    ctaText: "Get Started Free",
-    ctaHref: REGISTER_URL,
-  },
-  {
-    name: "Starter",
-    price: "$30",
-    period: "/month",
-    description: "For growing organizations hosting recurring events",
-    highlight: false,
-    badge: null,
-    features: [
-      "11 to 50 employees",
-      "20 campaigns",
-      "500 leads per campaign",
-      "500 attendees per event",
-      "Full roles",
-      "Priority support",
-    ],
-    ctaText: "Choose Starter",
-    ctaHref: REGISTER_URL,
-  },
-  {
-    name: "Growth",
-    price: "$50",
-    period: "/month",
-    description: "For established companies managing high-capacity events",
-    highlight: true,
-    badge: "Most Popular",
-    features: [
-      "51 to 500 employees",
-      "50 campaigns",
-      "2,000 leads per campaign",
-      "2,500 attendees per event",
-      "Full roles",
-      "Priority support",
-    ],
-    ctaText: "Choose Growth",
-    ctaHref: REGISTER_URL,
-  },
-  {
-    name: "Enterprise",
-    price: "Custom",
-    period: "",
-    description: "For large enterprises with dedicated event infrastructure",
-    highlight: false,
-    badge: null,
-    features: [
-      "500+ employees",
-      "Unlimited campaigns",
-      "Unlimited leads",
-      "Custom attendee limits",
-      "Full roles",
-      "Dedicated support",
-    ],
-    ctaText: "Contact Us",
-    ctaHref: "mailto:info@avtive.app?subject=Linq%20Enterprise%20Plan%20Inquiry",
-  },
-];
-
 // ── Clean Platform Capacity Metrics (from Brochure Page 7) ──
 const reachMetrics = [
   {
@@ -429,7 +319,7 @@ export default function LinqLanding() {
 
   // Scroll spy for header active-section indication
   useEffect(() => {
-    const sectionIds = ["overview", "how-it-works", "features", "pricing"];
+    const sectionIds = ["overview", "how-it-works", "features"];
 
     const handleScroll = () => {
       if (window.scrollY < 260) {
@@ -500,17 +390,6 @@ export default function LinqLanding() {
               )}
             >
               Features
-            </a>
-            <a
-              href="#pricing"
-              className={cn(
-                "rounded-full px-4 py-2 text-sm font-medium transition-all duration-200",
-                activeSection === "pricing"
-                  ? "bg-violet-100/90 text-violet-900 font-semibold shadow-xs ring-1 ring-violet-200/80"
-                  : "text-slate-600 hover:bg-violet-50/70 hover:text-violet-700 active:text-violet-800"
-              )}
-            >
-              Pricing
             </a>
           </nav>
 
@@ -602,21 +481,6 @@ export default function LinqLanding() {
                 >
                   Features
                 </a>
-                <a
-                  href="#pricing"
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    setActiveSection("pricing");
-                  }}
-                  className={cn(
-                    "rounded-xl px-4 py-3 text-base font-medium transition-colors",
-                    activeSection === "pricing"
-                      ? "bg-violet-100/90 text-violet-900 font-semibold"
-                      : "text-slate-700 hover:bg-violet-50 hover:text-violet-700"
-                  )}
-                >
-                  Pricing
-                </a>
                 <div className="mt-4 flex flex-col gap-2.5 pt-4 border-t border-violet-100/80">
                   <Button
                     asChild
@@ -696,12 +560,13 @@ export default function LinqLanding() {
                 </a>
               </Button>
               <Button
-                asChild
+                type="button"
+                onClick={() => setIsDemoModalOpen(true)}
                 size="lg"
                 variant="outline"
-                className="h-12 w-full sm:w-auto rounded-full border-2 border-violet-200 bg-white/95 px-8 text-base font-semibold text-violet-800 transition-all duration-200 hover:-translate-y-0.5 hover:border-violet-300 hover:bg-violet-50/80 active:translate-y-0"
+                className="h-12 w-full sm:w-auto rounded-full border-2 border-violet-200 bg-white/95 px-8 text-base font-semibold text-violet-800 transition-all duration-200 hover:-translate-y-0.5 hover:border-violet-300 hover:bg-violet-50/80 active:translate-y-0 cursor-pointer"
               >
-                <a href={LOGIN_URL}>Log in</a>
+                Book Now
               </Button>
             </motion.div>
           </HeroSection4Animation>
@@ -821,156 +686,7 @@ export default function LinqLanding() {
         </div>
       </section>
 
-      {/* ───────── 6. Supported By (Ecosystem Sponsorship from Brochure) ───────── */}
-      <section className="border-t border-violet-100/70 bg-gradient-to-b from-white via-violet-50/20 to-white py-16 px-6">
-        <div className="mx-auto max-w-5xl text-center">
-          <p className="text-xs font-bold tracking-widest text-[#7546C8] uppercase">
-            Supported By
-          </p>
-          <h2 className="mt-2 text-2xl font-bold tracking-tight text-[#24212B] sm:text-3xl">
-            Trusted by leading ecosystem partners
-          </h2>
-          <p className="mt-3 text-sm text-slate-600 max-w-xl mx-auto">
-            Linq is proudly sponsored by LEAP Pakistan & NSTP — reflecting trust in our platform and its potential.
-          </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-6 sm:gap-10">
-            {partners.map((p) => (
-              <div
-                key={p.name}
-                className="flex items-center justify-center rounded-2xl border border-violet-100 bg-white px-8 py-4.5 shadow-xs transition-transform duration-200 hover:-translate-y-0.5"
-              >
-                <span className="font-extrabold text-xl sm:text-2xl tracking-tight text-slate-800">
-                  {p.name}
-                </span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ───────── 7. Testimonials (from Brochure Page 6) ───────── */}
-      <section className="border-t border-violet-100/70 bg-[#FBFAFF] py-20 sm:py-28 px-6">
-        <div className="mx-auto max-w-6xl">
-          <div className="text-center max-w-2xl mx-auto">
-            <h2 className="text-3xl font-bold tracking-tight text-[#24212B] sm:text-4xl">
-              What event leaders say about Linq
-            </h2>
-            <p className="mt-3 text-sm sm:text-base text-slate-600">
-              Verified experiences from organizations managing events, teams, and sponsorships.
-            </p>
-          </div>
-
-          <div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-            {testimonials.map((t) => (
-              <div
-                key={t.author}
-                className="flex flex-col justify-between rounded-3xl border border-[#E9E0FA] bg-white p-7 shadow-xs transition-all duration-300 hover:border-[#D4C5F9] hover:shadow-md hover:-translate-y-1"
-              >
-                <div>
-                  <Quote className="size-8 text-violet-300 mb-4" />
-                  <p className="text-sm sm:text-base leading-relaxed text-slate-700 italic">
-                    "{t.quote}"
-                  </p>
-                </div>
-                <div className="mt-6 flex items-center gap-3 pt-4 border-t border-violet-100/80">
-                  <div className="grid size-10 place-items-center rounded-full bg-violet-100 text-xs font-bold text-[#7546C8]">
-                    {t.initials}
-                  </div>
-                  <div>
-                    <div className="text-sm font-bold text-slate-900">{t.author}</div>
-                    <div className="text-xs text-slate-500">{t.role}, {t.company}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ───────── 8. Subscription Plans (from Brochure Page 7) ───────── */}
-      <section
-        id="pricing"
-        className="scroll-mt-20 border-t border-violet-100/70 bg-gradient-to-b from-white via-violet-50/20 to-white py-20 sm:py-28 px-6"
-      >
-        <div className="mx-auto max-w-7xl">
-          <div className="text-center max-w-2xl mx-auto">
-            <h2 className="text-3xl font-bold tracking-tight text-[#24212B] sm:text-4xl">
-              Simple, transparent subscription plans
-            </h2>
-            <p className="mt-3 text-base text-slate-600">
-              Select the right plan capacity for your team size, campaigns, and attendee volume.
-            </p>
-          </div>
-
-          <div className="mt-14 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 lg:gap-8">
-            {subscriptionPlans.map((plan) => (
-              <div
-                key={plan.name}
-                className={cn(
-                  "relative flex flex-col justify-between rounded-3xl bg-white p-7 transition-all duration-300",
-                  plan.highlight
-                    ? "border-2 border-[#7546C8] shadow-[0_12px_36px_-6px_rgba(117,70,200,0.18)] ring-4 ring-violet-100"
-                    : "border border-[#E9E0FA] shadow-xs hover:border-[#D4C5F9] hover:shadow-md"
-                )}
-              >
-                {plan.badge && (
-                  <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 rounded-full bg-[#7546C8] px-3.5 py-1 text-[11px] font-bold text-white shadow-xs uppercase tracking-wider">
-                    {plan.badge}
-                  </span>
-                )}
-
-                <div>
-                  <h3 className="text-xl font-bold text-[#24212B]">{plan.name}</h3>
-                  <p className="mt-1 text-xs text-slate-500 leading-relaxed min-h-[36px]">
-                    {plan.description}
-                  </p>
-
-                  <div className="mt-5 flex items-baseline gap-1">
-                    <span className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
-                      {plan.price}
-                    </span>
-                    {plan.period && (
-                      <span className="text-sm font-medium text-slate-500">
-                        {plan.period}
-                      </span>
-                    )}
-                  </div>
-
-                  <ul className="mt-6 space-y-3 pt-6 border-t border-violet-100/70 text-xs sm:text-sm text-slate-700">
-                    {plan.features.map((feat) => (
-                      <li key={feat} className="flex items-center gap-2.5">
-                        <Check className="size-4 text-[#7546C8] shrink-0" />
-                        <span>{feat}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="mt-8 pt-4">
-                  <Button
-                    asChild
-                    variant={plan.highlight ? "default" : "outline"}
-                    className={cn(
-                      "w-full h-11 rounded-full text-sm font-semibold transition-all duration-200",
-                      plan.highlight
-                        ? "bg-[#7546C8] hover:bg-[#6439B3] text-white shadow-sm shadow-violet-600/20"
-                        : "border-violet-200 text-[#7546C8] hover:bg-violet-50"
-                    )}
-                  >
-                    <a href={plan.ctaHref}>{plan.ctaText}</a>
-                  </Button>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <p className="mt-8 text-center text-xs text-slate-500">
-            All prices in USD as specified in official product rate sheets. Contact our team to confirm current package availability.
-          </p>
-        </div>
-      </section>
-
-      {/* ───────── 9. Reach / Impact Section (Linq in Numbers) ───────── */}
+      {/* ───────── 6. Reach / Impact Section (Linq in Numbers) ───────── */}
       <section
         id="reach"
         className="scroll-mt-20 border-t border-violet-100/70 bg-gradient-to-b from-white via-violet-50/30 to-[#FBFAFF] px-6 py-20 sm:py-28"
@@ -1008,15 +724,15 @@ export default function LinqLanding() {
             })}
           </div>
 
-          {/* Book a Demo CTA Action */}
+          {/* Book Now CTA Action */}
           <div className="mt-16 text-center">
             <Button
               type="button"
               onClick={() => setIsDemoModalOpen(true)}
               size="lg"
-              className="h-12 rounded-full bg-[#7546C8] hover:bg-[#6439B3] px-9 text-base font-semibold text-white shadow-md shadow-violet-600/25 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0"
+              className="h-12 rounded-full bg-[#7546C8] hover:bg-[#6439B3] px-9 text-base font-semibold text-white shadow-md shadow-violet-600/25 transition-all duration-200 hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
             >
-              Book a Demo
+              Book Now
             </Button>
             <p className="mt-3 text-xs text-slate-500">
               Prefer self-service?{" "}
@@ -1149,9 +865,9 @@ export default function LinqLanding() {
                     <div className="pt-2">
                       <Button
                         type="submit"
-                        className="h-11 w-full rounded-xl bg-[#7546C8] hover:bg-[#6439B3] text-sm font-semibold text-white shadow-sm shadow-violet-600/20"
+                        className="h-11 w-full rounded-xl bg-[#7546C8] hover:bg-[#6439B3] text-sm font-semibold text-white shadow-sm shadow-violet-600/20 cursor-pointer"
                       >
-                        Request a Demo
+                        Book Now
                       </Button>
                     </div>
                   </form>
@@ -1184,64 +900,8 @@ export default function LinqLanding() {
         )}
       </AnimatePresence>
 
-      {/* ───────── 7. Footer (Minimal String Tie Envelope Footer) ───────── */}
-      <StringTieFooter
-        logo={<Logo />}
-        title="Linq"
-        titleAccent=""
-        meta={[]}
-        tapes={[]}
-        noteMessage="A simpler way to bring organizations, events and people together."
-        noteCta={{
-          label: "Register organization",
-          href: REGISTER_URL,
-        }}
-        columns={[
-          {
-            title: "Platform",
-            links: [
-              { label: "Overview", href: "#overview" },
-              { label: "How it works", href: "#how-it-works" },
-              { label: "Features", href: "#features" },
-              { label: "Pricing", href: "#pricing" },
-            ],
-          },
-          {
-            title: "Organization",
-            links: [
-              { label: "Register organization", href: REGISTER_URL, external: true },
-              { label: "Log in", href: LOGIN_URL, external: true },
-              { label: "Avtive", href: AVTIVE_URL, external: true },
-            ],
-          },
-          {
-            title: "Contact",
-            links: [
-              { label: "info@avtive.app", href: "mailto:info@avtive.app", external: true },
-              { label: "+92 312 5175041", href: "tel:+923125175041", external: true },
-              { label: "linq.avtive.app", href: "https://linq.avtive.app", external: true },
-            ],
-          },
-        ]}
-        socialLinks={{
-          linkedin: "https://www.linkedin.com/company/linqavtive/posts/?viewAsMember=true",
-          instagram: "https://www.instagram.com/linq.me/?utm_source=ig_web_button_share_sheet",
-        }}
-        copyright={`© ${new Date().getFullYear()} Avtive. All rights reserved.`}
-        attribution={
-          <span>
-            Crowd animation adapted from Skiper UI · illustration by{" "}
-            <a
-              href="https://www.openpeeps.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline-offset-2 hover:text-[#7546C8] hover:underline"
-            >
-              Open Peeps
-            </a>
-          </span>
-        }
-      />
+      {/* ───────── 7. Footer (Premium Dark-Themed Sticker Slap Footer) ───────── */}
+      <StickerSlapFooter />
     </main>
   );
 }
